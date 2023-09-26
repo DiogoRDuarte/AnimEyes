@@ -20,7 +20,7 @@
             <Eye {anime} {minValue} {maxValue} />
           </div>
         </div>
-        <h1>{anime.title_english}</h1>
+        <h1 id="name">{anime.title_english}</h1>
       </div>
     {/each}
   </div>
@@ -31,10 +31,16 @@
 
   main {
     font-family: "Poppins", sans-serif;
-    font-size: xx-small;
-    font-weight: 50;
+    font-size: 6px;
+    font-weight: 25;
     background-color: #031121;
     color: #d9d9d9;
+  }
+
+  :global(body) {
+    /* this will apply to <body> */
+    margin: 0;
+    padding: 0;
   }
 
   #visualizationContainer {
@@ -52,6 +58,16 @@
     width: fit-content;
     block-size: fit-content;
     flex-direction: row;
+    --custom-rotation: 0deg; /* Default value */
+    transform: rotateX(
+      var(--custom-rotation, 0deg)
+    ); /* Use --custom-rotation, default 0deg */
+    transform-origin: center bottom;
+    transition: transform 0.5s ease; /* A smooth transition effect */
+  }
+
+  #eyesContainer:hover {
+    --custom-rotation: 90deg; /* Value when hovering */
   }
 
   #leftEyeContainer,

@@ -39,7 +39,7 @@ export default [
         "rating": "PG-13 - Teens 13 or older",
         "score": "9.14",
         "scored_by": "588675",
-        "premiered": "NA"
+        "premiered": "Summer 2016 "
     },
     {
         "animeID": "28977",
@@ -123,12 +123,12 @@ export default [
         "rating": "PG-13 - Teens 13 or older",
         "score": "9.03",
         "scored_by": "386761",
-        "premiered": "NA"
+        "premiered": "Summer 2016"
     },
     {
         "animeID": "15335",
         "name": "Gintama Movie 2: Kanketsu-hen - Yorozuya yo Eien Nare",
-        "title_english": "NA",
+        "title_english": "Gintama: The Final Chapter - Be Forever Yorozuya ",
         "type": "Movie",
         "source": "Manga",
         "genre": "historical, parody, samurai, sci-fi, action, shounen, comedy",
@@ -137,7 +137,7 @@ export default [
         "rating": "PG-13 - Teens 13 or older",
         "score": "9.02",
         "scored_by": "67166",
-        "premiered": "NA"
+        "premiered": "Summer 2013 "
     },
     {
         "animeID": "918",
@@ -235,7 +235,7 @@ export default [
         "rating": "PG - Children",
         "score": "8.91",
         "scored_by": "550969",
-        "premiered": "NA"
+        "premiered": "Summer 2001 "
     },
     {
         "animeID": "34599",
@@ -282,7 +282,7 @@ export default [
     {
         "animeID": "31758",
         "name": "Kizumonogatari III: Reiketsu-hen",
-        "title_english": "NA",
+        "title_english": "Kizumonogatari Part 3: Reiketsu ",
         "type": "Movie",
         "source": "Light novel",
         "genre": "supernatural, vampire, action, mystery",
@@ -291,7 +291,7 @@ export default [
         "rating": "R - 17+ (violence & profanity)",
         "score": "8.86",
         "scored_by": "83377",
-        "premiered": "NA"
+        "premiered": "Winter 2017 "
     },
     {
         "animeID": "1",
@@ -310,7 +310,7 @@ export default [
     {
         "animeID": "24701",
         "name": "Mushishi Zoku Shou 2nd Season",
-        "title_english": "NA",
+        "title_english": "MUSHI-SHI The Next Passage 2 ",
         "type": "TV",
         "source": "Manga",
         "genre": "historical, fantasy, seinen, supernatural, mystery, slice of life, adventure",
@@ -324,7 +324,7 @@ export default [
     {
         "animeID": "37991",
         "name": "JoJo no Kimyou na Bouken: Ougon no Kaze",
-        "title_english": "NA",
+        "title_english": "JoJo's Bizarre Adventure: Golden Wind ",
         "type": "TV",
         "source": "Manga",
         "genre": "shounen, action, adventure",
@@ -347,7 +347,7 @@ export default [
         "rating": "PG-13 - Teens 13 or older",
         "score": "8.79",
         "scored_by": "368410",
-        "premiered": "NA"
+        "premiered": "Summer 1997 "
     },
     {
         "animeID": "263",
@@ -417,7 +417,7 @@ export default [
         "rating": "PG - Children",
         "score": "8.75",
         "scored_by": "229791",
-        "premiered": "NA"
+        "premiered": "Spring 2012"
     },
     {
         "animeID": "245",
@@ -459,7 +459,7 @@ export default [
         "rating": "G - All Ages",
         "score": "8.72",
         "scored_by": "366722",
-        "premiered": "NA"
+        "premiered": "Fall 2004 "
     },
     {
         "animeID": "2001",
@@ -501,7 +501,7 @@ export default [
         "rating": "PG-13 - Teens 13 or older",
         "score": "8.71",
         "scored_by": "192866",
-        "premiered": "NA"
+        "premiered": "Winter 2010 "
     },
     {
         "animeID": "11665",
@@ -585,7 +585,7 @@ export default [
         "rating": "R - 17+ (violence & profanity)",
         "score": "8.68",
         "scored_by": "91617",
-        "premiered": "NA"
+        "premiered": "Summer 2016 "
     },
     {
         "animeID": "36456",
@@ -772,7 +772,7 @@ export default [
     {
         "animeID": "33674",
         "name": "No Game No Life: Zero",
-        "title_english": "NA",
+        "title_english": "No Game No Life: Zero",
         "type": "Movie",
         "source": "Light novel",
         "genre": "fantasy, supernatural, romance, drama, game",
@@ -781,7 +781,7 @@ export default [
         "rating": "PG-13 - Teens 13 or older",
         "score": "8.63",
         "scored_by": "132236",
-        "premiered": "NA"
+        "premiered": "Summer 2017"
     },
     {
         "animeID": "35839",
@@ -809,7 +809,7 @@ export default [
         "rating": "R+ - Mild Nudity",
         "score": "8.62",
         "scored_by": "59654",
-        "premiered": "NA"
+        "premiered": "Spring 2009 "
     },
     {
         "animeID": "28735",
@@ -837,7 +837,7 @@ export default [
         "rating": "R - 17+ (violence & profanity)",
         "score": "8.61",
         "scored_by": "84065",
-        "premiered": "NA"
+        "premiered": "Summer 2008 "
     },
     {
         "animeID": "5300",
@@ -856,7 +856,7 @@ export default [
     {
         "animeID": "30484",
         "name": "Steins;Gate 0",
-        "title_english": "NA",
+        "title_english": "Steins;Gate 0",
         "type": "TV",
         "source": "Visual novel",
         "genre": "sci-fi, thriller",
@@ -921,7 +921,7 @@ export default [
         "rating": "PG-13 - Teens 13 or older",
         "score": "8.56",
         "scored_by": "187373",
-        "premiered": "NA"
+        "premiered": "Spring 2013 "
     },
     {
         "animeID": "33255",
@@ -1000,7 +1000,7 @@ export default [
         "type": "TV",
         "source": "Manga",
         "genre": "super power, fantasy, drama, action, shounen, comedy, adventure",
-        "episodes": "NA",
+        "episodes": "915",
         "duration": "24 min",
         "rating": "PG-13 - Teens 13 or older",
         "score": "8.53",
@@ -1038,7 +1038,7 @@ export default [
     {
         "animeID": "10408",
         "name": "Hotarubi no Mori e",
-        "title_english": "NA",
+        "title_english": "Into the Forest of Fireflies' Light ",
         "type": "Movie",
         "source": "Manga",
         "genre": "drama, romance, shoujo, supernatural",
@@ -1047,7 +1047,7 @@ export default [
         "rating": "G - All Ages",
         "score": "8.52",
         "scored_by": "196267",
-        "premiered": "NA"
+        "premiered": "Summer 2011 "
     },
     {
         "animeID": "28171",
@@ -1131,7 +1131,7 @@ export default [
         "rating": "R+ - Mild Nudity",
         "score": "8.5",
         "scored_by": "215979",
-        "premiered": "NA"
+        "premiered": "Summer 1997 "
     },
     {
         "animeID": "205",
@@ -1201,7 +1201,7 @@ export default [
         "rating": "R - 17+ (violence & profanity)",
         "score": "8.49",
         "scored_by": "71386",
-        "premiered": "NA"
+        "premiered": "Summer 2009 "
     },
     {
         "animeID": "35760",
@@ -1304,7 +1304,7 @@ export default [
     {
         "animeID": "14397",
         "name": "Chihayafuru 2",
-        "title_english": "NA",
+        "title_english": "Winter 2013 ",
         "type": "TV",
         "source": "Manga",
         "genre": "school, sports, drama, slice of life, josei, game",
@@ -1336,7 +1336,7 @@ export default [
         "type": "TV",
         "source": "Manga",
         "genre": "historical, supernatural, action, demons, shounen, adventure",
-        "episodes": "NA",
+        "episodes": "24",
         "duration": "24 min",
         "rating": "R - 17+ (violence & profanity)",
         "score": "8.47",
@@ -1369,7 +1369,7 @@ export default [
         "rating": "PG-13 - Teens 13 or older",
         "score": "8.46",
         "scored_by": "128029",
-        "premiered": "NA"
+        "premiered": "Winter 1984 "
     },
     {
         "animeID": "11981",
@@ -1383,7 +1383,7 @@ export default [
         "rating": "PG-13 - Teens 13 or older",
         "score": "8.46",
         "scored_by": "123238",
-        "premiered": "NA"
+        "premiered": "Fall 2013 "
     },
     {
         "animeID": "16894",

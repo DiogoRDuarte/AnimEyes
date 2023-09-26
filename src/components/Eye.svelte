@@ -12,6 +12,7 @@ shape of eyes = one of 4 seasons
   import { scaleLinear } from "d3-scale";
   import { scaleOrdinal } from "d3-scale";
   import genreColor from "../data/genreColor";
+  import stretcher from "../data/stretcher";
   import * as d3 from "d3";
 
   import Contour from "./Contour.svelte";
@@ -22,17 +23,24 @@ shape of eyes = one of 4 seasons
   export let maxValue;
 
   let animeGenres = anime.genre.split(", ");
-  console.log(animeGenres);
 
-  const xScale = scaleLinear().domain([minValue, maxValue]).range([0, 25]);
+  // const xScale = scaleLinear().domain([minValue, maxValue]).range([0, 25]);
 
   const genresArray = Object.keys(genreColor[0]);
   const colorsArray = Object.values(genreColor[0]);
+
+  const ratingArray = Object.keys(stretcher[0]);
+  const stretchesArray = Object.values(stretcher[0]);
 
   var correspondingColor = d3
     .scaleOrdinal()
     .domain(genresArray)
     .range(colorsArray);
+
+  var correspondingStretch = d3
+    .scaleOrdinal()
+    .domain(ratingArray)
+    .range(stretchesArray);
 
   function split360Parts(n) {
     if (n <= 0 || typeof n !== "number") {
@@ -51,6 +59,22 @@ shape of eyes = one of 4 seasons
     return result;
   }
 
+  function getPupilSize(number) {
+    if (number >= 100) {
+      return 1;
+    } else if (number >= 75) {
+      return 0.8;
+    } else if (number >= 50) {
+      return 0.6;
+    } else if (number >= 25) {
+      return 0.4;
+    } else if (number >= 0) {
+      return 0.2;
+    } else {
+      return 0;
+    }
+  }
+
   function correspondingRotation(animeGenres, genre) {
     const uniqueGenres = [...new Set(animeGenres)];
     const slices = split360Parts(uniqueGenres.length);
@@ -62,15 +86,17 @@ shape of eyes = one of 4 seasons
       (rotationIndex - genreIndex) * (360 / animeGenres.length)
     );
   }
+
+  console.log(correspondingStretch(anime.rating));
 </script>
 
 <svg class="svg-container" transform="translate(20, 5)">
   <defs>
     <filter id="blurIris">
-      <feGaussianBlur stdDeviation="2" in="SourceGraphic" result="BLUR" />
+      <feGaussianBlur stdDeviation="3" in="SourceGraphic" result="BLUR" />
     </filter>
     <filter id="blurPupil">
-      <feGaussianBlur stdDeviation="1" in="SourceGraphic" result="BLUR" />
+      <feGaussianBlur stdDeviation="0.7" in="SourceGraphic" result="BLUR" />
     </filter>
   </defs>
   <!-- <path
@@ -106,9 +132,11 @@ shape of eyes = one of 4 seasons
       class="pupil"
       cx="100px"
       cy="50px"
-      rx={xScale(anime.episodes)}
-      ry={xScale(anime.episodes)}
-      fill-opacity="0.9"
+      rx={correspondingStretch(anime.rating) *
+        20 *
+        getPupilSize(anime.episodes)}
+      ry={20 * getPupilSize(anime.episodes)}
+      fill-opacity="1"
       filter="url(#blurPupil)"
     />
   </g>
@@ -131,33 +159,6 @@ shape of eyes = one of 4 seasons
     position: relative;
     width: 200px;
     height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .irisANDpupil {
-    height: 100px;
-    width: 200px;
-  }
-
-  .sclera {
-    position: absolute;
-    top: 40px;
-    right: 41px;
-    height: 100px;
-    width: 200px;
-    z-index: -1;
-  }
-
-  .contour {
-    position: absolute;
-    height: 150px;
-    width: 200px;
-  }
-
-  .iris {
-    fill: black;
   }
 
   .irisColor {
