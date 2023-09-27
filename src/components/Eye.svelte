@@ -19,8 +19,6 @@ shape of eyes = one of 4 seasons
   import Sclera from "./Sclera.svelte";
 
   export let anime;
-  export let minValue;
-  export let maxValue;
 
   let animeGenres = anime.genre.split(", ");
 
@@ -86,8 +84,6 @@ shape of eyes = one of 4 seasons
       (rotationIndex - genreIndex) * (360 / animeGenres.length)
     );
   }
-
-  console.log(correspondingStretch(anime.rating));
 </script>
 
 <svg class="svg-container" transform="translate(20, 5)">
@@ -141,15 +137,7 @@ shape of eyes = one of 4 seasons
     />
   </g>
 
-  <g
-    class="contour"
-    width="149"
-    height="69"
-    viewBox="0 0 149 69"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    transform="translate(5, 0)"
-  >
+  <g transform="translate(5, 0)">
     <Contour premiered={anime.premiered} />
   </g>
 </svg>
@@ -159,8 +147,5 @@ shape of eyes = one of 4 seasons
     position: relative;
     width: 200px;
     height: 100px;
-  }
-
-  .irisColor {
   }
 </style>

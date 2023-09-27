@@ -1,28 +1,147 @@
 <script>
+  // @ts-nocheck
+
   import Eye from "./components/Eye.svelte";
+  import Table from "./components/Table.svelte";
   import data from "./data/top_anime";
-  import stretcher from "./data/stretcher";
   import * as d3 from "d3";
 
   const episodeNumbersArray = data.map((anime) => parseInt(anime.episodes));
   const [minValue, maxValue] = d3.extent(episodeNumbersArray);
+
+  let isRotated = false; // Variable to track the rotation state
+
+  function mouseenter(animeID) {
+    // console.log("Entered");
+    if (!isRotated) {
+      // Rotate the eyes on mouseover
+      isRotated = true;
+      const eyesContainer = document.getElementsByClassName(animeID)[0];
+      eyesContainer.style.transform = "rotateX(90deg)";
+      const informationTable = document.getElementsByClassName(
+        "table" + animeID
+      )[0];
+      informationTable.style.visibility = "visible";
+    }
+  }
+
+  function mouseleave(animeID) {
+    // console.log("Left");
+    if (isRotated) {
+      // Rotate the eyes back to the original position on mouseleave
+      isRotated = false;
+      const eyesContainer = document.getElementsByClassName(animeID)[0];
+      eyesContainer.style.transform = "rotateX(0deg)";
+      const informationTable = document.getElementsByClassName(
+        "table" + animeID
+      )[0];
+      informationTable.style.visibility = "hidden";
+    }
+  }
+
+  function arabicToKanji(number) {
+    const kanjiNumerals = [
+      "一",
+      "二",
+      "三",
+      "四",
+      "五",
+      "六",
+      "七",
+      "八",
+      "九",
+    ];
+    const tenKanji = "十";
+    const hundredKanji = "百";
+    const arabicDigits = number.toString().split("");
+
+    if (arabicDigits.length === 1) {
+      return kanjiNumerals[parseInt(arabicDigits[0]) - 1];
+    } else if (arabicDigits.length === 2) {
+      const firstDigit = parseInt(arabicDigits[0]);
+      const secondDigit = parseInt(arabicDigits[1]);
+      const kanjiRepresentation = [];
+
+      if (firstDigit > 1) {
+        kanjiRepresentation.push(kanjiNumerals[firstDigit - 1]);
+      }
+
+      kanjiRepresentation.push(tenKanji);
+
+      if (secondDigit > 0) {
+        kanjiRepresentation.push(kanjiNumerals[secondDigit - 1]);
+      }
+
+      return kanjiRepresentation.join("");
+    } else if (arabicDigits.length === 3 && parseInt(number) === 100) {
+      return hundredKanji;
+    } else {
+      return "Unsupported"; // Handle unsupported numbers
+    }
+  }
 </script>
 
 <main>
-  <div id="visualizationContainer">
-    {#each data as anime}
-      <div id="animeContainer">
-        <div id="eyesContainer">
-          <div id="leftEyeContainer">
-            <Eye {anime} {minValue} {maxValue} />
+  <div id="projectContainer">
+    <h1 id="appTitle">AnimEyes</h1>
+    <div id="introductionContainer">
+      <p id="introduction">
+        <b>What do the eyes from your favorite anime look like?</b>
+        <br />
+        These are the top 100 anime from <b>2019</b>, taken from
+        <a href="https://myanimelist.net/" target="_blank">MyAnimeList</a>,
+        represented as colorful eyes (✦ ‿ ✦)
+        <br />
+        You can hover (or keyboard focus) each one to learn more!
+      </p>
+    </div>
+    <div id="visualizationContainer">
+      {#each data as anime, index}
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div
+          id="animeContainer"
+          tabindex="0"
+          on:mouseenter={() => mouseenter(anime.animeID)}
+          on:mouseleave={() => mouseleave(anime.animeID)}
+          on:focus={() => mouseenter(anime.animeID)}
+          on:focusout={() => mouseleave(anime.animeID)}
+        >
+          <Table {anime} />
+          <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+          <div id="eyesContainer" class={anime.animeID}>
+            <div id="leftEyeContainer">
+              <Eye {anime} />
+            </div>
+            <div id="rightEyeContainer">
+              <Eye {anime} />
+            </div>
           </div>
-          <div id="rightEyeContainer">
-            <Eye {anime} {minValue} {maxValue} />
+          <p id="kanji">{arabicToKanji(index + 1)}</p>
+          <div class="name-container">
+            <a
+              href={"https://myanimelist.net/anime/" + anime.animeID}
+              target="_blank"
+              class="no-underline"
+            >
+              <h2 id="name">🔗{anime.title_english}</h2>
+            </a>
           </div>
         </div>
-        <h1 id="name">{anime.title_english}</h1>
+      {/each}
+    </div>
+    <footer>
+      <div id="footerDiv">
+        <p>
+          The data used in this project comes directly from dataset provided in
+          a <a
+            href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-04-23"
+            target="_blank">tidytuesday</a
+          > back in April of 2019. The elements are ordered based on their "rank",
+          which is calculated trough a weight formula from MyAnimeList.
+        </p>
       </div>
-    {/each}
+    </footer>
   </div>
 </main>
 
@@ -31,16 +150,38 @@
 
   main {
     font-family: "Poppins", sans-serif;
-    font-size: 6px;
-    font-weight: 25;
-    background-color: #031121;
+    font-size: 8px;
+    background-color: #020b14;
     color: #d9d9d9;
+  }
+
+  /* Default link color */
+  a:link {
+    color: #d9d9d9; /* Change the color for unvisited links */
+  }
+
+  /* Visited link color */
+  a:visited {
+    color: #7c7c8a; /* Change the color for visited links */
+  }
+
+  a.no-underline {
+    text-decoration: none;
   }
 
   :global(body) {
     /* this will apply to <body> */
     margin: 0;
     padding: 0;
+  }
+
+  #appTitle {
+    margin: 0;
+    padding-top: 25px;
+    text-align: center;
+    font-family: "Yamagachi 2050 Italic";
+    font-size: xxx-large;
+    color: #c5d1eb;
   }
 
   #visualizationContainer {
@@ -50,13 +191,33 @@
   }
 
   #animeContainer {
+    margin: 10px;
     text-align: center;
+    background: #031121; /* Adjust the opacity as needed */
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px #031121;
+  }
+
+  #introductionContainer {
+    padding-top: 25px;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-bottom: 25px;
+  }
+
+  #introduction {
+    line-height: 1.5; /* Adjust the value as needed */
+    color: #c5d1eb;
+    text-align: center;
+    font-family: "DM Sans";
+    font-size: 16px;
   }
 
   #eyesContainer {
+    margin-top: 10px;
     display: flex;
     width: fit-content;
-    block-size: fit-content;
     flex-direction: row;
     --custom-rotation: 0deg; /* Default value */
     transform: rotateX(
@@ -64,10 +225,6 @@
     ); /* Use --custom-rotation, default 0deg */
     transform-origin: center bottom;
     transition: transform 0.5s ease; /* A smooth transition effect */
-  }
-
-  #eyesContainer:hover {
-    --custom-rotation: 90deg; /* Value when hovering */
   }
 
   #leftEyeContainer,
@@ -80,5 +237,39 @@
 
   #rightEyeContainer {
     transform: scaleX(-1);
+  }
+
+  #kanji {
+    position: absolute;
+    text-align: center; /* Center-align text within the paragraph */
+    margin-top: -50px; /* Horizontal centering using margin */
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
+    width: 400px; /* Set a fixed width for the element */
+    font-weight: bolder;
+    color: #c5d1eb;
+    /* pupupu free */
+    /* mini-wakuwaku-maru */
+    /* MadonoFont */
+  }
+
+  #name {
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden; /* Hide any overflowing content */
+    text-overflow: ellipsis; /* Display ellipses for overflow text */
+    max-width: 35ch; /* Adjust the maximum width as needed */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7%;
+    font-size: medium;
+    color: #c5d1eb;
+  }
+
+  #footerDiv {
+    padding-top: 50px;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-bottom: 25px;
   }
 </style>
