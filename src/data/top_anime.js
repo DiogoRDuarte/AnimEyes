@@ -1304,7 +1304,7 @@ export default [
     {
         "animeID": "14397",
         "name": "Chihayafuru 2",
-        "title_english": "Winter 2013 ",
+        "title_english": "Chihayafuru 2",
         "type": "TV",
         "source": "Manga",
         "genre": "school, sports, drama, slice of life, josei, game",

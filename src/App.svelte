@@ -22,6 +22,8 @@
         "table" + animeID
       )[0];
       informationTable.style.visibility = "visible";
+      const kanji = document.getElementsByClassName("kanji" + animeID)[0];
+      kanji.style.visibility = "hidden";
     }
   }
 
@@ -36,6 +38,8 @@
         "table" + animeID
       )[0];
       informationTable.style.visibility = "hidden";
+      const kanji = document.getElementsByClassName("kanji" + animeID)[0];
+      kanji.style.visibility = "visible";
     }
   }
 
@@ -117,7 +121,9 @@
               <Eye {anime} />
             </div>
           </div>
-          <p id="kanji">{arabicToKanji(index + 1)}</p>
+          <p id="kanji" class={"kanji" + anime.animeID}>
+            {arabicToKanji(index + 1)}
+          </p>
           <div class="name-container">
             <a
               href={"https://myanimelist.net/anime/" + anime.animeID}
