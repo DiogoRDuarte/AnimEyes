@@ -179,7 +179,7 @@
     margin: 0;
     padding-top: 25px;
     text-align: center;
-    font-family: "Yamagachi 2050 Italic";
+    font-family: "Yamagachi2050Italic";
     font-size: xxx-large;
     color: #c5d1eb;
   }
@@ -210,7 +210,7 @@
     line-height: 1.5; /* Adjust the value as needed */
     color: #c5d1eb;
     text-align: center;
-    font-family: "DM Sans";
+    font-family: "DMSans";
     font-size: 16px;
   }
 
@@ -271,10 +271,22 @@
     margin-left: 25%;
     margin-right: 25%;
     padding-bottom: 25px;
-    font-family: "DM Sans";
+    font-family: "DMSans";
     font-size: 16px;
     line-height: 1.5; /* Adjust the value as needed */
     color: #c5d1eb;
     text-align: center;
+  }
+
+  @font-face {
+    font-family: "DMSans";
+    src: url("../fonts/DMSans.ttf") format("truetype");
+    /* Add other font properties, such as font-weight and font-style if needed */
+  }
+
+  @font-face {
+    font-family: "Yamagachi2050Italic";
+    src: url("../fonts/Yamagachi2050Italic.ttf") format("truetype");
+    /* Add other font properties, such as font-weight and font-style if needed */
   }
 </style>
