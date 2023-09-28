@@ -1,8 +1,10 @@
 <script>
   export let anime;
+
+  import { fade } from "svelte/transition";
 </script>
 
-<div id="informationTable" class={"table" + anime.animeID}>
+<div id="informationTable" class={"table" + anime.animeID} in:fade>
   <table>
     <colgroup>
       <col />
@@ -57,7 +59,6 @@
     width: 95%;
     padding-left: 2.5%;
     padding-right: 2.5%;
-    visibility: hidden;
   }
 
   table {

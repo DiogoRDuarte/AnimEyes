@@ -6,40 +6,28 @@
   import data from "./data/top_anime";
   import * as d3 from "d3";
 
+  import { fade } from "svelte/transition";
+
   const episodeNumbersArray = data.map((anime) => parseInt(anime.episodes));
   const [minValue, maxValue] = d3.extent(episodeNumbersArray);
 
-  let isRotated = false; // Variable to track the rotation state
+  const isRotated = {};
 
   function mouseenter(animeID) {
-    // console.log("Entered");
-    if (!isRotated) {
+    if (!isRotated[animeID]) {
       // Rotate the eyes on mouseover
-      isRotated = true;
+      isRotated[animeID] = true;
       const eyesContainer = document.getElementsByClassName(animeID)[0];
       eyesContainer.style.transform = "rotateX(90deg)";
-      const informationTable = document.getElementsByClassName(
-        "table" + animeID
-      )[0];
-      informationTable.style.visibility = "visible";
-      const kanji = document.getElementsByClassName("kanji" + animeID)[0];
-      kanji.style.visibility = "hidden";
     }
   }
 
   function mouseleave(animeID) {
-    // console.log("Left");
-    if (isRotated) {
+    if (isRotated[animeID]) {
       // Rotate the eyes back to the original position on mouseleave
-      isRotated = false;
+      isRotated[animeID] = false;
       const eyesContainer = document.getElementsByClassName(animeID)[0];
       eyesContainer.style.transform = "rotateX(0deg)";
-      const informationTable = document.getElementsByClassName(
-        "table" + animeID
-      )[0];
-      informationTable.style.visibility = "hidden";
-      const kanji = document.getElementsByClassName("kanji" + animeID)[0];
-      kanji.style.visibility = "visible";
     }
   }
 
@@ -111,7 +99,11 @@
           on:focus={() => mouseenter(anime.animeID)}
           on:focusout={() => mouseleave(anime.animeID)}
         >
-          <Table {anime} />
+          {#if isRotated[anime.animeID]}
+            <div transition:fade>
+              <Table {anime} />
+            </div>
+          {/if}
           <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
           <div id="eyesContainer" class={anime.animeID}>
             <div id="leftEyeContainer">
@@ -121,9 +113,11 @@
               <Eye {anime} />
             </div>
           </div>
-          <p id="kanji" class={"kanji" + anime.animeID}>
-            {arabicToKanji(index + 1)}
-          </p>
+          {#if !isRotated[anime.animeID]}
+            <p id={"kanji"} class={"kanji" + anime.animeID} transition:fade>
+              {arabicToKanji(index + 1)}
+            </p>
+          {/if}
           <div class="name-container">
             <a
               href={"https://myanimelist.net/anime/" + anime.animeID}
@@ -143,8 +137,8 @@
           a <a
             href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-04-23"
             target="_blank">tidytuesday</a
-          > back in April of 2019. The elements are ordered based on their "rank",
-          which is calculated trough a weight formula from MyAnimeList.
+          > back in April of 2019. The 👀 are ordered based on their "rank", which
+          is calculated through a weight formula from MyAnimeList.
         </p>
       </div>
     </footer>
@@ -277,5 +271,10 @@
     margin-left: 25%;
     margin-right: 25%;
     padding-bottom: 25px;
+    font-family: "DM Sans";
+    font-size: 16px;
+    line-height: 1.5; /* Adjust the value as needed */
+    color: #c5d1eb;
+    text-align: center;
   }
 </style>
