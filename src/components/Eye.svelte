@@ -99,7 +99,9 @@ shape of eyes = one of 4 seasons
       d="M50.0334 71.1475C8.43338 58.3475 -0.633285 31.8141 0.0333819 20.1475C55.6334 -29.0525 106.867 23.3141 125.533 55.6475C93.9333 81.2475 62.0334 76.6475 50.0334 71.1475Z"
       fill="white"
     /> -->
-  <Sclera premiered={anime.premiered} />
+  <g class={anime.premiered.split(" ")[0]}>
+    <Sclera premiered={anime.premiered} />
+  </g>
 
   <g class="irisANDpupil" transform="translate(-10, -2)">
     <circle class="iris" cx="100px" cy="50px" r="32px" />
@@ -137,7 +139,7 @@ shape of eyes = one of 4 seasons
     />
   </g>
 
-  <g transform="translate(5, 0)">
+  <g>
     <Contour premiered={anime.premiered} />
   </g>
 </svg>
@@ -145,7 +147,27 @@ shape of eyes = one of 4 seasons
 <style>
   .svg-container {
     position: relative;
-    width: 200px;
-    height: 100px;
+    width: 12rem;
+    height: 6.5rem;
+  }
+
+  .sclera {
+    width: 1rem;
+  }
+
+  .Winter {
+    transform: translate(1.3rem, 0.6rem);
+  }
+
+  .Spring {
+    transform: translate(0.9rem, 0.6rem);
+  }
+
+  .Fall {
+    transform: translate(0.6rem, 0.5rem);
+  }
+
+  .Summer {
+    transform: translate(0.6rem, 0.6rem);
   }
 </style>

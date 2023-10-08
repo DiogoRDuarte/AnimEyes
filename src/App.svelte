@@ -148,9 +148,17 @@
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
+  /* 
+    font-size: rem
+    width: % in combination with a max-width, ch
+    height: question urself "do i rly need to set height" if yes -> use a min-height
+    padding/margin: rem or em, kevin often uses em for padding of buttons
+    media queries: em 
+  */
+
   main {
     font-family: "Poppins", sans-serif;
-    font-size: 8px;
+    font-size: large;
     background-color: #020b14;
     color: #d9d9d9;
   }
@@ -177,7 +185,7 @@
 
   #appTitle {
     margin: 0;
-    padding-top: 25px;
+    padding-top: 1.5rem;
     text-align: center;
     font-family: "Yamagachi2050Italic";
     font-size: xxx-large;
@@ -191,7 +199,7 @@
   }
 
   #animeContainer {
-    margin: 10px;
+    margin: 1rem;
     text-align: center;
     background: #031121; /* Adjust the opacity as needed */
     backdrop-filter: blur(10px);
@@ -200,10 +208,8 @@
   }
 
   #introductionContainer {
-    padding-top: 25px;
-    margin-left: 10%;
-    margin-right: 10%;
-    padding-bottom: 25px;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
 
   #introduction {
@@ -211,11 +217,11 @@
     color: #c5d1eb;
     text-align: center;
     font-family: "DMSans";
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   #eyesContainer {
-    margin-top: 10px;
+    margin-top: 1rem;
     display: flex;
     width: fit-content;
     flex-direction: row;
@@ -242,11 +248,11 @@
   #kanji {
     position: absolute;
     text-align: center; /* Center-align text within the paragraph */
-    margin-top: -50px; /* Horizontal centering using margin */
+    margin-top: -3rem; /* Horizontal centering using margin */
     margin-left: auto;
     margin-right: auto;
-    font-size: 15px;
-    width: 400px; /* Set a fixed width for the element */
+    font-size: 1rem;
+    width: 100%; /* Set a fixed width for the element */
     font-weight: bolder;
     color: #c5d1eb;
     /* pupupu free */
@@ -267,12 +273,12 @@
   }
 
   #footerDiv {
-    padding-top: 50px;
-    margin-left: 25%;
-    margin-right: 25%;
-    padding-bottom: 25px;
+    padding-top: 2rem;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-bottom: 2rem;
     font-family: "DMSans";
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.5; /* Adjust the value as needed */
     color: #c5d1eb;
     text-align: center;

@@ -65,7 +65,7 @@
     width: 100%; /* Set the table's width to 100% */
     font-family: "DM Sans";
     font-weight: bold;
-    font-size: 9px;
+    font-size: 0.55rem;
     border-collapse: collapse;
   }
   .left {
@@ -82,7 +82,7 @@
   td {
     color: #d9d9d9; /* Change the text color for non-header cells to red */
     border: none; /* Remove cell borders */
-    padding: 2px 0;
+    padding: 0.15rem 0;
   }
   .alternate {
     background-color: #061e3a;

@@ -4,8 +4,6 @@
 
   export let premiered;
 
-  console.log();
-
   let season = premiered.split(" ")[0];
 
   const seasonsArray = Object.keys(eyeContour[0]);
