@@ -26,13 +26,13 @@
   }
 
   function mouseleave(uid) {
-    if (isRotated[uid]) {
-      // Rotate the eyes back to the original position on mouseleave
-      isRotated[uid] = false;
-      const eyesContainer = document.getElementsByClassName(uid)[0];
-      eyesContainer.style.transform = "rotateX(0deg)";
-    }
+  if (isRotated[uid]) {
+    // Rotate the eyes back to the original position on mouseleave
+    isRotated[uid] = false;
+    const eyesContainer = document.getElementsByClassName(uid)[0];
+    eyesContainer.style.transform = "rotateX(0deg) translateZ(0)";
   }
+}
 
   function arabicToKanji(number) {
     const kanjiNumerals = [
@@ -78,7 +78,7 @@
 
 <main>
   <div id="projectContainer">
-    <h1 id="appTitle">AnimEyes</h1>
+    <h1 id="appTitle">✦ AniMeYeS ✦</h1>
     <div id="introductionContainer">
       <p id="introduction">
         <b>What do the eyes from your favorite anime look like?</b>
@@ -117,42 +117,47 @@
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
-          id="animeContainer"
-          tabindex="0"
-          on:mouseenter={() => mouseenter(anime.uid)}
-          on:mouseleave={() => mouseleave(anime.uid)}
-          on:focus={() => mouseenter(anime.uid)}
-          on:focusout={() => mouseleave(anime.uid)}
-        >
-          {#if isRotated[anime.uid]}
-            <div transition:fade>
-              <Table {anime} />
-            </div>
-          {/if}
-          <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-          <div id="eyesContainer" class={anime.uid}>
-            <div id="leftEyeContainer">
-              <Eye {anime} />
-            </div>
-            <div id="rightEyeContainer">
-              <Eye {anime} />
-            </div>
-          </div>
-          {#if !isRotated[anime.uid]}
-            <p id={"kanji"} class={"kanji" + anime.uid} transition:fade>
-              {arabicToKanji(index + 1)}
-            </p>
-          {/if}
-          <div class="name-container">
-            <a
-              href={"https://myanimelist.net/anime/" + anime.uid}
-              target="_blank"
-              class="no-underline"
-            >
-              <h2 id="name">🔗{anime.title}</h2>
-            </a>
-          </div>
-        </div>
+  id="animeContainer"
+  tabindex="0"
+  on:mouseenter={() => mouseenter(anime.uid)}
+  on:mouseleave={() => mouseleave(anime.uid)}
+  on:focus={() => mouseenter(anime.uid)}
+  on:focusout={() => mouseleave(anime.uid)}
+  style="position: relative;"
+>
+  {#if isRotated[anime.uid]}
+    <div transition:fade>
+      <Table {anime} />
+    </div>
+  {/if}
+  <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+  <div id="eyesContainer" class={anime.uid}>
+    <div id="leftEyeContainer">
+      <Eye {anime} />
+    </div>
+    <div id="rightEyeContainer">
+      <Eye {anime} />
+    </div>
+  </div>
+  {#if !isRotated[anime.uid]}
+    <p id={"kanji"} class={"kanji" + anime.uid} transition:fade>
+      {arabicToKanji(index + 1)}
+    </p>
+  {/if}
+  <div class="name-container">
+    <a
+      href={"https://myanimelist.net/anime/" + anime.uid}
+      target="_blank"
+      class="no-underline"
+    >
+      <h2 id="name">{anime.title}</h2>
+    </a>
+  </div>
+  <div class="teste" style="background-image: url({anime.img_url});">
+  </div>
+</div>
+
+
       {/each}
     </div>
     <footer>
@@ -219,7 +224,8 @@
   #visualizationContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    gap: 15px;
+    justify-content: center;
   }
 
   #animeContainer {
@@ -229,6 +235,10 @@
     backdrop-filter: blur(10px);
     border-radius: 15px;
     box-shadow: 0px 0px 20px #031121;
+  }
+
+  .teste{
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.05; z-index: -1; background-size: cover; background-position: center;     border-radius: 15px;
   }
 
   #introductionContainer {
