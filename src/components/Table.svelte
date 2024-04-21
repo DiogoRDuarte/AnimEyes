@@ -4,57 +4,78 @@
   import { fade } from "svelte/transition";
 </script>
 
-<div id="informationTable" class={"table" + anime.animeID} in:fade>
-  <table>
-    <colgroup>
-      <col />
-      <col />
-    </colgroup>
-    <thead>
-      <tr class="row">
-        <th class="left header">&nbsp Category</th>
-        <th class="right header">Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="row">
-        <td class="left alternate">&nbsp Type</td>
-        <td class="right alternate">{anime.type} &nbsp </td>
-      </tr>
-      <tr class="row">
-        <td class="left">&nbsp Source</td>
-        <td class="right">{anime.source} &nbsp</td>
-      </tr>
-      <tr class="row">
-        <td class="left alternate">&nbsp Genre</td>
-        <td class="right alternate">{anime.genre} &nbsp </td>
-      </tr>
-      <tr class="row">
-        <td class="left">&nbsp Episodes</td>
-        <td class="right">{anime.episodes} &nbsp </td>
-      </tr>
-      <tr class="row">
-        <td class="left alternate">&nbsp Duration</td>
-        <td class="right alternate">{anime.duration} &nbsp </td>
-      </tr>
-      <tr class="row">
-        <td class="left">&nbsp Rating</td>
-        <td class="right">{anime.rating} &nbsp </td>
-      </tr>
-      <tr class="row">
-        <td class="left alternate">&nbsp Scored by</td>
-        <td class="right alternate">{anime.scored_by} people &nbsp </td>
-      </tr>
-      <tr class="row">
-        <td class="left">&nbsp Premiered</td>
-        <td class="right">{anime.premiered} &nbsp</td>
-      </tr>
-    </tbody>
-  </table>
+<div id="informationTable" class={"table" + anime.uid} in:fade>
+<!-- Table for Members -->
+<table>
+  <colgroup>
+    <col />
+    <col />
+  </colgroup>
+  <thead>
+    <tr class="row">
+      <th class="left header">&nbsp;</th>
+      <th class="right header">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="row">
+      <td class="left alternate">&nbsp;Genre</td>
+      <td class="right alternate">{anime.genre} &nbsp;</td>
+    </tr>
+    <tr class="row">
+      <td class="left">&nbsp;Aired</td>
+      <td class="right">{anime.aired} &nbsp;</td>
+    </tr>
+    <tr class="row">
+      <td class="left alternate">&nbsp;Episodes</td>
+      <td class="right alternate">{anime.episodes} &nbsp;</td>
+    </tr>
+    <tr class="row">
+      <td class="left">&nbsp;Members</td>
+      <td class="right">{anime.members} people &nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Table for Popularity -->
+<table>
+  <colgroup>
+    <col />
+    <col />
+  </colgroup>
+  <thead>
+    <tr class="row">
+      <th class="left header">&nbsp;</th>
+      <th class="right header">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="row">
+      <td class="left">&nbsp;Popularity</td>
+      <td class="right">{anime.popularity} &nbsp;</td>
+    </tr>
+    <tr class="row">
+      <td class="left alternate">&nbsp;Ranked</td>
+      <td class="right alternate">{anime.ranked} &nbsp;</td>
+    </tr>
+    <tr class="row">
+      <td class="left">&nbsp;Score</td>
+      <td class="right">{anime.score} &nbsp;</td>
+    </tr>
+    <tr class="row">
+      <td class="left alternate">&nbsp;Season</td>
+      <td class="right alternate">{anime.premiered} &nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
 </div>
 
 <style>
   #informationTable {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
     position: absolute;
     width: 95%;
     padding-left: 2.5%;
@@ -62,12 +83,20 @@
   }
 
   table {
-    width: 100%; /* Set the table's width to 100% */
+    width: 50%; /* Set the table's width to 100% */
     font-family: "DM Sans";
     font-weight: bold;
     font-size: 0.55rem;
     border-collapse: collapse;
   }
+
+  td {
+  height: 3em; /* Adjust this value as needed */
+  max-width: 40px; /* Adjust this value as needed */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* Add this line */
+}
   .left {
     text-align: left; /* Left-align the text in the left column */
     border-radius: 10px 0 0 10px;

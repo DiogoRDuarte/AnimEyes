@@ -163,7 +163,7 @@ shape of eyes = one of 4 seasons
     transform: translate(0.9rem, 0.6rem);
   }
 
-  .Fall {
+  .Autumn {
     transform: translate(0.6rem, 0.5rem);
   }
 

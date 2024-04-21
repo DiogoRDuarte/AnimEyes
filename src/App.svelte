@@ -8,25 +8,28 @@
 
   import { fade } from "svelte/transition";
 
+  import LegendContour from "./components/LegendContour.svelte";
+  import LegendSize from "./components/LegendSize.svelte";
+
   const episodeNumbersArray = data.map((anime) => parseInt(anime.episodes));
   const [minValue, maxValue] = d3.extent(episodeNumbersArray);
 
   const isRotated = {};
 
-  function mouseenter(animeID) {
-    if (!isRotated[animeID]) {
+  function mouseenter(uid) {
+    if (!isRotated[uid]) {
       // Rotate the eyes on mouseover
-      isRotated[animeID] = true;
-      const eyesContainer = document.getElementsByClassName(animeID)[0];
+      isRotated[uid] = true;
+      const eyesContainer = document.getElementsByClassName(uid)[0];
       eyesContainer.style.transform = "rotateX(90deg)";
     }
   }
 
-  function mouseleave(animeID) {
-    if (isRotated[animeID]) {
+  function mouseleave(uid) {
+    if (isRotated[uid]) {
       // Rotate the eyes back to the original position on mouseleave
-      isRotated[animeID] = false;
-      const eyesContainer = document.getElementsByClassName(animeID)[0];
+      isRotated[uid] = false;
+      const eyesContainer = document.getElementsByClassName(uid)[0];
       eyesContainer.style.transform = "rotateX(0deg)";
     }
   }
@@ -80,13 +83,35 @@
       <p id="introduction">
         <b>What do the eyes from your favorite anime look like?</b>
         <br />
-        These are the top 100 anime from <b>2019</b>, taken from
+        These are the ranked top 100 anime from <b>2023</b>, taken from
         <a href="https://myanimelist.net/" target="_blank">MyAnimeList</a>,
         represented as colorful eyes (✦ ‿ ✦)
         <br />
         You can hover (or keyboard focus) each one to learn more!
       </p>
     </div>
+    <!-- <div id="legendContainer">
+      <div id="">
+        <h3>Eyes contour</h3>
+        <LegendContour />
+        <LegendContour />
+        <LegendContour />
+        <LegendContour />
+      </div>
+      <div id="">
+        <h3>Pupil size</h3>
+        <LegendSize />
+        <LegendSize />
+        <LegendSize />
+        <LegendSize />
+      </div>
+      <div id="">
+        <h3>Pupil shape</h3>
+      </div>
+      <div id="">
+        <h3>Iris color</h3>
+      </div>
+    </div> -->
     <div id="visualizationContainer">
       {#each data as anime, index}
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -94,18 +119,18 @@
         <div
           id="animeContainer"
           tabindex="0"
-          on:mouseenter={() => mouseenter(anime.animeID)}
-          on:mouseleave={() => mouseleave(anime.animeID)}
-          on:focus={() => mouseenter(anime.animeID)}
-          on:focusout={() => mouseleave(anime.animeID)}
+          on:mouseenter={() => mouseenter(anime.uid)}
+          on:mouseleave={() => mouseleave(anime.uid)}
+          on:focus={() => mouseenter(anime.uid)}
+          on:focusout={() => mouseleave(anime.uid)}
         >
-          {#if isRotated[anime.animeID]}
+          {#if isRotated[anime.uid]}
             <div transition:fade>
               <Table {anime} />
             </div>
           {/if}
           <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-          <div id="eyesContainer" class={anime.animeID}>
+          <div id="eyesContainer" class={anime.uid}>
             <div id="leftEyeContainer">
               <Eye {anime} />
             </div>
@@ -113,18 +138,18 @@
               <Eye {anime} />
             </div>
           </div>
-          {#if !isRotated[anime.animeID]}
-            <p id={"kanji"} class={"kanji" + anime.animeID} transition:fade>
+          {#if !isRotated[anime.uid]}
+            <p id={"kanji"} class={"kanji" + anime.uid} transition:fade>
               {arabicToKanji(index + 1)}
             </p>
           {/if}
           <div class="name-container">
             <a
-              href={"https://myanimelist.net/anime/" + anime.animeID}
+              href={"https://myanimelist.net/anime/" + anime.uid}
               target="_blank"
               class="no-underline"
             >
-              <h2 id="name">🔗{anime.title_english}</h2>
+              <h2 id="name">🔗{anime.title}</h2>
             </a>
           </div>
         </div>
@@ -133,11 +158,10 @@
     <footer>
       <div id="footerDiv">
         <p>
-          The data used in this project comes directly from dataset provided in
-          a <a
-            href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-04-23"
-            target="_blank">tidytuesday</a
-          > back in April of 2019. The 👀 are ordered based on their "rank", which
+          The dataset used in this project was taken from <a
+            href="https://www.kaggle.com/datasets/arnavvvvv/anime-dataset"
+            target="_blank">kaggle</a
+          > at the beginning of 2024. The 👀 are ordered based on their "rank", which
           is calculated through a weight formula from MyAnimeList.
         </p>
       </div>
@@ -294,5 +318,10 @@
     font-family: "Yamagachi2050Italic";
     src: url("../fonts/Yamagachi2050Italic.ttf") format("truetype");
     /* Add other font properties, such as font-weight and font-style if needed */
+  }
+
+  #legendContainer {
+    display: flex;
+    justify-content: space-around;
   }
 </style>
