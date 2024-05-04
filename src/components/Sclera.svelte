@@ -14,8 +14,6 @@
     .domain(seasonsArray)
     .range(pathsArray);
 
-    console.log(correspondingPath(season))
-
   $: svgContent = correspondingPath(season);
 </script>
 

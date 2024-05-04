@@ -16,6 +16,26 @@
 
   const isRotated = {};
 
+  // Create an empty object to store genres as keys
+const genreMap = {};
+
+// Iterate through each anime object
+data.forEach(anime => {
+  // Parse the genre string into an array
+  const genres = JSON.parse(anime.genre.replace(/'/g, '"'));
+
+  // Iterate through each genre
+  genres.forEach(genre => {
+    // Add the genre to the genreMap object
+    genreMap[genre] = true;
+  });
+});
+
+// Extract the genre keys from the genreMap object
+const allGenres = Object.keys(genreMap);
+
+console.log(allGenres);
+
   function mouseenter(uid) {
     if (!isRotated[uid]) {
       // Rotate the eyes on mouseover
