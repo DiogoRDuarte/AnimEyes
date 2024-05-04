@@ -5,7 +5,7 @@
 </script>
 
 <div id="informationTable" class={"table" + anime.uid} in:fade>
-<!-- Table for Members -->
+<!-- Left Table -->
 <table>
   <colgroup>
     <col />
@@ -31,7 +31,7 @@
   </tbody>
 </table>
 
-<!-- Table for Popularity -->
+<!-- Right Table -->
 <table>
   <colgroup>
     <col />
@@ -71,23 +71,22 @@
   }
 
   table {
-    width: 50%; /* Set the table's width to 100% */
-    font-family: "DM Sans";
+    width: 50%;
     font-weight: bold;
     font-size: 0.55rem;
-      border-collapse: separate; 
-  border-spacing: 0 5px;
+    border-collapse: separate; 
+    border-spacing: 0 5px;
+    font-family: "DMSans";
   }
 
   td {
-  height: 1.75rem; /* Adjust this value as needed */
-  max-width: 40px; /* Adjust this value as needed */
+  height: 1.75rem;
+  max-width: 40px;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis; /* Add this line */
-  color: #d9d9d9; /* Change the text color for non-header cells to red */
-    border: none; /* Remove cell borders */
-    /* padding: 0.15rem 0; */
+  text-overflow: ellipsis;
+  color: #d9d9d9;
+    border: none;
     font-size: 0.75rem;
     background-color: #020b14;
     color: #c5d1eb;
@@ -95,20 +94,16 @@
 
 
   .left {
-    text-align: left; /* Left-align the text in the left column */
+    text-align: left;
     border-radius: 10px 0 0 10px;
     font-weight: bolder;
   }
   .right {
-    text-align: right; /* Right-align the text in the right column */
+    text-align: right;
     border-radius: 0 10px 10px 0;
     padding-right: 2px;
   }
   .header {
     color: #031121;
   }
-
-  /* .alternate {
-    background-color: #020b14;
-  } */
 </style>

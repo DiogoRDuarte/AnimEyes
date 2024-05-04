@@ -71,7 +71,7 @@
     } else if (arabicDigits.length === 3 && parseInt(number) === 100) {
       return hundredKanji;
     } else {
-      return "Unsupported"; // Handle unsupported numbers
+      return "Unsupported";
     }
   }
 </script>
@@ -90,28 +90,7 @@
         You can hover (or keyboard focus) each one to learn more!
       </p>
     </div>
-    <!-- <div id="legendContainer">
-      <div id="">
-        <h3>Eyes contour</h3>
-        <LegendContour />
-        <LegendContour />
-        <LegendContour />
-        <LegendContour />
-      </div>
-      <div id="">
-        <h3>Pupil size</h3>
-        <LegendSize />
-        <LegendSize />
-        <LegendSize />
-        <LegendSize />
-      </div>
-      <div id="">
-        <h3>Pupil shape</h3>
-      </div>
-      <div id="">
-        <h3>Iris color</h3>
-      </div>
-    </div> -->
+    
     <div id="visualizationContainer">
       {#each data as anime, index}
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -130,7 +109,6 @@
       <Table {anime} />
     </div>
   {/if}
-  <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
   <div id="eyesContainer" class={anime.uid}>
     <div id="leftEyeContainer">
       <Eye {anime} />
@@ -177,14 +155,6 @@
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
-  /* 
-    font-size: rem
-    width: % in combination with a max-width, ch
-    height: question urself "do i rly need to set height" if yes -> use a min-height
-    padding/margin: rem or em, kevin often uses em for padding of buttons
-    media queries: em 
-  */
-
   main {
     font-family: "Poppins", sans-serif;
     font-size: large;
@@ -192,14 +162,12 @@
     color: #d9d9d9;
   }
 
-  /* Default link color */
   a:link {
-    color: #d9d9d9; /* Change the color for unvisited links */
+    color: #d9d9d9;
   }
 
-  /* Visited link color */
   a:visited {
-    color: #7c7c8a; /* Change the color for visited links */
+    color: #7c7c8a;
   }
 
   a.no-underline {
@@ -231,7 +199,7 @@
   #animeContainer {
     margin: 1rem;
     text-align: center;
-    background: #031121; /* Adjust the opacity as needed */
+    background: #031121;
     backdrop-filter: blur(10px);
     border-radius: 15px;
     box-shadow: 0px 0px 20px #031121;
@@ -247,7 +215,7 @@
   }
 
   #introduction {
-    line-height: 1.5; /* Adjust the value as needed */
+    line-height: 1.5;
     color: #c5d1eb;
     text-align: center;
     font-family: "DMSans";
@@ -259,12 +227,12 @@
     display: flex;
     width: fit-content;
     flex-direction: row;
-    --custom-rotation: 0deg; /* Default value */
+    --custom-rotation: 0deg;
     transform: rotateX(
       var(--custom-rotation, 0deg)
-    ); /* Use --custom-rotation, default 0deg */
+    ); 
     transform-origin: center bottom;
-    transition: transform 0.5s ease; /* A smooth transition effect */
+    transition: transform 0.5s ease;
   }
 
   #leftEyeContainer,
@@ -281,24 +249,21 @@
 
   #kanji {
     position: absolute;
-    text-align: center; /* Center-align text within the paragraph */
-    margin-top: -3rem; /* Horizontal centering using margin */
+    text-align: center;
+    margin-top: -3rem;
     margin-left: auto;
     margin-right: auto;
     font-size: 1rem;
-    width: 100%; /* Set a fixed width for the element */
+    width: 100%;
     font-weight: bolder;
     color: #c5d1eb;
-    /* pupupu free */
-    /* mini-wakuwaku-maru */
-    /* MadonoFont */
   }
 
   #name {
-    white-space: nowrap; /* Prevent text from wrapping to the next line */
-    overflow: hidden; /* Hide any overflowing content */
-    text-overflow: ellipsis; /* Display ellipses for overflow text */
-    max-width: 35ch; /* Adjust the maximum width as needed */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 35ch;
     margin-left: auto;
     margin-right: auto;
     margin-top: 7%;
@@ -313,7 +278,7 @@
     padding-bottom: 2rem;
     font-family: "DMSans";
     font-size: 1rem;
-    line-height: 1.5; /* Adjust the value as needed */
+    line-height: 1.5;
     color: #c5d1eb;
     text-align: center;
   }
@@ -321,13 +286,11 @@
   @font-face {
     font-family: "DMSans";
     src: url("../fonts/DMSans.ttf") format("truetype");
-    /* Add other font properties, such as font-weight and font-style if needed */
   }
 
   @font-face {
     font-family: "Yamagachi2050Italic";
     src: url("../fonts/Yamagachi2050Italic.ttf") format("truetype");
-    /* Add other font properties, such as font-weight and font-style if needed */
   }
 
   #legendContainer {

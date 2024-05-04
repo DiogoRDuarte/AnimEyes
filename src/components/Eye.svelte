@@ -1,11 +1,3 @@
-<!-- 
-Iris color = genre
-Pupila stretch = rating
-Tamanho pupila = episodes
-eyelaches or not = movie or tv 
-shape of eyes = one of 4 seasons
--->
-
 <script>
   // @ts-nocheck
 
@@ -21,8 +13,6 @@ shape of eyes = one of 4 seasons
   export let anime;
 
   let animeGenres = anime.genre.split(", ");
-
-  // const xScale = scaleLinear().domain([minValue, maxValue]).range([0, 25]);
 
   const genresArray = Object.keys(genreColor[0]);
   const colorsArray = Object.values(genreColor[0]);
@@ -95,10 +85,7 @@ shape of eyes = one of 4 seasons
       <feGaussianBlur stdDeviation="0.7" in="SourceGraphic" result="BLUR" />
     </filter>
   </defs>
-  <!-- <path
-      d="M50.0334 71.1475C8.43338 58.3475 -0.633285 31.8141 0.0333819 20.1475C55.6334 -29.0525 106.867 23.3141 125.533 55.6475C93.9333 81.2475 62.0334 76.6475 50.0334 71.1475Z"
-      fill="white"
-    /> -->
+
   <g class={anime.premiered.split(" ")[0]}>
     <Sclera premiered={anime.premiered} />
   </g>
