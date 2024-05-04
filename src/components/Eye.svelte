@@ -86,7 +86,7 @@ shape of eyes = one of 4 seasons
   }
 </script>
 
-<svg class="svg-container" transform="translate(20, 5)">
+<svg class="svg-container svg-container-{anime.premiered.split(" ")[0]}">
   <defs>
     <filter id="blurIris">
       <feGaussianBlur stdDeviation="3" in="SourceGraphic" result="BLUR" />
@@ -149,6 +149,15 @@ shape of eyes = one of 4 seasons
     position: relative;
     width: 12rem;
     height: 6.5rem;
+    transform: translate(15px, 15px);
+  }
+
+  .svg-container-Autumn {
+    transform: translate(35px, 10px);
+  }
+
+  .svg-container-Spring {
+    transform: translate(20px, 15px);
   }
 
   .sclera {
