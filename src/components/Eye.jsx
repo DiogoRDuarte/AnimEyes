@@ -63,6 +63,7 @@ export default function Eye({ anime }) {
   const id = useId()
   const blurIrisId = `blurIris-${id}`
   const blurPupilId = `blurPupil-${id}`
+  const clipIrisId = `clipIris-${id}`
 
   const isOngoing = anime.status === 'RELEASING'
   const isRRated = anime.rating === 'R - 17+ (violence & profanity)' || anime.rating === 'R+ - Mild Nudity'
@@ -74,29 +75,37 @@ export default function Eye({ anime }) {
           <filter id={blurIrisId}>
             <feGaussianBlur stdDeviation="3" in="SourceGraphic" result="BLUR" />
           </filter>
+          <filter id={blurPupilId}>
+            <feGaussianBlur stdDeviation="0.7" in="SourceGraphic" />
+          </filter>
+          <clipPath id={clipIrisId}>
+            <circle cx="100" cy="50" r="20" />
+          </clipPath>
         </defs>
         <InnerHTML html={correspondingSclera(season)} className={season} />
         <g className="irisANDpupil" transform="translate(-10, -2)">
           <circle className="iris" cx="100" cy="50" r="32" />
-          {animeGenres.map((genre, i) => (
-            <g key={i} transform={`rotate(${correspondingRotation(animeGenres, genre)}, 100, 50)`}>
-              <circle
-                className="irisColor"
-                cx="100"
-                cy="40"
-                r="15"
-                fill={getGenreColor(genre)}
-                fillOpacity="0.7"
-                filter={`url(#${blurIrisId})`}
-              />
-            </g>
-          ))}
+          <g clipPath={`url(#${clipIrisId})`}>
+            {animeGenres.map((genre, i) => (
+              <g key={i} transform={`rotate(${correspondingRotation(animeGenres, genre)}, 100, 50)`}>
+                <circle
+                  className="irisColor"
+                  cx="100"
+                  cy="40"
+                  r="15"
+                  fill={getGenreColor(genre)}
+                  fillOpacity="0.7"
+                  filter={`url(#${blurIrisId})`}
+                />
+              </g>
+            ))}
+          </g>
           <ellipse
             className="pupil"
             cx="100"
             cy="50"
-            rx={20 * getPupilSize(anime.episodes)}
-            ry={20 * getPupilSize(anime.episodes)}
+            rx={15 * getPupilSize(anime.episodes)}
+            ry={15 * getPupilSize(anime.episodes)}
             fillOpacity="1"
             filter={`url(#${blurPupilId})`}
           />
