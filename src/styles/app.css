@@ -44,6 +44,7 @@ a.no-underline {
   box-shadow: 0px 0px 20px #031121;
   position: relative;
   font-family: "DMSans";
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>👀</text></svg>") 16 16, auto;
 }
 
 .background {
@@ -103,6 +104,7 @@ a.no-underline {
   width: 100%;
   font-weight: bolder;
   color: #c5d1eb;
+  transition: opacity 0.3s ease;
 }
 
 .animeName {
@@ -115,6 +117,7 @@ a.no-underline {
   margin-top: 7%;
   font-size: medium;
   color: #c5d1eb;
+  font-weight: 800;
 }
 
 .footerDiv {
@@ -165,4 +168,12 @@ a.no-underline {
 
 .tagActive:hover {
   background: #c5d1eb;
+}
+
+.tableWrapper {
+  transition: opacity 0.4s ease;
+}
+
+a.no-underline:hover .animeName {
+  text-decoration: underline;
 }

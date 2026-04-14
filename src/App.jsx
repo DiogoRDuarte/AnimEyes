@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import Eye from './components/Eye'
 import Table from './components/Table'
 import { fetchTopAnime } from './data/fetchAnime'
@@ -7,10 +7,20 @@ import { arabicToKanji } from './helpers'
 import './styles/App.css'
 
 function AnimeCard({ anime, index }) {
-  const [isRotated, setIsRotated] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
+  const [showTable, setShowTable] = useState(false)
+  const timerRef = useRef(null)
 
-  const handleEnter = useCallback(() => setIsRotated(true), [])
-  const handleLeave = useCallback(() => setIsRotated(false), [])
+  const handleEnter = useCallback(() => {
+    setIsHovered(true)
+    timerRef.current = setTimeout(() => setShowTable(true), 300)
+  }, [])
+
+  const handleLeave = useCallback(() => {
+    clearTimeout(timerRef.current)
+    setIsHovered(false)
+    setShowTable(false)
+  }, [])
 
   return (
     <div
@@ -21,15 +31,13 @@ function AnimeCard({ anime, index }) {
       onFocus={handleEnter}
       onBlur={handleLeave}
     >
-      {isRotated && (
-        <div>
-          <Table anime={anime} />
-        </div>
-      )}
+      <div className="tableWrapper" style={{ opacity: showTable ? 1 : 0 }}>
+        <Table anime={anime} />
+      </div>
       <div
         className="eyesContainer"
         style={{
-          transform: isRotated ? 'rotateX(90deg)' : 'rotateX(0deg) translateZ(0)',
+          transform: isHovered ? 'rotateX(90deg)' : 'rotateX(0deg) translateZ(0)',
         }}
       >
         <div className="leftEyeContainer">
@@ -39,11 +47,9 @@ function AnimeCard({ anime, index }) {
           <Eye anime={anime} />
         </div>
       </div>
-      {!isRotated && (
-        <p className="kanji">
-          {arabicToKanji(index + 1)}
-        </p>
-      )}
+      <p className="kanji" style={{ opacity: isHovered ? 0 : 1 }}>
+        {arabicToKanji(index + 1)}
+      </p>
       <div className="name-container">
         <a
           href={`https://anilist.co/anime/${anime.uid}`}
@@ -51,7 +57,7 @@ function AnimeCard({ anime, index }) {
           rel="noreferrer"
           className="no-underline"
         >
-          <h2 className="animeName">{anime.title}</h2>
+          <p className="animeName">{anime.title}</p>
         </a>
       </div>
       <div
@@ -91,7 +97,7 @@ export default function App() {
             </a>
             , represented as colorful eyes (✦ ‿ ✦)
             <br />
-            You can hover each pair of 👀 to learn more!
+            You can hover each pair to learn more!
           </p>
         </div>
         <div className="tagsContainer">
