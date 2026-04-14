@@ -4,7 +4,7 @@ import genreColor from '../data/genreColor'
 import stretcher from '../data/stretcher'
 import eyeContour from '../data/contours'
 import eyeSclera from '../data/sclera'
-import './Eye.css'
+import "../styles/Eye.css";
 
 const genresArray = Object.keys(genreColor[0])
 const colorsArray = Object.values(genreColor[0])

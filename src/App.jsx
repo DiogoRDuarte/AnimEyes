@@ -4,7 +4,7 @@ import Table from './components/Table'
 import { fetchTopAnime } from './data/fetchAnime'
 import { YEAR_TAGS } from './constants'
 import { arabicToKanji } from './helpers'
-import './App.css'
+import './styles/App.css'
 
 function AnimeCard({ anime, index }) {
   const [isRotated, setIsRotated] = useState(false)

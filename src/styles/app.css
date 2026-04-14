@@ -135,6 +135,11 @@ a.no-underline {
   gap: 10px;
   flex-wrap: wrap;
   padding-bottom: 1.5rem;
+  padding-top: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #031121;
 }
 
 .tag {
