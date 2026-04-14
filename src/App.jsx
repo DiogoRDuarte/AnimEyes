@@ -1,30 +1,10 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import Eye from './components/Eye'
 import Table from './components/Table'
-import data from './data/top_anime'
+import { fetchTopAnime } from './data/fetchAnime'
+import { YEAR_TAGS } from './constants'
+import { arabicToKanji } from './helpers'
 import './App.css'
-
-function arabicToKanji(number) {
-  const kanjiNumerals = ["一","二","三","四","五","六","七","八","九"]
-  const tenKanji = "十"
-  const hundredKanji = "百"
-  const arabicDigits = number.toString().split("")
-
-  if (arabicDigits.length === 1) {
-    return kanjiNumerals[parseInt(arabicDigits[0]) - 1]
-  } else if (arabicDigits.length === 2) {
-    const firstDigit = parseInt(arabicDigits[0])
-    const secondDigit = parseInt(arabicDigits[1])
-    const kanjiRepresentation = []
-    if (firstDigit > 1) kanjiRepresentation.push(kanjiNumerals[firstDigit - 1])
-    kanjiRepresentation.push(tenKanji)
-    if (secondDigit > 0) kanjiRepresentation.push(kanjiNumerals[secondDigit - 1])
-    return kanjiRepresentation.join("")
-  } else if (arabicDigits.length === 3 && parseInt(number) === 100) {
-    return hundredKanji
-  }
-  return "Unsupported"
-}
 
 function AnimeCard({ anime, index }) {
   const [isRotated, setIsRotated] = useState(false)
@@ -66,7 +46,7 @@ function AnimeCard({ anime, index }) {
       )}
       <div className="name-container">
         <a
-          href={`https://myanimelist.net/anime/${anime.uid}`}
+          href={`https://anilist.co/anime/${anime.uid}`}
           target="_blank"
           rel="noreferrer"
           className="no-underline"
@@ -83,42 +63,69 @@ function AnimeCard({ anime, index }) {
 }
 
 export default function App() {
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [activeTag, setActiveTag] = useState(null)
+
+  useEffect(() => {
+    setLoading(true)
+    fetchTopAnime(activeTag)
+      .then(setData)
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [activeTag])
+
+  
+
   return (
     <main>
       <div id="projectContainer">
-        <h1 id="appTitle">✦ AniMeYeS ✦</h1>
+        <h1 id="appTitle">✦ Animeyes ✦</h1>
         <div className="introductionContainer">
           <p className="introduction">
             <b>What do the eyes from your favorite anime look like?</b>
             <br />
-            These are the ranked top 100 anime from <b>2023</b>, taken from{' '}
-            <a href="https://myanimelist.net/" target="_blank" rel="noreferrer">
-              MyAnimeList
+            These are the current top 100 anime, fetched live from{' '}
+            <a href="https://anilist.co/" target="_blank" rel="noreferrer">
+              AniList
             </a>
             , represented as colorful eyes (✦ ‿ ✦)
             <br />
-            You can hover (or keyboard focus) each one to learn more!
+            You can hover each pair of 👀 to learn more!
           </p>
         </div>
-        <div className="visualizationContainer">
-          {data.map((anime, index) => (
-            <AnimeCard key={anime.uid} anime={anime} index={index} />
+        <div className="tagsContainer">
+          {YEAR_TAGS.map((tag) => (
+            <button
+              key={tag.label}
+              className={`tag ${activeTag === tag.value ? 'tagActive' : ''}`}
+              onClick={() => setActiveTag(tag.value)}
+            >
+              {tag.label}
+            </button>
           ))}
         </div>
+        {loading ? (
+          <p className="introduction">Loading...</p>
+        ) : (
+          <div className="visualizationContainer">
+            {data.map((anime, index) => (
+              <AnimeCard key={anime.uid} anime={anime} index={index} />
+            ))}
+          </div>
+        )}
         <footer>
           <div className="footerDiv">
             <p>
-              The dataset used in this project was taken from{' '}
+              Data fetched live from the{' '}
               <a
-                href="https://www.kaggle.com/datasets/arnavvvvv/anime-dataset"
+                href="https://anilist.co/"
                 target="_blank"
                 rel="noreferrer"
               >
-                kaggle
+                AniList
               </a>{' '}
-              at the beginning of 2024. The 👀 are ordered based on their
-              "rank", which is calculated through a weight formula from
-              MyAnimeList.
+              API.
             </p>
           </div>
         </footer>
