@@ -1,0 +1,88 @@
+.legend {
+  position: sticky;
+  top: 60px;
+  align-self: start;
+  color: #c5d1eb;
+  font-family: "DMSans";
+  padding: 1rem;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.legendTitle {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.legendSection {
+  margin-bottom: 1.2rem;
+}
+
+.legendSubtitle {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.genreGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.genreBadge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.genreLabel {
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.pupilList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.pupilItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pupilDot {
+  display: inline-block;
+  background: #c5d1eb;
+  flex-shrink: 0;
+}
+
+.pupilDot.large { width: 14px; height: 14px; border-radius: 50%; }
+.pupilDot.medium-large { width: 12px; height: 12px; border-radius: 50%; }
+.pupilDot.medium { width: 10px; height: 10px; border-radius: 50%; }
+.pupilDot.small { width: 8px; height: 8px; border-radius: 50%; }
+.pupilDot.tiny { width: 6px; height: 6px; border-radius: 50%; }
+
+.pupilDot.circle { width: 12px; height: 12px; border-radius: 50%; }
+.pupilDot.ellipse { width: 6px; height: 12px; border-radius: 50%; }
+
+.contourList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+
+.contourItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s ease;
+}

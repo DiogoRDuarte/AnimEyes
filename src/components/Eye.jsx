@@ -1,18 +1,21 @@
 import React, { useId } from 'react'
 import * as d3 from 'd3'
-import genreColor from '../data/genreColor'
-import stretcher from '../data/stretcher'
+import { getGenreColor } from '../data/genreColor'
 import eyeContour from '../data/contours'
 import eyeSclera from '../data/sclera'
 import "../styles/Eye.css";
+import starSvg from '../assets/star.svg';
+import kawaiiLinesFall from '../assets/KawaiiLines-Fall.svg';
+import kawaiiLinesSpring from '../assets/KawaiiLines-Spring.svg';
+import kawaiiLinesSummer from '../assets/KawaiiLines-Summer.svg';
+import kawaiiLinesWinter from '../assets/KawaiiLines-Winter.svg';
 
-const genresArray = Object.keys(genreColor[0])
-const colorsArray = Object.values(genreColor[0])
-const ratingArray = Object.keys(stretcher[0])
-const stretchesArray = Object.values(stretcher[0])
-
-const correspondingColor = d3.scaleOrdinal().domain(genresArray).range(colorsArray)
-const correspondingStretch = d3.scaleOrdinal().domain(ratingArray).range(stretchesArray)
+const kawaiiLinesBySeason = {
+  Fall: kawaiiLinesFall,
+  Spring: kawaiiLinesSpring,
+  Summer: kawaiiLinesSummer,
+  Winter: kawaiiLinesWinter,
+};
 
 const contourSeasonsArray = Object.keys(eyeContour[0])
 const contourPathsArray = Object.values(eyeContour[0])
@@ -61,43 +64,51 @@ export default function Eye({ anime }) {
   const blurIrisId = `blurIris-${id}`
   const blurPupilId = `blurPupil-${id}`
 
+  const isOngoing = anime.status === 'RELEASING'
+  const isRRated = anime.rating === 'R - 17+ (violence & profanity)' || anime.rating === 'R+ - Mild Nudity'
+
   return (
-    <svg className={`svg-container svg-container-${season}`}>
-      <defs>
-        <filter id={blurIrisId}>
-          <feGaussianBlur stdDeviation="3" in="SourceGraphic" result="BLUR" />
-        </filter>
-        <filter id={blurPupilId}>
-          <feGaussianBlur stdDeviation="0.7" in="SourceGraphic" result="BLUR" />
-        </filter>
-      </defs>
-      <InnerHTML html={correspondingSclera(season)} className={season} />
-      <g className="irisANDpupil" transform="translate(-10, -2)">
-        <circle className="iris" cx="100" cy="50" r="32" />
-        {animeGenres.map((genre, i) => (
-          <g key={i} transform={`rotate(${correspondingRotation(animeGenres, genre)}, 100, 50)`}>
-            <circle
-              className="irisColor"
-              cx="100"
-              cy="40"
-              r="15"
-              fill={correspondingColor(genre)}
-              fillOpacity="0.7"
-              filter={`url(#${blurIrisId})`}
-            />
-          </g>
-        ))}
-        <ellipse
-          className="pupil"
-          cx="100"
-          cy="50"
-          rx={correspondingStretch(anime.rating) * 20 * getPupilSize(anime.episodes)}
-          ry={20 * getPupilSize(anime.episodes)}
-          fillOpacity="1"
-          filter={`url(#${blurPupilId})`}
-        />
-      </g>
-      <InnerHTML html={correspondingContour(season)} />
-    </svg>
+    <div className="eyeWrapper">
+      <svg className={`svg-container svg-container-${season}`}>
+        <defs>
+          <filter id={blurIrisId}>
+            <feGaussianBlur stdDeviation="3" in="SourceGraphic" result="BLUR" />
+          </filter>
+        </defs>
+        <InnerHTML html={correspondingSclera(season)} className={season} />
+        <g className="irisANDpupil" transform="translate(-10, -2)">
+          <circle className="iris" cx="100" cy="50" r="32" />
+          {animeGenres.map((genre, i) => (
+            <g key={i} transform={`rotate(${correspondingRotation(animeGenres, genre)}, 100, 50)`}>
+              <circle
+                className="irisColor"
+                cx="100"
+                cy="40"
+                r="15"
+                fill={getGenreColor(genre)}
+                fillOpacity="0.7"
+                filter={`url(#${blurIrisId})`}
+              />
+            </g>
+          ))}
+          <ellipse
+            className="pupil"
+            cx="100"
+            cy="50"
+            rx={20 * getPupilSize(anime.episodes)}
+            ry={20 * getPupilSize(anime.episodes)}
+            fillOpacity="1"
+            filter={`url(#${blurPupilId})`}
+          />
+        </g>
+        <InnerHTML html={correspondingContour(season)} />
+      </svg>
+      {isOngoing && (
+        <img className={`finishedSparkle finishedSparkle-${season}`} src={starSvg} alt="Ongoing" />
+      )}
+      {isRRated && (
+        <img className={`kawaiiLines kawaiiLines-${season}`} src={kawaiiLinesBySeason[season]} alt="" />
+      )}
+    </div>
   )
 }

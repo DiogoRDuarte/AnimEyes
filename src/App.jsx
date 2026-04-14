@@ -1,26 +1,30 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react'
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import Eye from './components/Eye'
 import Table from './components/Table'
 import { fetchTopAnime } from './data/fetchAnime'
+import { buildGenreColorMap } from './data/genreColor'
 import { YEAR_TAGS } from './constants'
 import { arabicToKanji } from './helpers'
+import Legend from './components/Legend'
 import './styles/App.css'
 
-function AnimeCard({ anime, index }) {
+function AnimeCard({ anime, index, onHover }) {
   const [isHovered, setIsHovered] = useState(false)
   const [showTable, setShowTable] = useState(false)
   const timerRef = useRef(null)
 
   const handleEnter = useCallback(() => {
     setIsHovered(true)
+    onHover(anime)
     timerRef.current = setTimeout(() => setShowTable(true), 300)
-  }, [])
+  }, [anime, onHover])
 
   const handleLeave = useCallback(() => {
     clearTimeout(timerRef.current)
     setIsHovered(false)
     setShowTable(false)
-  }, [])
+    onHover(null)
+  }, [onHover])
 
   return (
     <div
@@ -33,6 +37,7 @@ function AnimeCard({ anime, index }) {
     >
       <div className="tableWrapper" style={{ opacity: showTable ? 1 : 0 }}>
         <Table anime={anime} />
+        <img className="tableImage" src={anime.img_url} alt={anime.title} />
       </div>
       <div
         className="eyesContainer"
@@ -50,7 +55,7 @@ function AnimeCard({ anime, index }) {
       <p className="kanji" style={{ opacity: isHovered ? 0 : 1 }}>
         {arabicToKanji(index + 1)}
       </p>
-      <div className="name-container">
+      <div className="name-container" style={{ opacity: isHovered ? 0 : 1 }}>
         <a
           href={`https://anilist.co/anime/${anime.uid}`}
           target="_blank"
@@ -72,6 +77,11 @@ export default function App() {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [activeTag, setActiveTag] = useState(null)
+  const [hoveredAnime, setHoveredAnime] = useState(null)
+
+  const handleCardHover = useCallback((anime) => {
+    setHoveredAnime(anime)
+  }, [])
 
   useEffect(() => {
     setLoading(true)
@@ -81,7 +91,13 @@ export default function App() {
       .finally(() => setLoading(false))
   }, [activeTag])
 
-  
+  const activeGenres = useMemo(() => {
+    const set = new Set()
+    data.forEach((a) => a.genre.split(', ').forEach((g) => set.add(g)))
+    const sorted = [...set].sort()
+    buildGenreColorMap(sorted)
+    return sorted
+  }, [data])
 
   return (
     <main>
@@ -114,10 +130,13 @@ export default function App() {
         {loading ? (
           <p className="introduction">Loading...</p>
         ) : (
-          <div className="visualizationContainer">
-            {data.map((anime, index) => (
-              <AnimeCard key={anime.uid} anime={anime} index={index} />
-            ))}
+          <div className="mainLayout">
+            <div className="visualizationContainer">
+              {data.map((anime, index) => (
+                <AnimeCard key={anime.uid} anime={anime} index={index} onHover={handleCardHover} />
+              ))}
+            </div>
+            <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
           </div>
         )}
         <footer>

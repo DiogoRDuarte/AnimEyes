@@ -5,7 +5,7 @@ query {
   Page(page: ${page}, perPage: 50) {
     media(sort: SCORE_DESC, type: ANIME, isAdult: false, format: TV${yearFilter}) {
       id
-      title { romaji }
+      title { romaji english }
       genres
       seasonYear
       season
@@ -17,6 +17,7 @@ query {
       siteUrl
       startDate { year month day }
       endDate { year month day }
+      status
     }
   }
 }
@@ -63,12 +64,12 @@ function guessRating(genres) {
 
 function mapMedia(media, rankOffset) {
   return media.map((m, i) => {
-    const aired = `${formatDate(m.startDate)} to ${formatDate(m.endDate)}`;
+    const aired = formatDate(m.startDate);
     const premiered = formatSeason(m.season, m.seasonYear);
     const genreStr = m.genres.length ? m.genres.join(', ') : 'Unknown';
     return {
       uid: m.id,
-      title: m.title.romaji,
+      title: m.title.english || m.title.romaji,
       genre: genreStr,
       aired,
       episodes: m.episodes || 0,
@@ -80,6 +81,7 @@ function mapMedia(media, rankOffset) {
       link: m.siteUrl,
       premiered,
       rating: guessRating(m.genres),
+      status: m.status,
     };
   });
 }

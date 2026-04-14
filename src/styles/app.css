@@ -102,7 +102,7 @@ a.no-underline {
   margin-right: auto;
   font-size: 1rem;
   width: 100%;
-  font-weight: bolder;
+  font-weight: 800;
   color: #c5d1eb;
   transition: opacity 0.3s ease;
 }
@@ -172,8 +172,62 @@ a.no-underline {
 
 .tableWrapper {
   transition: opacity 0.4s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 15px;
+  justify-content: space-between;
+}
+
+.tableWrapper .informationTable {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  width: auto;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tableWrapper .informationTable table {
+  width: 100%;
+}
+
+.tableImage {
+  flex: 0 0 80px;
+  object-fit: cover;
+  height: 100%;
 }
 
 a.no-underline:hover .animeName {
   text-decoration: underline;
+}
+
+.mainLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 960px) {
+  .mainLayout {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+@media (max-width: 959px) {
+  .legend {
+    display: none;
+  }
+}
+
+.name-container {
+  transition: opacity 0.3s ease;
 }

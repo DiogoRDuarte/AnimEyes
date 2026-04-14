@@ -18,11 +18,11 @@
 }
 
 .Winter {
-  transform: translate(1.3rem, 0.6rem);
+  transform: translate(1rem, 0.7rem);
 }
 
 .Spring {
-  transform: translate(0.9rem, 0.6rem);
+  transform: translate(0.9rem, 0.65rem);
 }
 
 .Fall {
@@ -30,5 +30,69 @@
 }
 
 .Summer {
-  transform: translate(0.6rem, 0.6rem);
+  transform: translate(0.55rem, 0.5rem);
+}
+
+.eyeWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.finishedSparkle {
+  position: absolute;
+  pointer-events: none;
+}
+
+.finishedSparkle-Winter {
+  top: 30px;
+  right: 90px;
+}
+
+.finishedSparkle-Spring {
+  top: 30px;
+  right: 90px;
+}
+
+.finishedSparkle-Fall {
+  top: 20px;
+  right: 70px;
+}
+
+.finishedSparkle-Summer {
+  top: 30px;
+  left: 70px;
+}
+
+.kawaiiLines {
+  position: absolute;
+  pointer-events: none;
+  width: 51px;
+}
+
+.kawaiiLines-Winter {
+  bottom: -10px;
+  left: 35%;
+  transform: translateX(-50%);
+}
+
+.kawaiiLines-Spring {
+  bottom: -20px;
+  left: 35%;
+  transform: translateX(-50%);
+}
+
+.kawaiiLines-Fall {
+  bottom: -10px;
+  left: 40%;
+  transform: translateX(-50%);
+}
+
+.kawaiiLines-Summer {
+  bottom: -10px;
+  left: 35%;
+  transform: translateX(-50%);
+}
+
+.rightEyeContainer .kawaiiLines {
+  transform: translateX(-50%) scaleX(-1);
 }
