@@ -57,7 +57,7 @@ function InnerHTML({ html, className }) {
   return <g ref={ref} className={className} />
 }
 
-export default function Eye({ anime }) {
+export default function Eye({ anime, side }) {
   const animeGenres = anime.genre.split(', ')
   const season = anime.premiered.split(' ')[0]
   const id = useId()
@@ -75,19 +75,22 @@ export default function Eye({ anime }) {
           <filter id={blurIrisId}>
             <feGaussianBlur stdDeviation="3" in="SourceGraphic" result="BLUR" />
           </filter>
-          <filter id={blurPupilId}>
+          {/*<filter id={blurPupilId}>
             <feGaussianBlur stdDeviation="0.7" in="SourceGraphic" />
-          </filter>
+          </filter> */}
           <clipPath id={clipIrisId}>
             <circle cx="100" cy="50" r="20" />
           </clipPath>
         </defs>
         <InnerHTML html={correspondingSclera(season)} className={season} />
         <g className="irisANDpupil" transform="translate(-10, -2)">
-          <circle className="iris" cx="100" cy="50" r="32" />
+          <circle className="iris" cx="95" cy="50" r="32" />
           <g clipPath={`url(#${clipIrisId})`}>
             {animeGenres.map((genre, i) => (
-              <g key={i} transform={`rotate(${correspondingRotation(animeGenres, genre)}, 100, 50)`}>
+              <g
+                key={i}
+                transform={`rotate(${correspondingRotation(animeGenres, genre)}, 100, 50)`}
+              >
                 <circle
                   className="irisColor"
                   cx="100"
@@ -106,18 +109,57 @@ export default function Eye({ anime }) {
             cy="50"
             rx={15 * getPupilSize(anime.episodes)}
             ry={15 * getPupilSize(anime.episodes)}
-            fillOpacity="1"
+            fill="black"
+            fillOpacity="0.75"
             filter={`url(#${blurPupilId})`}
           />
+          {side == "left" ? (
+            <>
+              <ellipse
+                className="highlight"
+                cx="90"
+                cy="10"
+                rx={7.5}
+                ry={10}
+                transform="rotate(20, 0, 0)"
+                fill="white"
+                fillOpacity="1"
+              />
+            </>
+          ) : (
+            <>
+              <ellipse
+                className="highlight"
+                cx="93"
+                cy="78"
+                rx={7.5}
+                ry={10}
+                transform="rotate(-20, 0, 0)"
+                fill="white"
+                fillOpacity="1"
+              />
+            </>
+          )}
         </g>
         <InnerHTML html={correspondingContour(season)} />
+        {isOngoing && (
+          <image
+            className="finishedSparkle"
+            href={starSvg}
+            x={90 - 12}
+            y={48 - 12}
+            width="24"
+            height="24"
+          />
+        )}
       </svg>
-      {isOngoing && (
-        <img className={`finishedSparkle finishedSparkle-${season}`} src={starSvg} alt="Ongoing" />
-      )}
       {isRRated && (
-        <img className={`kawaiiLines kawaiiLines-${season}`} src={kawaiiLinesBySeason[season]} alt="" />
+        <img
+          className={`kawaiiLines kawaiiLines-${season}`}
+          src={kawaiiLinesBySeason[season]}
+          alt=""
+        />
       )}
     </div>
-  )
+  );
 }

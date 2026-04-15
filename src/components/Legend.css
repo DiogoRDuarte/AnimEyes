@@ -1,11 +1,10 @@
 .legend {
   position: sticky;
-  top: 60px;
-  align-self: start;
+  bottom: 0;
+  align-self: end;
   color: #c5d1eb;
   font-family: "DMSans";
   padding: 1rem;
-  max-height: calc(100vh - 80px);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -85,4 +84,34 @@
   align-items: center;
   gap: 8px;
   transition: opacity 0.2s ease;
+}
+
+.legendEyePreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.legendEyePair {
+  display: flex;
+  flex-direction: row;
+  transform-origin: center bottom;
+  animation: legendBlink 0.5s ease;
+}
+
+@keyframes legendBlink {
+  0% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+.legendEyeRight {
+  transform: scaleX(-1);
+}
+
+.legendEyeName {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #c5d1eb;
+  text-align: center;
 }

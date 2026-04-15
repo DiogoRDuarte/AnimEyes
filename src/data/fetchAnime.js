@@ -18,6 +18,7 @@ query {
       startDate { year month day }
       endDate { year month day }
       status
+      nextAiringEpisode { episode }
     }
   }
 }
@@ -72,7 +73,7 @@ function mapMedia(media, rankOffset) {
       title: m.title.english || m.title.romaji,
       genre: genreStr,
       aired,
-      episodes: m.episodes || 0,
+      episodes: m.episodes || (m.nextAiringEpisode ? m.nextAiringEpisode.episode - 1 : 0),
       members: m.popularity || 0,
       popularity: m.popularity || 0,
       ranked: rankOffset + i + 1,
@@ -104,5 +105,8 @@ export async function fetchTopAnime(year) {
   const page1 = mapMedia(data1.data.Page.media, 0);
   const page2 = mapMedia(data2.data.Page.media, 50);
 
-  return [...page1, ...page2];
+  const all = [...page1, ...page2];
+  const zeroEp = all.filter(a => a.episodes === 0);
+  if (zeroEp.length) console.log('Anime with 0 episodes:', zeroEp.map(a => a.title));
+  return all;
 }

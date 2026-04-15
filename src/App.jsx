@@ -37,7 +37,10 @@ function AnimeCard({ anime, index, onHover }) {
     >
       <div className="tableWrapper" style={{ opacity: showTable ? 1 : 0 }}>
         <Table anime={anime} />
-        <img className="tableImage" src={anime.img_url} alt={anime.title} />
+        <a className="tableImageLink" href={`https://anilist.co/anime/${anime.uid}`} target="_blank" rel="noreferrer">
+          <img className="tableImage" src={anime.img_url} alt={anime.title} />
+          <span className="tableImageOverlay">AniList</span>
+        </a>
       </div>
       <div
         className="eyesContainer"
@@ -46,24 +49,17 @@ function AnimeCard({ anime, index, onHover }) {
         }}
       >
         <div className="leftEyeContainer">
-          <Eye anime={anime} />
+          <Eye anime={anime} side={"left"}/>
         </div>
         <div className="rightEyeContainer">
-          <Eye anime={anime} />
+          <Eye anime={anime} side={"right"}/>
         </div>
       </div>
       <p className="kanji" style={{ opacity: isHovered ? 0 : 1 }}>
         {arabicToKanji(index + 1)}
       </p>
       <div className="name-container" style={{ opacity: isHovered ? 0 : 1 }}>
-        <a
-          href={`https://anilist.co/anime/${anime.uid}`}
-          target="_blank"
-          rel="noreferrer"
-          className="no-underline"
-        >
-          <p className="animeName">{anime.title}</p>
-        </a>
+        <p className="animeName">{anime.title}</p>
       </div>
       <div
         className="background"

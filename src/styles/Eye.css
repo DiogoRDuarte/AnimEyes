@@ -39,28 +39,7 @@
 }
 
 .finishedSparkle {
-  position: absolute;
   pointer-events: none;
-}
-
-.finishedSparkle-Winter {
-  top: 30px;
-  right: 90px;
-}
-
-.finishedSparkle-Spring {
-  top: 30px;
-  right: 90px;
-}
-
-.finishedSparkle-Fall {
-  top: 20px;
-  right: 70px;
-}
-
-.finishedSparkle-Summer {
-  top: 30px;
-  left: 70px;
 }
 
 .kawaiiLines {
