@@ -17,6 +17,7 @@
     "vite": "^4.4.0"
   },
   "dependencies": {
+    "@paper-design/shaders-react": "^0.0.76",
     "d3": "^7.8.5",
     "framer-motion": "^10.16.4",
     "react": "^18.2.0",

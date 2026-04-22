@@ -6,6 +6,7 @@ import { buildGenreColorMap } from './data/genreColor'
 import { YEAR_TAGS } from './constants'
 import { arabicToKanji } from './helpers'
 import Legend from './components/Legend'
+import { PulsingBorder } from '@paper-design/shaders-react'
 import './styles/App.css'
 
 function AnimeCard({ anime, index, onHover }) {
@@ -97,60 +98,90 @@ export default function App() {
 
   return (
     <main>
+      <PulsingBorder
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          zIndex: -1,
+        }}
+        colors={["#4c4794", "#774a7d"]}
+        colorBack="#0c182c"
+        roundness={0}
+        thickness={1}
+        softness={1}
+        aspectRatio="auto"
+        intensity={0.1}
+        bloom={0.2}
+        spots={4}
+        spotSize={0.25}
+        pulse={0}
+        smoke={0.32}
+        smokeSize={0.5}
+        speed={0.35}
+        scale={1.1}
+        marginLeft={0}
+        marginRight={0}
+        marginTop={0}
+        marginBottom={0}
+      />
       <div id="projectContainer">
-        <h1 id="appTitle">✦ Animeyes ✦</h1>
-        <div className="introductionContainer">
-          <p className="introduction">
-            <b>What do the eyes from your favorite anime look like?</b>
-            <br />
-            These are the current top 100 anime, fetched live from{' '}
-            <a href="https://anilist.co/" target="_blank" rel="noreferrer">
-              AniList
-            </a>
-            , represented as colorful eyes (✦ ‿ ✦)
-            <br />
-            You can hover each pair to learn more!
-          </p>
-        </div>
-        <div className="tagsContainer">
-          {YEAR_TAGS.map((tag) => (
-            <button
-              key={tag.label}
-              className={`tag ${activeTag === tag.value ? 'tagActive' : ''}`}
-              onClick={() => setActiveTag(tag.value)}
-            >
-              {tag.label}
-            </button>
-          ))}
-        </div>
-        {loading ? (
+        {/* {loading ? (
           <p className="introduction">Loading...</p>
-        ) : (
-          <div className="mainLayout">
-            <div className="visualizationContainer">
-              {data.map((anime, index) => (
-                <AnimeCard key={anime.uid} anime={anime} index={index} onHover={handleCardHover} />
-              ))}
+        ) : ( */}
+        <div className="mainLayout">
+          <div className="visualizationContainer">
+            <h1 id="appTitle">✦ Animeyes ✦</h1>
+            <div className="introductionContainer">
+              <p className="introduction">
+                <b>What do the eyes from your favorite anime look like?</b>
+                <br />
+                These are the current top 100 anime, fetched live from{" "}
+                <a href="https://anilist.co/" target="_blank" rel="noreferrer">
+                  AniList
+                </a>
+                , represented as colorful eyes (✦ ‿ ✦)
+              </p>
             </div>
-            <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
+            <div className="filtersContainer">
+              <div className="tagsContainer">
+                {YEAR_TAGS.map((tag) => (
+                  <button
+                    key={tag.label}
+                    className={`tag ${activeTag === tag.value ? "tagActive" : ""}`}
+                    onClick={() => setActiveTag(tag.value)}
+                  >
+                    {tag.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {data.map((anime, index) => (
+              <AnimeCard
+                key={anime.uid}
+                anime={anime}
+                index={index}
+                onHover={handleCardHover}
+              />
+            ))}
           </div>
-        )}
+          <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
+        </div>
+        {/* )} */}
         <footer>
           <div className="footerDiv">
             <p>
-              Data fetched live from the{' '}
-              <a
-                href="https://anilist.co/"
-                target="_blank"
-                rel="noreferrer"
-              >
+              Data fetched live from the{" "}
+              <a href="https://anilist.co/" target="_blank" rel="noreferrer">
                 AniList
-              </a>{' '}
+              </a>{" "}
               API.
             </p>
           </div>
         </footer>
       </div>
     </main>
-  )
+  );
 }

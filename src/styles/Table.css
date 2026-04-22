@@ -33,7 +33,7 @@
 .informationTable .left {
   text-align: left;
   border-radius: 10px 0 0 10px;
-  font-weight: bolder;
+  /* font-weight: bolder; */
   padding-left: 0.5rem;
 }
 

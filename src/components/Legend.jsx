@@ -63,22 +63,25 @@ export default function Legend({ activeGenres, hoveredAnime }) {
     transition: 'opacity 0.2s ease',
   })
   return (
-    <aside className="legend">
-      {hoveredAnime && (
-        <div className="legendEyePreview">
-          <div className="legendEyePair">
-            <Eye anime={hoveredAnime} />
-            <div className="legendEyeRight">
-              <Eye anime={hoveredAnime} />
+    <aside className="legendContainer">
+      <div className="legendTopSection">
+        {hoveredAnime ? (
+          <>
+            <p className="legendEyeName">{hoveredAnime.title}</p>
+            <div className="legendEyePair">
+              <Eye anime={hoveredAnime} side={"left"} />
+              <div className="legendEyeRight">
+                <Eye anime={hoveredAnime} side={"right"} />
+              </div>
             </div>
-          </div>
-          <p className="legendEyeName">{hoveredAnime.title}</p>
-        </div>
-      )}
-
-      {/* <h3 className="legendTitle">Legend</h3> */}
-
-      <div className="legendSection">
+          </>
+        ) : (
+          <p className="legendTipPreview">
+            (Hover a pair of 👀 for more information!)
+          </p>
+        )}
+      </div>
+      <div className="legendBottomSection">
         <h4 className="legendSubtitle">Iris Color (Genre):</h4>
         <div className="genreGrid">
           {genres.map(([name, color]) => (
@@ -97,37 +100,49 @@ export default function Legend({ activeGenres, hoveredAnime }) {
         </div>
       </div>
 
-      <div className="legendSection">
+      <div className="legendBottomSection">
         <h4 className="legendSubtitle">Pupil Size (Episodes):</h4>
         <div className="pupilList">
           {pupilSizes.map((p) => (
-            <div key={p.label} className="pupilItem" style={dimStyle(hoveredEpBucket === p.label)}>
-              <span className={`pupilDot ${p.size}`}/>
+            <div
+              key={p.label}
+              className="pupilItem"
+              style={dimStyle(hoveredEpBucket === p.label)}
+            >
+              <span className={`pupilDot ${p.size}`} />
               <span className="genreLabel">{p.label}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="legendSection">
+      <div className="legendBottomSection">
         <h4 className="legendSubtitle">Details:</h4>
         <div className="pupilList">
           <div className="pupilItem" style={dimStyle(hoveredIsR)}>
-            <img src={kawaiiLinesSvg} alt="" style={{ width: 30, height: 'auto' }} />
+            <img
+              src={kawaiiLinesSvg}
+              alt=""
+              style={{ width: 30, height: "auto" }}
+            />
             <span className="genreLabel">R / R+</span>
           </div>
           <div className="pupilItem" style={dimStyle(hoveredIsOngoing)}>
-            <img src={starSvg} alt="" style={{ width: 20, height: 'auto' }} />
+            <img src={starSvg} alt="" style={{ width: 20, height: "auto" }} />
             <span className="genreLabel">Releasing</span>
           </div>
         </div>
       </div>
 
-      <div className="legendSection">
+      <div className="legendBottomSection">
         <h4 className="legendSubtitle">Eye Shape (Season):</h4>
         <div className="contourList">
           {contourSvgs.map(([season, svg]) => (
-            <div key={season} className="contourItem" style={dimStyle(hoveredSeason === season)}>
+            <div
+              key={season}
+              className="contourItem"
+              style={dimStyle(hoveredSeason === season)}
+            >
               <ContourThumb html={svg} />
               <span className="genreLabel">{season}</span>
             </div>
@@ -135,5 +150,5 @@ export default function Legend({ activeGenres, hoveredAnime }) {
         </div>
       </div>
     </aside>
-  )
+  );
 }
