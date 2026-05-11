@@ -6,28 +6,35 @@
   width: 95%;
   padding-left: 2.5%;
   padding-right: 2.5%;
+  align-self: baseline !important;
 }
 
 .informationTable table {
   width: 50%;
   font-weight: bold;
   font-size: 0.55rem;
-  border-collapse: separate;
-  border-spacing: 0 5px;
+  border-collapse: collapse;
+  border-spacing: 0;
   font-family: "DMSans";
+  background-color: #031121;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .informationTable td {
-  height: 1.75rem;
+  height: 1.25rem;
   max-width: 40px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #d9d9d9;
   border: none;
+  border-bottom: 1px dotted rgba(197, 209, 235, 0.3);
   font-size: 0.75rem;
-  background-color: #031121;
   color: #c5d1eb;
+}
+
+.informationTable tr:last-child td {
+  border-bottom: none;
 }
 
 .informationTable .left {

@@ -12,6 +12,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #031121;
+  overflow-x: hidden;
 }
 
 a.no-underline {
@@ -23,7 +24,7 @@ a.no-underline {
   padding-top: 1.5rem;
   text-align: center;
   font-family: "Yamagachi2050Italic";
-  font-size: xxx-large;
+  font-size: 4rem;
   color: #c5d1eb;
   font-weight: 300;
 }
@@ -31,8 +32,18 @@ a.no-underline {
 .visualizationContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 1rem;
   justify-content: center;
+  flex-direction: column;
+}
+
+.animeContainerGrid{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  max-width: 80vw;
+  margin: 0 auto;
 }
 
 .animeContainer {
@@ -44,6 +55,7 @@ a.no-underline {
   box-shadow: 0px 0px 20px #031121;
   position: relative;
   font-family: "DMSans";
+  overflow: hidden;
 }
 
 .background {
@@ -59,26 +71,25 @@ a.no-underline {
   border-radius: 1rem;
 }
 
-.introductionContainer {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
 .introduction {
   line-height: 1.5;
   color: #c5d1eb;
-  /* text-align: center; */
+  text-align: center; 
   font-family: "DMSans";
   font-size: 1rem;
 }
 
 .eyesContainer {
-  margin-top: 1rem;
   display: flex;
   width: fit-content;
   flex-direction: row;
   transform-origin: center bottom;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 0 25px;
+  justify-content: center;
+  align-items: center;
 }
 
 .leftEyeContainer,
@@ -96,7 +107,6 @@ a.no-underline {
 .kanji {
   position: absolute;
   text-align: center;
-  margin-top: -3rem;
   margin-left: auto;
   margin-right: auto;
   font-size: 1rem;
@@ -113,7 +123,8 @@ a.no-underline {
   max-width: 30ch;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 7%;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
   font-size: medium;
   color: #c5d1eb;
   font-weight: 800;
@@ -191,61 +202,55 @@ a.no-underline {
   pointer-events: none;
   overflow: hidden;
   border-radius: 15px;
-  justify-content: space-between;
 }
 
-.tableWrapper .informationTable {
+.tableWrapperLeftSide {
   flex: 1;
   min-width: 0;
-  position: relative;
-  width: auto;
-  padding-left: 2.5%;
-  padding-right: 2.5%;
+  display: flex;
   flex-direction: column;
-  gap: 0;
-  height: 100%;
   justify-content: center;
+  padding: 0.5rem;
 }
 
-.tableWrapper .informationTable table {
+.tableWrapperLeftSide .informationTable {
+  position: relative;
   width: 100%;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.tableWrapperLeftSide .informationTable table {
+  width: 100%;
+}
+
+.tableActions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  pointer-events: auto;
+  margin-top: 0.5rem;
+}
+
+.tableActions .tag {
+  flex: 1;
+  text-align: center;
+}
+
+.tableAnilistLink {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
 }
 
 .tableImage {
   flex: 0 0 80px;
   object-fit: cover;
   height: 100%;
-  transition: opacity 0.2s ease;
-}
-
-.tableImageLink {
-  flex: 0 0 80px;
-  position: relative;
-  pointer-events: auto;
-  cursor: pointer;
-  display: flex;
-}
-
-.tableImageOverlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.tableImageLink:hover .tableImage {
-  opacity: 0.3;
-}
-
-.tableImageLink:hover .tableImageOverlay {
-  opacity: 1;
 }
 
 a.no-underline:hover .animeName {
@@ -257,18 +262,15 @@ a.no-underline:hover .animeName {
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 960px) {
-  .mainLayout {
-    grid-template-columns: 2fr 1fr;
-  }
-}
-
 @media (max-width: 959px) {
   .legendContainer {
-    display: none;
+    width: min(500px, 90vw);
   }
 }
 
 .name-container {
+  position: relative;
+  z-index: 3;
+  padding: 0.5rem 0.5rem 0;
   transition: opacity 0.3s ease;
 }

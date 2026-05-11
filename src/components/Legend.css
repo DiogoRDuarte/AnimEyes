@@ -1,18 +1,81 @@
 .legendContainer {
-  position: sticky;
-  top: 0;
-  align-self: start;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(100% - 2.5rem));
   color: #c5d1eb;
   font-family: "DMSans";
-  padding: 2rem;
+  padding: 0rem 1rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  height: 100vh;
+  max-height: 80vh;
+  width: min(700px, 90vw);
   background-color: #031121;
-    box-shadow: 0px 0px 20px #031121;
+  border: 1px solid rgba(197, 209, 235, 0.15);
+  border-bottom: none;
+  border-radius: 1rem 1rem 0 0;
+  box-shadow:
+    0px -4px 20px rgba(3, 17, 33, 0.8),
+    0 0 15px rgba(197, 209, 235, 0.05);
+  z-index: 100;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
 
+.legendContainer.glowing {
+  border-color: rgba(197, 209, 235, 0.4);
+  box-shadow:
+    0px -4px 20px rgba(3, 17, 33, 0.8),
+    0 0 12px rgba(197, 209, 235, 0.2),
+    0 0 30px rgba(76, 71, 148, 0.3);
+}
+
+.legendContainer.open {
+  transform: translateX(-50%) translateY(0);
+}
+
+.legendDrawerTab {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  cursor: pointer;
+  background-color: #c5d1eb;
+  border-radius: 0.5rem 0.5rem 0 0;
+  margin: 0 -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.legendDrawerLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #031121;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.legendDrawerTab:hover .legendDrawerLabel {
+  opacity: 1;
+}
+
+.legendDrawerIcon {
+  color: #031121;
+  opacity: 0.7;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+  transition: opacity 0.2s;
+}
+
+.legendDrawerTab:hover .legendDrawerIcon {
+  opacity: 1;
 }
 
 .legendTitle {
@@ -20,8 +83,7 @@
   font-size: 1.1rem;
 }
 
-.legendTopSection{
-  height: 100%;
+.legendTopSection {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,10 +91,14 @@
 }
 
 .legendBottomSection {
+  margin-top: 1.2rem;
   margin-bottom: 1.2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.legendTipPreview{
+.legendTipPreview {
   opacity: 50%;
   font-style: italic;
 }
@@ -116,6 +182,8 @@
   flex-direction: row;
   transform-origin: center bottom;
   animation: legendBlink 0.5s ease;
+  scale: 1.8;
+  margin: 2rem 0;
 }
 
 @keyframes legendBlink {

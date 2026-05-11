@@ -2,15 +2,18 @@
   position: relative;
   width: 12rem;
   height: 6.5rem;
-  transform: translate(15px, 15px);
+  margin-top: 15px;
+  transform: translateX(15px);
 }
 
 .svg-container-Fall {
-  transform: translate(35px, 10px);
+  margin-top: 10px;
+  transform: translateX(35px);
 }
 
 .svg-container-Spring {
-  transform: translate(20px, 15px);
+  margin-top: 15px;
+  transform: translateX(20px);
 }
 
 .sclera {
@@ -35,7 +38,10 @@
 
 .eyeWrapper {
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .finishedSparkle {

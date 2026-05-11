@@ -12,11 +12,11 @@ export default function Table({ anime }) {
         <tbody>
           <tr className="row">
             <td className="left alternate">Ranked:</td>
-            <td className="right alternate">{anime.ranked} &nbsp;</td>
+            <td className="right alternate">#{anime.ranked} &nbsp;</td>
           </tr>
           <tr className="row">
             <td className="left">Score:</td>
-            <td className="right">{anime.score} &nbsp;</td>
+            <td className="right">{anime.score} / 10 &nbsp;</td>
           </tr>
           <tr className="row">
             <td className="left">Popularity:</td>

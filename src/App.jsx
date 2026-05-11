@@ -36,38 +36,51 @@ function AnimeCard({ anime, index, onHover }) {
       onFocus={handleEnter}
       onBlur={handleLeave}
     >
-      <div className="tableWrapper" style={{ opacity: showTable ? 1 : 0 }}>
-        <Table anime={anime} />
-        <a className="tableImageLink" href={`https://anilist.co/anime/${anime.uid}`} target="_blank" rel="noreferrer">
-          <img className="tableImage" src={anime.img_url} alt={anime.title} />
-          <span className="tableImageOverlay">AniList</span>
-        </a>
+      <div className="name-container" style={{ opacity: isHovered ? 0 : 1 }}>
+        <p className="animeName">{anime.title}</p>
       </div>
       <div
         className="eyesContainer"
         style={{
-          transform: isHovered ? 'rotateX(90deg)' : 'rotateX(0deg) translateZ(0)',
+          opacity: isHovered ? 0 : 1,
+          transform: isHovered
+            ? "rotateX(90deg)"
+            : "rotateX(0deg) translateZ(0)",
         }}
       >
         <div className="leftEyeContainer">
-          <Eye anime={anime} side={"left"}/>
+          <Eye anime={anime} side={"left"} />
         </div>
+        <p className="kanji" style={{ opacity: isHovered ? 0 : 1 }}>
+          {arabicToKanji(index + 1)}
+        </p>
         <div className="rightEyeContainer">
-          <Eye anime={anime} side={"right"}/>
+          <Eye anime={anime} side={"right"} />
         </div>
       </div>
-      <p className="kanji" style={{ opacity: isHovered ? 0 : 1 }}>
-        {arabicToKanji(index + 1)}
-      </p>
-      <div className="name-container" style={{ opacity: isHovered ? 0 : 1 }}>
-        <p className="animeName">{anime.title}</p>
+      <div className="tableWrapper" style={{ opacity: showTable ? 1 : 0 }}>
+        <div className="tableWrapperLeftSide">
+          <Table anime={anime} />
+          <div className="tableActions">
+            <button className="tag">TODO</button>
+            <a
+              className="tag tableAnilistLink"
+              href={`https://anilist.co/anime/${anime.uid}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              AniList <i className="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+        <img className="tableImage" src={anime.img_url} alt={anime.title} />
       </div>
       <div
         className="background"
         style={{ backgroundImage: `url(${anime.img_url})` }}
       />
     </div>
-  )
+  );
 }
 
 export default function App() {
@@ -134,7 +147,6 @@ export default function App() {
         <div className="mainLayout">
           <div className="visualizationContainer">
             <h1 id="appTitle">✦ Animeyes ✦</h1>
-            <div className="introductionContainer">
               <p className="introduction">
                 <b>What do the eyes from your favorite anime look like?</b>
                 <br />
@@ -144,7 +156,6 @@ export default function App() {
                 </a>
                 , represented as colorful eyes (✦ ‿ ✦)
               </p>
-            </div>
             <div className="filtersContainer">
               <div className="tagsContainer">
                 {YEAR_TAGS.map((tag) => (
@@ -158,14 +169,16 @@ export default function App() {
                 ))}
               </div>
             </div>
-            {data.map((anime, index) => (
-              <AnimeCard
-                key={anime.uid}
-                anime={anime}
-                index={index}
-                onHover={handleCardHover}
-              />
-            ))}
+            <div className='animeContainerGrid'>
+              {data.map((anime, index) => (
+                <AnimeCard
+                  key={anime.uid}
+                  anime={anime}
+                  index={index}
+                  onHover={handleCardHover}
+                />
+              ))}
+            </div>
           </div>
           <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
         </div>
