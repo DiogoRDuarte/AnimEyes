@@ -57,7 +57,7 @@ function InnerHTML({ html, className }) {
   return <g ref={ref} className={className} />
 }
 
-export default function Eye({ anime, side }) {
+export default React.memo(function Eye({ anime, side }) {
   const animeGenres = anime.genre.split(', ')
   const season = anime.premiered.split(' ')[0]
   const id = useId()
@@ -162,4 +162,4 @@ export default function Eye({ anime, side }) {
       )}
     </div>
   );
-}
+})

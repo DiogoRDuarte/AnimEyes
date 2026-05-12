@@ -6,10 +6,9 @@ import { buildGenreColorMap } from './data/genreColor'
 import { YEAR_TAGS } from './constants'
 import { arabicToKanji } from './helpers'
 import Legend from './components/Legend'
-import { PulsingBorder } from '@paper-design/shaders-react'
 import './styles/App.css'
 
-function AnimeCard({ anime, index, onHover }) {
+const AnimeCard = React.memo(function AnimeCard({ anime, index, onHover }) {
   const [isHovered, setIsHovered] = useState(false)
   const [showTable, setShowTable] = useState(false)
   const timerRef = useRef(null)
@@ -39,6 +38,9 @@ function AnimeCard({ anime, index, onHover }) {
       <div className="name-container" style={{ opacity: isHovered ? 0 : 1 }}>
         <p className="animeName">{anime.title}</p>
       </div>
+      <p className="kanji">
+        {arabicToKanji(index + 1)}
+      </p>
       <div
         className="eyesContainer"
         style={{
@@ -51,9 +53,6 @@ function AnimeCard({ anime, index, onHover }) {
         <div className="leftEyeContainer">
           <Eye anime={anime} side={"left"} />
         </div>
-        <p className="kanji" style={{ opacity: isHovered ? 0 : 1 }}>
-          {arabicToKanji(index + 1)}
-        </p>
         <div className="rightEyeContainer">
           <Eye anime={anime} side={"right"} />
         </div>
@@ -81,7 +80,7 @@ function AnimeCard({ anime, index, onHover }) {
       />
     </div>
   );
-}
+})
 
 export default function App() {
   const [data, setData] = useState([])
@@ -111,35 +110,7 @@ export default function App() {
 
   return (
     <main>
-      <PulsingBorder
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          zIndex: -1,
-        }}
-        colors={["#4c4794", "#774a7d"]}
-        colorBack="#0c182c"
-        roundness={0}
-        thickness={1}
-        softness={1}
-        aspectRatio="auto"
-        intensity={0.1}
-        bloom={0.2}
-        spots={4}
-        spotSize={0.25}
-        pulse={0}
-        smoke={0.32}
-        smokeSize={0.5}
-        speed={0.35}
-        scale={1.1}
-        marginLeft={0}
-        marginRight={0}
-        marginTop={0}
-        marginBottom={0}
-      />
+      <div className="animatedBackground" />
       <div id="projectContainer">
         {/* {loading ? (
           <p className="introduction">Loading...</p>
