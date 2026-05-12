@@ -38,7 +38,8 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, onHover }) {
       <div className="name-container" style={{ opacity: isHovered ? 0 : 1 }}>
         <p className="animeName">{anime.title}</p>
       </div>
-      <p className="kanji">
+      <p className="kanjiBackground">{arabicToKanji(index + 1)}</p>
+      <p className="kanji" style={{ opacity: isHovered ? 0 : 1 }}>
         {arabicToKanji(index + 1)}
       </p>
       <div
@@ -112,13 +113,18 @@ export default function App() {
     <main>
       <div className="animatedBackground" />
       <div id="projectContainer">
-        {/* {loading ? (
-          <p className="introduction">Loading...</p>
-        ) : ( */}
         <div className="mainLayout">
+          <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
           <div className="visualizationContainer">
-            <h1 id="appTitle">✦ Animeyes ✦</h1>
-              <p className="introduction">
+            <div className='stickyBackground'></div>
+            <svg id="appTitle" role="heading" aria-level="1" aria-label="Animeyes" viewBox="0 0 700 80" overflow="visible">
+              <text x="350" y="40" dominantBaseline="middle" textAnchor="middle"
+                stroke="#031121" strokeWidth="20" strokeLinejoin="round" strokeLinecap="round"
+                fill="#c5d1eb" paintOrder="stroke fill">
+                ✦ Animeyes ✦
+              </text>
+            </svg>
+            <p className="introduction">
                 <b>What do the eyes from your favorite anime look like?</b>
                 <br />
                 These are the current top 100 anime, fetched live from{" "}
@@ -126,7 +132,7 @@ export default function App() {
                   AniList
                 </a>
                 , represented as colorful eyes (✦ ‿ ✦)
-              </p>
+            </p>
             <div className="filtersContainer">
               <div className="tagsContainer">
                 {YEAR_TAGS.map((tag) => (
@@ -151,17 +157,12 @@ export default function App() {
               ))}
             </div>
           </div>
-          <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
         </div>
         {/* )} */}
         <footer>
           <div className="footerDiv">
             <p>
-              Data fetched live from the{" "}
-              <a href="https://anilist.co/" target="_blank" rel="noreferrer">
-                AniList
-              </a>{" "}
-              API.
+              the end?
             </p>
           </div>
         </footer>

@@ -3,7 +3,6 @@ import { getGenreColor } from '../data/genreColor'
 import eyeContour from '../data/contours'
 import kawaiiLinesSvg from '../assets/KawaiiLines.svg'
 import starSvg from '../assets/star.svg'
-import Eye from './Eye'
 import './Legend.css'
 
 function textColor(hex) {
@@ -32,7 +31,6 @@ function getEpisodeBucket(episodes) {
   return '0 → 24';
 }
 
-const seasons = Object.keys(eyeContour[0])
 const contourSvgs = Object.entries(eyeContour[0])
 
 function ContourThumb({ html, className = '' }) {
@@ -51,7 +49,6 @@ function ContourThumb({ html, className = '' }) {
 }
 
 export default function Legend({ activeGenres, hoveredAnime }) {
-  const [isOpen, setIsOpen] = React.useState(false)
   const genres = activeGenres.map((g) => [g, getGenreColor(g)])
   const hoveredSet = hoveredAnime ? new Set(hoveredAnime.genre.split(', ')) : null
   const hoveredEpBucket = hoveredAnime ? getEpisodeBucket(hoveredAnime.episodes) : null
@@ -64,35 +61,8 @@ export default function Legend({ activeGenres, hoveredAnime }) {
     transition: 'opacity 0.2s ease',
   })
   return (
-    <aside className={`legendContainer ${isOpen ? 'open' : ''} ${hoveredAnime && !isOpen ? 'glowing' : ''}`}>
-      <div
-        className="legendDrawerTab"
-        onClick={() => setIsOpen((prev) => !prev)}
-        role="button"
-        tabIndex={0}
-        aria-label={isOpen ? 'Close legend' : 'Open legend'}
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsOpen((prev) => !prev) }}
-      >
-        <span className="legendDrawerLabel">Legend</span>
-        <i className={`fa-solid ${isOpen ? 'fa-angle-down' : 'fa-angle-up'} legendDrawerIcon`}></i>
-      </div>
-      {/* <div className="legendTopSection">
-        {hoveredAnime ? (
-          <>
-            <p className="legendEyeName">{hoveredAnime.title}</p>
-            <div className="legendEyePair">
-              <Eye anime={hoveredAnime} side={"left"} />
-              <div className="legendEyeRight">
-                <Eye anime={hoveredAnime} side={"right"} />
-              </div>
-            </div>
-          </>
-        ) : (
-          <p className="legendTipPreview">
-            (Hover a pair of 👀 for more information!)
-          </p>
-        )}
-      </div> */}
+    <aside className="legendContainer" aria-label="Legend">
+      {/* <h3 className="legendTitle">Legend</h3> */}
       <div className="legendBottomSection">
         <h4 className="legendSubtitle">Iris Color (Genre):</h4>
         <div className="genreGrid">
