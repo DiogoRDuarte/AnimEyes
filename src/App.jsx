@@ -116,22 +116,38 @@ export default function App() {
         <div className="mainLayout">
           <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
           <div className="visualizationContainer">
-            <div className='stickyBackground'></div>
-            <svg id="appTitle" role="heading" aria-level="1" aria-label="Animeyes" viewBox="0 0 700 80" overflow="visible">
-              <text x="350" y="40" dominantBaseline="middle" textAnchor="middle"
-                stroke="#031121" strokeWidth="20" strokeLinejoin="round" strokeLinecap="round"
-                fill="#c5d1eb" paintOrder="stroke fill">
+            <div className="stickyBackground"></div>
+            <svg
+              id="appTitle"
+              role="heading"
+              aria-level="1"
+              aria-label="Animeyes"
+              viewBox="0 0 700 80"
+              overflow="visible"
+            >
+              <text
+                x="350"
+                y="40"
+                dominantBaseline="middle"
+                textAnchor="middle"
+                stroke="#031121"
+                strokeWidth="20"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                fill="#c5d1eb"
+                paintOrder="stroke fill"
+              >
                 ✦ Animeyes ✦
               </text>
             </svg>
             <p className="introduction">
-                <b>What do the eyes from your favorite anime look like?</b>
-                <br />
-                These are the current top 100 anime, fetched live from{" "}
-                <a href="https://anilist.co/" target="_blank" rel="noreferrer">
-                  AniList
-                </a>
-                , represented as colorful eyes (✦ ‿ ✦)
+              <b>What do the eyes from your favorite anime look like?</b>
+              <br />
+              These are the current top 100 anime, fetched live from{" "}
+              <a href="https://anilist.co/" target="_blank" rel="noreferrer">
+                AniList
+              </a>
+              , represented as colorful eyes (✦ ‿ ✦)
             </p>
             <div className="filtersContainer">
               <div className="tagsContainer">
@@ -146,7 +162,7 @@ export default function App() {
                 ))}
               </div>
             </div>
-            <div className='animeContainerGrid'>
+            <div className="animeContainerGrid">
               {data.map((anime, index) => (
                 <AnimeCard
                   key={anime.uid}
@@ -156,14 +172,31 @@ export default function App() {
                 />
               ))}
             </div>
+            <button
+              className="rightFixedButton rightFixedButtonUp"
+              aria-label="Scroll to top"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              <i className="fa-solid fa-arrow-up"></i>
+            </button>
+            <button
+              className="rightFixedButton rightFixedButtonDown"
+              aria-label="Scroll to bottom"
+              onClick={() =>
+                window.scrollTo({
+                  top: document.body.scrollHeight,
+                  behavior: "smooth",
+                })
+              }
+            >
+              <i className="fa-solid fa-arrow-down"></i>
+            </button>
           </div>
         </div>
         {/* )} */}
         <footer>
           <div className="footerDiv">
-            <p>
-              the end?
-            </p>
+            <p>the end?</p>
           </div>
         </footer>
       </div>
