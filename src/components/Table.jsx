@@ -3,32 +3,32 @@ import "../styles/Table.css";
 
 export default function Table({ anime }) {
   return (
-    <div className="informationTable">
+    <div className="info-table">
       <table>
         <colgroup>
           <col />
           <col />
         </colgroup>
         <tbody>
-          <tr className="row">
-            <td className="left alternate">Ranked:</td>
-            <td className="right alternate">#{anime.ranked} &nbsp;</td>
+          <tr>
+            <td className="info-table__cell--left">Ranked:</td>
+            <td className="info-table__cell--right">#{anime.ranked} &nbsp;</td>
           </tr>
-          <tr className="row">
-            <td className="left">Score:</td>
-            <td className="right">{anime.score} / 10 &nbsp;</td>
+          <tr>
+            <td className="info-table__cell--left">Score:</td>
+            <td className="info-table__cell--right">{anime.score} / 10 &nbsp;</td>
           </tr>
-          <tr className="row">
-            <td className="left">Popularity:</td>
-            <td className="right">{anime.popularity} &nbsp;</td>
+          <tr>
+            <td className="info-table__cell--left">Popularity:</td>
+            <td className="info-table__cell--right">{anime.popularity} &nbsp;</td>
           </tr>
-          <tr className="row">
-            <td className="left alternate">Episodes:</td>
-            <td className="right alternate">{anime.episodes} &nbsp;</td>
+          <tr>
+            <td className="info-table__cell--left">Episodes:</td>
+            <td className="info-table__cell--right">{anime.episodes} &nbsp;</td>
           </tr>
-          <tr className="row">
-            <td className="left">First Aired:</td>
-            <td className="right">{anime.aired} &nbsp;</td>
+          <tr>
+            <td className="info-table__cell--left">First Aired:</td>
+            <td className="info-table__cell--right">{anime.aired} &nbsp;</td>
           </tr>
         </tbody>
       </table>

@@ -1,4 +1,6 @@
-.informationTable {
+/* ─── Info Table ─── */
+
+.info-table {
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -9,7 +11,7 @@
   align-self: baseline !important;
 }
 
-.informationTable table {
+.info-table table {
   width: 50%;
   font-weight: bold;
   font-size: 0.55rem;
@@ -21,7 +23,7 @@
   overflow: hidden;
 }
 
-.informationTable td {
+.info-table td {
   height: 1.25rem;
   max-width: 40px;
   overflow: hidden;
@@ -33,23 +35,18 @@
   color: #c5d1eb;
 }
 
-.informationTable tr:last-child td {
+.info-table tr:last-child td {
   border-bottom: none;
 }
 
-.informationTable .left {
+.info-table__cell--left {
   text-align: left;
   border-radius: 10px 0 0 10px;
-  /* font-weight: bolder; */
   padding-left: 0.5rem;
 }
 
-.informationTable .right {
+.info-table__cell--right {
   text-align: right;
   border-radius: 0 10px 10px 0;
   padding-right: 0.5rem;
-}
-
-.informationTable .header {
-  color: #031121;
 }

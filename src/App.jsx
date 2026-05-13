@@ -28,35 +28,33 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, onHover }) {
 
   return (
     <div
-      className={`animeContainer${isHovered ? ' is-hovered' : ''}`}
+      className={`card${isHovered ? ' is-hovered' : ''}`}
       tabIndex={0}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onFocus={handleEnter}
       onBlur={handleLeave}
     >
-      <div className="name-container">
-        <p className="animeName">{anime.title}</p>
+      <div className="card__header">
+        <p className="card__title">{anime.title}</p>
       </div>
-      <p className="kanjiBackground">{arabicToKanji(index + 1)}</p>
-      <p className="kanji">
-        {arabicToKanji(index + 1)}
-      </p>
-      <div className="eyesContainer">
-        <div className="leftEyeContainer">
+      <p className="card__rank-bg">{arabicToKanji(index + 1)}</p>
+      <p className="card__rank">{arabicToKanji(index + 1)}</p>
+      <div className="card__eyes">
+        <div className="card__eye--left">
           <Eye anime={anime} side={"left"} />
         </div>
-        <div className="rightEyeContainer">
+        <div className="card__eye--right">
           <Eye anime={anime} side={"right"} />
         </div>
       </div>
-      <div className={`tableWrapper${showTable ? ' is-visible' : ''}`}>
-        <div className="tableWrapperLeftSide">
+      <div className={`card__detail${showTable ? ' is-visible' : ''}`}>
+        <div className="card__detail-body">
           <Table anime={anime} />
-          <div className="tableActions">
+          <div className="card__detail-actions">
             <button className="tag">TODO</button>
             <a
-              className="tag tableAnilistLink"
+              className="tag card__detail-link"
               href={`https://anilist.co/anime/${anime.uid}`}
               target="_blank"
               rel="noreferrer"
@@ -65,10 +63,10 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, onHover }) {
             </a>
           </div>
         </div>
-        <img className="tableImage" src={anime.img_url} alt={anime.title} />
+        <img className="card__detail-img" src={anime.img_url} alt={anime.title} />
       </div>
       <div
-        className="background"
+        className="card__bg"
         style={{ backgroundImage: `url(${anime.img_url})` }}
       />
     </div>
@@ -103,95 +101,92 @@ export default function App() {
 
   return (
     <main>
-      <div className="animatedBackground" />
-      <div id="projectContainer">
-        <div className="mainLayout">
-          <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
-          <div className="visualizationContainer">
-            <div className="stickyBackground"></div>
-            <svg
-              id="appTitle"
-              role="heading"
-              aria-level="1"
-              aria-label="Animeyes"
-              viewBox="0 0 700 80"
-              overflow="visible"
+      <div className="bg-fixed" />
+      <div className="layout">
+        <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
+        <div className="viz">
+          <div className="viz__sticky-bg"></div>
+          <svg
+            className="header"
+            role="heading"
+            aria-level="1"
+            aria-label="Animeyes"
+            viewBox="0 0 700 80"
+            overflow="visible"
+          >
+            <text
+              x="350"
+              y="40"
+              dominantBaseline="middle"
+              textAnchor="middle"
+              stroke="#031121"
+              strokeWidth="20"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              fill="#c5d1eb"
+              paintOrder="stroke fill"
             >
-              <text
-                x="350"
-                y="40"
-                dominantBaseline="middle"
-                textAnchor="middle"
-                stroke="#031121"
-                strokeWidth="20"
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                fill="#c5d1eb"
-                paintOrder="stroke fill"
-              >
-                ✦ Animeyes ✦
-              </text>
-            </svg>
-            <p className="introduction">
-              <b>What do the eyes from your favorite anime look like?</b>
-              <br />
-              These are the current top 100 anime, fetched live from{" "}
-              <a href="https://anilist.co/" target="_blank" rel="noreferrer">
-                AniList
-              </a>
-              , represented as colorful eyes (✦ ‿ ✦)
-            </p>
-            <div className="filtersContainer">
-              <div className="tagsContainer">
-                {YEAR_TAGS.map((tag) => (
-                  <button
-                    key={tag.label}
-                    className={`tag ${activeTag === tag.value ? "tagActive" : ""}`}
-                    onClick={() => setActiveTag(tag.value)}
-                  >
-                    {tag.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="animeContainerGrid">
-              {data.map((anime, index) => (
-                <AnimeCard
-                  key={anime.uid}
-                  anime={anime}
-                  index={index}
-                  onHover={handleCardHover}
-                />
+              ✦ Animeyes ✦
+            </text>
+          </svg>
+          <p className="intro">
+            <b>What do the eyes from your favorite anime look like?</b>
+            <br />
+            These are the current top 100 anime, fetched live from{" "}
+            <a href="https://anilist.co/" target="_blank" rel="noreferrer">
+              AniList
+            </a>
+            , represented as colorful eyes (✦ ‿ ✦)
+          </p>
+          <div className="filters">
+            <div className="filters__list">
+              {YEAR_TAGS.map((tag) => (
+                <button
+                  key={tag.label}
+                  className={`tag ${activeTag === tag.value ? "tag--active" : ""}`}
+                  onClick={() => setActiveTag(tag.value)}
+                >
+                  {tag.label}
+                </button>
               ))}
             </div>
-            <button
-              className="rightFixedButton rightFixedButtonUp"
-              aria-label="Scroll to top"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              <i className="fa-solid fa-arrow-up"></i>
-            </button>
-            <button
-              className="rightFixedButton rightFixedButtonDown"
-              aria-label="Scroll to bottom"
-              onClick={() =>
-                window.scrollTo({
-                  top: document.body.scrollHeight,
-                  behavior: "smooth",
-                })
-              }
-            >
-              <i className="fa-solid fa-arrow-down"></i>
-            </button>
           </div>
+          <div className="card-grid">
+            {data.map((anime, index) => (
+              <AnimeCard
+                key={anime.uid}
+                anime={anime}
+                index={index}
+                onHover={handleCardHover}
+              />
+            ))}
+          </div>
+          <button
+            className="nav-btn nav-btn--up"
+            aria-label="Scroll to top"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <i className="fa-solid fa-arrow-up"></i>
+          </button>
+          <button
+            className="nav-btn nav-btn--down"
+            aria-label="Scroll to bottom"
+            onClick={() =>
+              window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: "smooth",
+              })
+            }
+          >
+            <i className="fa-solid fa-arrow-down"></i>
+          </button>
         </div>
-        {/* )} */}
-        <footer>
-          <div className="footerDiv">
-            <p>the end?</p>
-          </div>
-        </footer>
       </div>
+      <footer>
+        <div className="footer">
+          <p>the end?</p>
+        </div>
+      </footer>
     </main>
   );
 }

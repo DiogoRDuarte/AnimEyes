@@ -19,7 +19,9 @@ body {
   overflow-x: hidden;
 }
 
-.animatedBackground {
+/* ─── Background ─── */
+
+.bg-fixed {
   position: fixed;
   top: 0;
   left: 0;
@@ -34,12 +36,28 @@ body {
   50% { background-position: 100% 50%; }
 }
 
-a.no-underline {
-  text-decoration: none;
+/* ─── Layout ─── */
+
+.layout {
+  display: flex;
+  flex-direction: column;
 }
 
+@media (max-width: 959px) {
+  .layout {
+    flex-direction: column;
+  }
+}
 
-.stickyBackground{
+.viz {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.viz__sticky-bg {
   background-color: #031121;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -53,7 +71,9 @@ a.no-underline {
   pointer-events: none;
 }
 
-#appTitle {
+/* ─── Header / Title ─── */
+
+.header {
   position: sticky;
   top: 0;
   z-index: 11;
@@ -68,158 +88,23 @@ a.no-underline {
   margin-right: auto;
 }
 
-#appTitle text {
+.header text {
   font-family: "Yamagachi2050Italic";
   font-size: 5rem;
   font-weight: 300;
 }
 
-.visualizationContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.animeContainerGrid{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  max-width: 80vw;
-  margin: 0 auto;
-}
-
-.animeContainer {
-  margin: 1rem;
-  text-align: center;
-  background: #031121;
-  border-radius: 1rem;
-  box-shadow: 0px 0px 20px rgba(197, 209, 235, 0.15);
-  position: relative;
-  font-family: "DMSans";
-  overflow: hidden;
-  contain: layout style paint;
-  content-visibility: auto;
-  contain-intrinsic-size: 300px 200px;
-}
-
-.background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.05;
-  z-index: -1;
-  background-size: cover;
-  background-position: center;
-  border-radius: 1rem;
-}
-
-.introduction {
-  line-height: 1.5;
-  color: #c5d1eb;
-  text-align: center; 
-  font-family: "DMSans";
-  font-size: 1rem;
-}
-
-.eyesContainer {
-  display: flex;
-  width: fit-content;
-  flex-direction: row;
-  transform-origin: center bottom;
-  transform: rotateX(0deg) translateZ(0);
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 0 25px;
-  justify-content: center;
-  align-items: center;
-  will-change: transform, opacity;
-}
-
-.is-hovered .eyesContainer {
-  opacity: 0;
-  transform: rotateX(90deg);
-}
-
-.leftEyeContainer,
-.rightEyeContainer {
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.rightEyeContainer {
-  transform: scaleX(-1);
-}
-
-.kanjiBackground {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 8rem;
-  font-weight: 800;
-  color: #c5d1eb;
-  opacity: 0.1 !important;
-  transition: opacity 0.3s ease;
-  white-space: nowrap;
-  line-height: 1;
-  margin: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.kanji {
-  position: absolute;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1rem;
-  width: 100%;
-  font-weight: 800;
-  color: #c5d1eb;
-  transition: opacity 0.3s ease;
-  top: 5rem;
-}
-
-.is-hovered .kanji {
-  opacity: 0;
-}
-
-.animeName {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 30ch;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0.5rem;
-  margin-bottom: 0;
-  font-size: medium;
-  color: #c5d1eb;
-  font-weight: 800;
-  font-family: 'MontHeavy';
-}
-
-.footerDiv {
-  padding-top: 2rem;
-  margin-left: 20%;
-  margin-right: 20%;
-  padding-bottom: 2rem;
-  font-family: "DMSans";
-  font-size: 1rem;
+.intro {
   line-height: 1.5;
   color: #c5d1eb;
   text-align: center;
+  font-family: "DMSans";
+  font-size: 1rem;
 }
 
-.filtersContainer{
+/* ─── Filters ─── */
+
+.filters {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -230,14 +115,14 @@ a.no-underline {
   top: 6rem;
 }
 
-.tagsContainer {
+.filters__list {
   display: flex;
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
   padding: 0.5rem;
   background-color: #031121;
-  width:fit-content;
+  width: fit-content;
   border-radius: 1.5rem;
 }
 
@@ -257,16 +142,135 @@ a.no-underline {
   background: #c5d1eb22;
 }
 
-.tagActive {
+.tag--active {
   background: #c5d1eb;
   color: #031121;
 }
 
-.tagActive:hover {
+.tag--active:hover {
   background: #c5d1eb;
 }
 
-.tableWrapper {
+/* ─── Card Grid ─── */
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  max-width: 80vw;
+  margin: 0 auto;
+}
+
+/* ─── Card ─── */
+
+.card {
+  margin: 1rem;
+  text-align: center;
+  background: #031121;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 20px rgba(197, 209, 235, 0.15);
+  position: relative;
+  font-family: "DMSans";
+  overflow: hidden;
+  contain: layout style paint;
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 200px;
+}
+
+.card__header {
+  position: relative;
+  z-index: 3;
+  padding: 0.5rem 0.5rem 0;
+  transition: opacity 0.3s ease;
+}
+
+.card.is-hovered .card__header {
+  opacity: 0;
+}
+
+.card__title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 30ch;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  font-size: medium;
+  color: #c5d1eb;
+  font-weight: 800;
+  font-family: "MontHeavy";
+}
+
+.card__rank-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8rem;
+  font-weight: 800;
+  color: #c5d1eb;
+  opacity: 0.1 !important;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  line-height: 1;
+  margin: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card__rank {
+  position: absolute;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1rem;
+  width: 100%;
+  font-weight: 800;
+  color: #c5d1eb;
+  transition: opacity 0.3s ease;
+  top: 5rem;
+}
+
+.card.is-hovered .card__rank {
+  opacity: 0;
+}
+
+.card__eyes {
+  display: flex;
+  width: fit-content;
+  flex-direction: row;
+  transform-origin: center bottom;
+  transform: rotateX(0deg) translateZ(0);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 0 25px;
+  justify-content: center;
+  align-items: center;
+  will-change: transform, opacity;
+}
+
+.card.is-hovered .card__eyes {
+  opacity: 0;
+  transform: rotateX(90deg);
+}
+
+.card__eye--left,
+.card__eye--right {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__eye--right {
+  transform: scaleX(-1);
+}
+
+.card__detail {
   opacity: 0;
   transition: opacity 0.4s ease;
   position: absolute;
@@ -282,11 +286,11 @@ a.no-underline {
   border-radius: 15px;
 }
 
-.tableWrapper.is-visible {
+.card__detail.is-visible {
   opacity: 1;
 }
 
-.tableWrapperLeftSide {
+.card__detail-body {
   flex: 1;
   min-width: 0;
   display: flex;
@@ -295,7 +299,7 @@ a.no-underline {
   padding: 0.5rem;
 }
 
-.tableWrapperLeftSide .informationTable {
+.card__detail-body .info-table {
   position: relative;
   width: 100%;
   flex-direction: column;
@@ -304,11 +308,11 @@ a.no-underline {
   padding-right: 0;
 }
 
-.tableWrapperLeftSide .informationTable table {
+.card__detail-body .info-table table {
   width: 100%;
 }
 
-.tableActions {
+.card__detail-actions {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
@@ -316,12 +320,12 @@ a.no-underline {
   margin-top: 0.5rem;
 }
 
-.tableActions .tag {
+.card__detail-actions .tag {
   flex: 1;
   text-align: center;
 }
 
-.tableAnilistLink {
+.card__detail-link {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -329,39 +333,28 @@ a.no-underline {
   gap: 0.3rem;
 }
 
-.tableImage {
+.card__detail-img {
   flex: 0 0 80px;
   object-fit: cover;
   height: 100%;
 }
 
-a.no-underline:hover .animeName {
-  text-decoration: underline;
+.card__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.05;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  border-radius: 1rem;
 }
 
-.mainLayout {
-  display: flex;
-  flex-direction: column;
-}
+/* ─── Navigation Buttons ─── */
 
-@media (max-width: 959px) {
-  .mainLayout {
-    flex-direction: column;
-  }
-}
-
-.name-container {
-  position: relative;
-  z-index: 3;
-  padding: 0.5rem 0.5rem 0;
-  transition: opacity 0.3s ease;
-}
-
-.is-hovered .name-container {
-  opacity: 0;
-}
-
-.rightFixedButton {
+.nav-btn {
   position: fixed;
   right: 1rem;
   z-index: 100;
@@ -376,14 +369,28 @@ a.no-underline:hover .animeName {
   transition: background 0.2s;
 }
 
-.rightFixedButtonUp{
-  bottom: 6rem !important;
+.nav-btn--up {
+  bottom: 6rem;
 }
 
-.rightFixedButtonDown {
-  bottom: 2rem !important;
+.nav-btn--down {
+  bottom: 2rem;
 }
 
-.rightFixedButton:hover {
+.nav-btn:hover {
   background: rgba(197, 209, 235, 0.1);
+}
+
+/* ─── Footer ─── */
+
+.footer {
+  padding-top: 2rem;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-bottom: 2rem;
+  font-family: "DMSans";
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #c5d1eb;
+  text-align: center;
 }

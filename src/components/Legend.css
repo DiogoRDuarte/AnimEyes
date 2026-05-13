@@ -1,4 +1,6 @@
-.legendContainer {
+/* ─── Legend ─── */
+
+.legend {
   position: fixed;
   top: 50%;
   left: 1rem;
@@ -18,118 +20,119 @@
   gap: 1rem;
 }
 
-.legendTitle {
-  margin: 0 0 1rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  opacity: 0.85;
-}
-
-.legendBottomSection {
+.legend__section {
   margin-bottom: 1.2rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
-.legendSubtitle {
+.legend__subtitle {
   margin: 0 0 0.5rem;
   font-size: 0.85rem;
   opacity: 0.7;
 }
 
-.genreGrid {
+/* ─── Genre badges ─── */
+
+.legend__genre-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.genreBadge {
+.legend__badge {
   display: inline-block;
   font-size: 0.7rem;
   font-weight: 600;
   padding: 3px 10px;
   border-radius: 999px;
   white-space: nowrap;
+  transition: opacity 0.2s ease;
 }
 
-.genreLabel {
-  font-size: 0.75rem;
-  white-space: nowrap;
-}
+/* ─── Pupil list ─── */
 
-.pupilList {
+.legend__list {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 20px;
 }
 
-.pupilItem {
+.legend__item {
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: opacity 0.2s ease;
 }
 
-.pupilDot {
+.legend__label {
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+/* ─── Pupil dot sizes ─── */
+
+.legend__dot {
   display: inline-block;
   background: #c5d1eb;
+  border-radius: 50%;
   flex-shrink: 0;
 }
 
-.pupilDot.large { width: 14px; height: 14px; border-radius: 50%; }
-.pupilDot.medium-large { width: 12px; height: 12px; border-radius: 50%; }
-.pupilDot.medium { width: 10px; height: 10px; border-radius: 50%; }
-.pupilDot.small { width: 8px; height: 8px; border-radius: 50%; }
-.pupilDot.tiny { width: 6px; height: 6px; border-radius: 50%; }
+.legend__dot--lg { width: 14px; height: 14px; }
+.legend__dot--md-lg { width: 12px; height: 12px; }
+.legend__dot--md { width: 10px; height: 10px; }
+.legend__dot--sm { width: 8px; height: 8px; }
+.legend__dot--xs { width: 6px; height: 6px; }
 
-.contourList {
+/* ─── Contour list ─── */
+
+.legend__contour-list {
   display: flex;
   flex-wrap: wrap;
   gap: 6px 12px;
 }
 
-.contourItem {
+.legend__contour-item {
   display: flex;
   align-items: center;
   gap: 8px;
   transition: opacity 0.2s ease;
 }
 
-/* Highlight/dim states for legend items */
-.genreBadge,
-.pupilItem,
-.contourItem {
-  transition: opacity 0.2s ease;
-}
+/* ─── Icon sizing ─── */
 
-.genreBadge.is-dimmed,
-.pupilItem.is-dimmed,
-.contourItem.is-dimmed {
-  opacity: 0.2;
-}
-
-.genreBadge.is-highlighted,
-.pupilItem.is-highlighted,
-.contourItem.is-highlighted {
-  opacity: 1;
-}
-
-/* Legend icon sizing */
-.legendIcon {
+.legend__icon {
   height: auto;
 }
 
-.legendIcon--lg {
+.legend__icon--lg {
   width: 30px;
 }
 
-.legendIcon--sm {
+.legend__icon--sm {
   width: 20px;
 }
 
+/* ─── Highlight/dim states ─── */
+
+.legend__badge.is-dimmed,
+.legend__item.is-dimmed,
+.legend__contour-item.is-dimmed {
+  opacity: 0.2;
+}
+
+.legend__badge.is-highlighted,
+.legend__item.is-highlighted,
+.legend__contour-item.is-highlighted {
+  opacity: 1;
+}
+
+/* ─── Responsive ─── */
+
 @media (max-width: 959px) {
-  .legendContainer {
+  .legend {
     position: fixed;
     top: auto;
     bottom: 0;

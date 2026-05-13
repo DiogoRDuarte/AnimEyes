@@ -1,42 +1,6 @@
-.svg-container {
-  position: relative;
-  width: 12rem;
-  height: 6.5rem;
-  margin-top: 15px;
-  transform: translateX(15px);
-}
+/* ─── Eye Component ─── */
 
-.svg-container-Fall {
-  margin-top: 10px;
-  transform: translateX(35px);
-}
-
-.svg-container-Spring {
-  margin-top: 15px;
-  transform: translateX(20px);
-}
-
-.sclera {
-  width: 1rem;
-}
-
-.Winter {
-  transform: translate(1rem, 0.7rem);
-}
-
-.Spring {
-  transform: translate(0.9rem, 0.65rem);
-}
-
-.Fall {
-  transform: translate(0.6rem, 0.5rem);
-}
-
-.Summer {
-  transform: translate(0.55rem, 0.5rem);
-}
-
-.eyeWrapper {
+.eye {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -44,40 +8,80 @@
   justify-content: flex-start;
 }
 
-.finishedSparkle {
+.eye__svg {
+  position: relative;
+  width: 12rem;
+  height: 6.5rem;
+  margin-top: 15px;
+  transform: translateX(15px);
+}
+
+.eye__svg--fall {
+  margin-top: 10px;
+  transform: translateX(35px);
+}
+
+.eye__svg--spring {
+  margin-top: 15px;
+  transform: translateX(20px);
+}
+
+/* ─── Sclera season positioning ─── */
+
+.eye__sclera--winter {
+  transform: translate(1rem, 0.7rem);
+}
+
+.eye__sclera--spring {
+  transform: translate(0.9rem, 0.65rem);
+}
+
+.eye__sclera--fall {
+  transform: translate(0.6rem, 0.5rem);
+}
+
+.eye__sclera--summer {
+  transform: translate(0.55rem, 0.5rem);
+}
+
+/* ─── Sparkle indicator ─── */
+
+.eye__sparkle {
   pointer-events: none;
 }
 
-.kawaiiLines {
+/* ─── Kawaii lines (R-rated indicator) ─── */
+
+.eye__lines {
   position: absolute;
   pointer-events: none;
   width: 51px;
 }
 
-.kawaiiLines-Winter {
+.eye__lines--winter {
   bottom: -10px;
   left: 35%;
   transform: translateX(-50%);
 }
 
-.kawaiiLines-Spring {
+.eye__lines--spring {
   bottom: -20px;
   left: 35%;
   transform: translateX(-50%);
 }
 
-.kawaiiLines-Fall {
+.eye__lines--fall {
   bottom: -10px;
   left: 40%;
   transform: translateX(-50%);
 }
 
-.kawaiiLines-Summer {
+.eye__lines--summer {
   bottom: -10px;
   left: 35%;
   transform: translateX(-50%);
 }
 
-.rightEyeContainer .kawaiiLines {
+.card__eye--right .eye__lines {
   transform: translateX(-50%) scaleX(-1);
 }

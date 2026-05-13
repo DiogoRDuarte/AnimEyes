@@ -69,8 +69,8 @@ export default React.memo(function Eye({ anime, side }) {
   const isRRated = anime.rating === 'R - 17+ (violence & profanity)' || anime.rating === 'R+ - Mild Nudity'
 
   return (
-    <div className="eyeWrapper">
-      <svg className={`svg-container svg-container-${season}`}>
+    <div className="eye">
+      <svg className={`eye__svg eye__svg--${season.toLowerCase()}`}>
         <defs>
           <filter id={blurIrisId}>
             <feGaussianBlur stdDeviation="3" in="SourceGraphic" result="BLUR" />
@@ -82,9 +82,9 @@ export default React.memo(function Eye({ anime, side }) {
             <circle cx="100" cy="50" r="20" />
           </clipPath>
         </defs>
-        <InnerHTML html={correspondingSclera(season)} className={season} />
-        <g className="irisANDpupil" transform="translate(-10, -2)">
-          <circle className="iris" cx="95" cy="50" r="32" />
+        <InnerHTML html={correspondingSclera(season)} className={`eye__sclera--${season.toLowerCase()}`} />
+        <g className="eye__iris-group" transform="translate(-10, -2)">
+          <circle className="eye__iris" cx="95" cy="50" r="32" />
           <g clipPath={`url(#${clipIrisId})`}>
             {animeGenres.map((genre, i) => (
               <g
@@ -92,7 +92,7 @@ export default React.memo(function Eye({ anime, side }) {
                 transform={`rotate(${correspondingRotation(animeGenres, genre)}, 100, 50)`}
               >
                 <circle
-                  className="irisColor"
+                  className="eye__iris-color"
                   cx="100"
                   cy="40"
                   r="15"
@@ -104,7 +104,7 @@ export default React.memo(function Eye({ anime, side }) {
             ))}
           </g>
           <ellipse
-            className="pupil"
+            className="eye__pupil"
             cx="100"
             cy="50"
             rx={15 * getPupilSize(anime.episodes)}
@@ -114,37 +114,33 @@ export default React.memo(function Eye({ anime, side }) {
             filter={`url(#${blurPupilId})`}
           />
           {side == "left" ? (
-            <>
-              <ellipse
-                className="highlight"
-                cx="90"
-                cy="10"
-                rx={7.5}
-                ry={10}
-                transform="rotate(20, 0, 0)"
-                fill="white"
-                fillOpacity="1"
-              />
-            </>
+            <ellipse
+              className="eye__highlight"
+              cx="90"
+              cy="10"
+              rx={7.5}
+              ry={10}
+              transform="rotate(20, 0, 0)"
+              fill="white"
+              fillOpacity="1"
+            />
           ) : (
-            <>
-              <ellipse
-                className="highlight"
-                cx="93"
-                cy="78"
-                rx={7.5}
-                ry={10}
-                transform="rotate(-20, 0, 0)"
-                fill="white"
-                fillOpacity="1"
-              />
-            </>
+            <ellipse
+              className="eye__highlight"
+              cx="93"
+              cy="78"
+              rx={7.5}
+              ry={10}
+              transform="rotate(-20, 0, 0)"
+              fill="white"
+              fillOpacity="1"
+            />
           )}
         </g>
         <InnerHTML html={correspondingContour(season)} />
         {isOngoing && (
           <image
-            className="finishedSparkle"
+            className="eye__sparkle"
             href={starSvg}
             x={90 - 12}
             y={48 - 12}
@@ -155,7 +151,7 @@ export default React.memo(function Eye({ anime, side }) {
       </svg>
       {isRRated && (
         <img
-          className={`kawaiiLines kawaiiLines-${season}`}
+          className={`eye__lines eye__lines--${season.toLowerCase()}`}
           src={kawaiiLinesBySeason[season]}
           alt=""
         />
