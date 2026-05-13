@@ -131,6 +131,7 @@ a.no-underline {
   width: fit-content;
   flex-direction: row;
   transform-origin: center bottom;
+  transform: rotateX(0deg) translateZ(0);
   transition: transform 0.5s ease, opacity 0.5s ease;
   margin-left: auto;
   margin-right: auto;
@@ -138,6 +139,11 @@ a.no-underline {
   justify-content: center;
   align-items: center;
   will-change: transform, opacity;
+}
+
+.is-hovered .eyesContainer {
+  opacity: 0;
+  transform: rotateX(90deg);
 }
 
 .leftEyeContainer,
@@ -180,6 +186,10 @@ a.no-underline {
   color: #c5d1eb;
   transition: opacity 0.3s ease;
   top: 5rem;
+}
+
+.is-hovered .kanji {
+  opacity: 0;
 }
 
 .animeName {
@@ -257,6 +267,7 @@ a.no-underline {
 }
 
 .tableWrapper {
+  opacity: 0;
   transition: opacity 0.4s ease;
   position: absolute;
   top: 0;
@@ -269,6 +280,10 @@ a.no-underline {
   pointer-events: none;
   overflow: hidden;
   border-radius: 15px;
+}
+
+.tableWrapper.is-visible {
+  opacity: 1;
 }
 
 .tableWrapperLeftSide {
@@ -340,6 +355,10 @@ a.no-underline:hover .animeName {
   z-index: 3;
   padding: 0.5rem 0.5rem 0;
   transition: opacity 0.3s ease;
+}
+
+.is-hovered .name-container {
+  opacity: 0;
 }
 
 .rightFixedButton {

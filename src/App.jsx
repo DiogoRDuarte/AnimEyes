@@ -28,29 +28,21 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, onHover }) {
 
   return (
     <div
-      className="animeContainer"
+      className={`animeContainer${isHovered ? ' is-hovered' : ''}`}
       tabIndex={0}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onFocus={handleEnter}
       onBlur={handleLeave}
     >
-      <div className="name-container" style={{ opacity: isHovered ? 0 : 1 }}>
+      <div className="name-container">
         <p className="animeName">{anime.title}</p>
       </div>
       <p className="kanjiBackground">{arabicToKanji(index + 1)}</p>
-      <p className="kanji" style={{ opacity: isHovered ? 0 : 1 }}>
+      <p className="kanji">
         {arabicToKanji(index + 1)}
       </p>
-      <div
-        className="eyesContainer"
-        style={{
-          opacity: isHovered ? 0 : 1,
-          transform: isHovered
-            ? "rotateX(90deg)"
-            : "rotateX(0deg) translateZ(0)",
-        }}
-      >
+      <div className="eyesContainer">
         <div className="leftEyeContainer">
           <Eye anime={anime} side={"left"} />
         </div>
@@ -58,7 +50,7 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, onHover }) {
           <Eye anime={anime} side={"right"} />
         </div>
       </div>
-      <div className="tableWrapper" style={{ opacity: showTable ? 1 : 0 }}>
+      <div className={`tableWrapper${showTable ? ' is-visible' : ''}`}>
         <div className="tableWrapperLeftSide">
           <Table anime={anime} />
           <div className="tableActions">

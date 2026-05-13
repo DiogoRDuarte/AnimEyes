@@ -56,10 +56,9 @@ export default function Legend({ activeGenres, hoveredAnime }) {
   const hoveredIsOngoing = hoveredAnime ? hoveredAnime.status === 'RELEASING' : false
   const hoveredSeason = hoveredAnime ? hoveredAnime.premiered.split(' ')[0] : null
 
-  const dimStyle = (active) => ({
-    opacity: hoveredAnime ? (active ? 1 : 0.2) : 1,
-    transition: 'opacity 0.2s ease',
-  })
+  const dimClass = (active) =>
+    hoveredAnime ? (active ? 'is-highlighted' : 'is-dimmed') : ''
+
   return (
     <aside className="legendContainer" aria-label="Legend">
       {/* <h3 className="legendTitle">Legend</h3> */}
@@ -69,11 +68,10 @@ export default function Legend({ activeGenres, hoveredAnime }) {
           {genres.map(([name, color]) => (
             <span
               key={name}
-              className="genreBadge"
+              className={`genreBadge ${dimClass(hoveredSet && hoveredSet.has(name))}`}
               style={{
                 background: color,
                 color: textColor(color),
-                ...dimStyle(hoveredSet && hoveredSet.has(name)),
               }}
             >
               {name}
@@ -88,8 +86,7 @@ export default function Legend({ activeGenres, hoveredAnime }) {
           {pupilSizes.map((p) => (
             <div
               key={p.label}
-              className="pupilItem"
-              style={dimStyle(hoveredEpBucket === p.label)}
+              className={`pupilItem ${dimClass(hoveredEpBucket === p.label)}`}
             >
               <span className={`pupilDot ${p.size}`} />
               <span className="genreLabel">{p.label}</span>
@@ -101,16 +98,16 @@ export default function Legend({ activeGenres, hoveredAnime }) {
       <div className="legendBottomSection">
         <h4 className="legendSubtitle">Details:</h4>
         <div className="pupilList">
-          <div className="pupilItem" style={dimStyle(hoveredIsR)}>
+          <div className={`pupilItem ${dimClass(hoveredIsR)}`}>
             <img
+              className="legendIcon legendIcon--lg"
               src={kawaiiLinesSvg}
               alt=""
-              style={{ width: 30, height: "auto" }}
             />
             <span className="genreLabel">R / R+</span>
           </div>
-          <div className="pupilItem" style={dimStyle(hoveredIsOngoing)}>
-            <img src={starSvg} alt="" style={{ width: 20, height: "auto" }} />
+          <div className={`pupilItem ${dimClass(hoveredIsOngoing)}`}>
+            <img className="legendIcon legendIcon--sm" src={starSvg} alt="" />
             <span className="genreLabel">Releasing</span>
           </div>
         </div>
@@ -122,8 +119,7 @@ export default function Legend({ activeGenres, hoveredAnime }) {
           {contourSvgs.map(([season, svg]) => (
             <div
               key={season}
-              className="contourItem"
-              style={dimStyle(hoveredSeason === season)}
+              className={`contourItem ${dimClass(hoveredSeason === season)}`}
             >
               <ContourThumb html={svg} />
               <span className="genreLabel">{season}</span>

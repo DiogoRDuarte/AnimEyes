@@ -96,6 +96,38 @@
   transition: opacity 0.2s ease;
 }
 
+/* Highlight/dim states for legend items */
+.genreBadge,
+.pupilItem,
+.contourItem {
+  transition: opacity 0.2s ease;
+}
+
+.genreBadge.is-dimmed,
+.pupilItem.is-dimmed,
+.contourItem.is-dimmed {
+  opacity: 0.2;
+}
+
+.genreBadge.is-highlighted,
+.pupilItem.is-highlighted,
+.contourItem.is-highlighted {
+  opacity: 1;
+}
+
+/* Legend icon sizing */
+.legendIcon {
+  height: auto;
+}
+
+.legendIcon--lg {
+  width: 30px;
+}
+
+.legendIcon--sm {
+  width: 20px;
+}
+
 @media (max-width: 959px) {
   .legendContainer {
     position: fixed;
