@@ -133,13 +133,17 @@ export default function App() {
             </text>
           </svg>
           <p className="intro">
-            <b>What do the eyes from your favorite anime look like?</b>
+            <span className="intro__header">
+              What do the eyes from your favorite anime look like?
+            </span>
             <br />
-            These are the current top 100 anime, fetched live from{" "}
+            Each pair of eyes below represents one of the top 100 highest-rated anime by
+            community score on{" "}
             <a href="https://anilist.co/" target="_blank" rel="noreferrer">
               AniList
             </a>
-            , represented as colorful eyes (✦ ‿ ✦)
+            . <br></br>The iris colors reflect genres, the pupil size shows
+            episode count, and the eye shape changes with the season it aired.
           </p>
           <div className="filters">
             <div className="filters__list">
