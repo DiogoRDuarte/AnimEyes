@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { getGenreColor } from '../data/genreColor'
 import eyeContour from '../data/contours'
 import kawaiiLinesSvg from '../assets/KawaiiLines.svg'
@@ -49,8 +49,17 @@ function ContourThumb({ html, className = '' }) {
 }
 
 export default function Legend({ activeGenres, hoveredAnime }) {
-  const genres = activeGenres.map((g) => [g, getGenreColor(g)])
-  const hoveredSet = hoveredAnime ? new Set(hoveredAnime.genre.split(', ')) : null
+  const genres = useMemo(
+    () => activeGenres.map((g) => [g, getGenreColor(g)]),
+    [activeGenres]
+  )
+
+  const hoveredGenre = hoveredAnime ? hoveredAnime.genre : null
+  const hoveredSet = useMemo(
+    () => (hoveredGenre ? new Set(hoveredGenre.split(', ')) : null),
+    [hoveredGenre]
+  )
+
   const hoveredEpBucket = hoveredAnime ? getEpisodeBucket(hoveredAnime.episodes) : null
   const hoveredIsR = hoveredAnime ? rRatingKeys.includes(hoveredAnime.rating) : false
   const hoveredIsOngoing = hoveredAnime ? hoveredAnime.status === 'RELEASING' : false

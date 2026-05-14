@@ -113,7 +113,7 @@ export default React.memo(function Eye({ anime, side }) {
             fillOpacity="0.75"
             filter={`url(#${blurPupilId})`}
           />
-          {side == "left" ? (
+          {side === "left" ? (
             <ellipse
               className="eye__highlight"
               cx="90"

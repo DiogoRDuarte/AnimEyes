@@ -13,6 +13,10 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, onHover }) {
   const [showTable, setShowTable] = useState(false)
   const timerRef = useRef(null)
 
+  useEffect(() => {
+    return () => clearTimeout(timerRef.current)
+  }, [])
+
   const handleEnter = useCallback(() => {
     setIsHovered(true)
     onHover(anime)
@@ -75,7 +79,6 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, onHover }) {
 
 export default function App() {
   const [data, setData] = useState([])
-  const [loading, setLoading] = useState(true)
   const [activeTag, setActiveTag] = useState(null)
   const [hoveredAnime, setHoveredAnime] = useState(null)
 
@@ -84,20 +87,20 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    setLoading(true)
     fetchTopAnime(activeTag)
       .then(setData)
       .catch(console.error)
-      .finally(() => setLoading(false))
   }, [activeTag])
 
   const activeGenres = useMemo(() => {
     const set = new Set()
     data.forEach((a) => a.genre.split(', ').forEach((g) => set.add(g)))
-    const sorted = [...set].sort()
-    buildGenreColorMap(sorted)
-    return sorted
+    return [...set].toSorted()
   }, [data])
+
+  useEffect(() => {
+    buildGenreColorMap(activeGenres)
+  }, [activeGenres])
 
   return (
     <main>
