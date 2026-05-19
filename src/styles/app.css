@@ -148,6 +148,15 @@ font-weight: 800;
   background: #c5d1eb22;
 }
 
+.tag:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tag:disabled:hover {
+  background: #031121;
+}
+
 .tag--active {
   background: #c5d1eb;
   color: #031121;

@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import Eye from './components/Eye'
 import Table from './components/Table'
+import ShareCard from './components/ShareCard'
 import { fetchTopAnime } from './data/fetchAnime'
 import { buildGenreColorMap } from './data/genreColor'
 import { YEAR_TAGS } from './constants'
@@ -8,10 +9,12 @@ import { arabicToKanji } from './helpers'
 import Legend from './components/Legend'
 import './styles/App.css'
 
-const AnimeCard = React.memo(function AnimeCard({ anime, index, onHover }) {
+const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHover }) {
   const [isHovered, setIsHovered] = useState(false)
   const [showTable, setShowTable] = useState(false)
+  const [generating, setGenerating] = useState(false)
   const timerRef = useRef(null)
+  const shareCardRef = useRef(null)
 
   useEffect(() => {
     return () => clearTimeout(timerRef.current)
@@ -30,50 +33,69 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, onHover }) {
     onHover(null)
   }, [onHover])
 
+  const handleDownload = useCallback(async () => {
+    setGenerating(true)
+    await shareCardRef.current?.generate()
+    setGenerating(false)
+  }, [])
+
   return (
-    <div
-      className={`card${isHovered ? ' is-hovered' : ''}`}
-      tabIndex={0}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-      onFocus={handleEnter}
-      onBlur={handleLeave}
-    >
-      <div className="card__header">
-        <p className="card__title">{anime.title}</p>
-      </div>
-      <p className="card__rank-bg">{arabicToKanji(index + 1)}</p>
-      <p className="card__rank">{arabicToKanji(index + 1)}</p>
-      <div className="card__eyes">
-        <div className="card__eye--left">
-          <Eye anime={anime} side={"left"} />
+    <>
+      <div
+        className={`card${isHovered ? " is-hovered" : ""}`}
+        tabIndex={0}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+        onFocus={handleEnter}
+        onBlur={handleLeave}
+      >
+        <div className="card__header">
+          <p className="card__title">{anime.title}</p>
         </div>
-        <div className="card__eye--right">
-          <Eye anime={anime} side={"right"} />
-        </div>
-      </div>
-      <div className={`card__detail${showTable ? ' is-visible' : ''}`}>
-        <div className="card__detail-body">
-          <Table anime={anime} />
-          <div className="card__detail-actions">
-            <button className="tag">TODO</button>
-            <a
-              className="tag card__detail-link"
-              href={`https://anilist.co/anime/${anime.uid}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              AniList <i className="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
+        <p className="card__rank-bg">{arabicToKanji(index + 1)}</p>
+        <p className="card__rank">{arabicToKanji(index + 1)}</p>
+        <div className="card__eyes">
+          <div className="card__eye--left">
+            <Eye anime={anime} side={"left"} />
+          </div>
+          <div className="card__eye--right">
+            <Eye anime={anime} side={"right"} />
           </div>
         </div>
-        <img className="card__detail-img" src={anime.img_url} alt={anime.title} />
+        <div className={`card__detail${showTable ? " is-visible" : ""}`}>
+          <div className="card__detail-body">
+            <Table anime={anime} />
+            <div className="card__detail-actions">
+              <button className="tag" onClick={handleDownload} disabled={generating}>
+                {generating
+                  ? <i className="fa-solid fa-spinner fa-spin"></i>
+                  : <>Image <i className="fa-regular fa-image"></i></>
+                }
+              </button>
+              <a
+                className="tag card__detail-link"
+                href={`https://anilist.co/anime/${anime.uid}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                AniList{" "}
+                <i className="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+          <img
+            className="card__detail-img"
+            src={anime.img_url}
+            alt={anime.title}
+          />
+        </div>
+        <div
+          className="card__bg"
+          style={{ backgroundImage: `url(${anime.img_url})` }}
+        />
       </div>
-      <div
-        className="card__bg"
-        style={{ backgroundImage: `url(${anime.img_url})` }}
-      />
-    </div>
+      <ShareCard ref={shareCardRef} anime={anime} activeTag={activeTag} />
+    </>
   );
 })
 
@@ -164,6 +186,7 @@ export default function App() {
                 key={anime.uid}
                 anime={anime}
                 index={index}
+                activeTag={activeTag}
                 onHover={handleCardHover}
               />
             ))}
