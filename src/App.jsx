@@ -129,8 +129,8 @@ export default function App() {
       <div className="bg-fixed" />
       <div className="layout">
         <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
+        <div className="viz__sticky-bg"></div>
         <div className="viz">
-          <div className="viz__sticky-bg"></div>
           <svg
             className="header"
             role="heading"
@@ -159,8 +159,8 @@ export default function App() {
               What do the eyes from your favorite anime look like?
             </span>
             <br />
-            Each pair of eyes below represents one of the top 100 highest-rated anime by
-            community score on{" "}
+            Each pair of eyes below represents one of the top 100 highest-rated
+            anime by community score on{" "}
             <a href="https://anilist.co/" target="_blank" rel="noreferrer">
               AniList
             </a>
