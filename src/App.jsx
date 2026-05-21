@@ -129,8 +129,8 @@ export default function App() {
       <div className="bg-fixed" />
       <div className="layout">
         <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
-        <div className="viz__sticky-bg"></div>
         <div className="viz">
+          <div className="viz__sticky-bg"></div>
           <svg
             className="header"
             role="heading"
@@ -191,25 +191,40 @@ export default function App() {
               />
             ))}
           </div>
-          <button
-            className="nav-btn nav-btn--up"
-            aria-label="Scroll to top"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            <i className="fa-solid fa-arrow-up"></i>
-          </button>
-          <button
-            className="nav-btn nav-btn--down"
-            aria-label="Scroll to bottom"
-            onClick={() =>
-              window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: "smooth",
-              })
-            }
-          >
-            <i className="fa-solid fa-arrow-down"></i>
-          </button>
+          <div className="nav-btns">
+            <div className="nav-btns__buttons">
+              <button
+                className="nav-btn nav-btn--up"
+                aria-label="Scroll to top"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              >
+                <i className="fa-solid fa-arrow-up"></i>
+              </button>
+              <button
+                className="nav-btn nav-btn--down"
+                aria-label="Scroll to bottom"
+                onClick={() =>
+                  window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: "smooth",
+                  })
+                }
+              >
+                <i className="fa-solid fa-arrow-down"></i>
+              </button>
+            </div>
+            <span className="nav-btns__credit">
+              Created by{" "}
+              <a
+                href="https://www.linkedin.com/in/diogorduarte/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                D.R.D
+              </a>
+              .
+            </span>
+          </div>
         </div>
       </div>
       <footer>
