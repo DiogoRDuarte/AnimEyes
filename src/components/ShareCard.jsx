@@ -1,6 +1,6 @@
-import React, { useRef, useCallback, useImperativeHandle, forwardRef, useState } from 'react'
+import { useRef, useCallback, useImperativeHandle, forwardRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { toPng } from 'html-to-image'
+import { domToPng } from 'modern-screenshot'
 import Eye from './Eye'
 import { getGenreColor } from '../data/genreColor'
 import { arabicToKanji } from '../helpers'
@@ -14,67 +14,71 @@ function textColor(hex) {
   return luminance > 0.5 ? '#000' : '#fff'
 }
 
+// Cache for converted image data URLs
+const imageDataUrlCache = new Map()
+
+/**
+ * Fetch an image as a data URL with CORS support.
+ * Uses cache-busting to avoid the browser serving a cached non-CORS response
+ * (AniList CDN uses Vary: origin, which can cause conflicts).
+ */
+async function fetchImageAsDataUrl(url) {
+  if (imageDataUrlCache.has(url)) return imageDataUrlCache.get(url)
+
+  // Add cache-buster to avoid Vary:origin conflicts with the non-CORS cached version
+  const bustUrl = url + (url.includes('?') ? '&' : '?') + '_t=' + Date.now()
+  try {
+    const res = await fetch(bustUrl, { mode: 'cors' })
+    if (res.ok) {
+      const blob = await res.blob()
+      const dataUrl = await new Promise((resolve) => {
+        const reader = new FileReader()
+        reader.onloadend = () => resolve(reader.result)
+        reader.onerror = () => resolve(null)
+        reader.readAsDataURL(blob)
+      })
+      if (dataUrl) {
+        imageDataUrlCache.set(url, dataUrl)
+        return dataUrl
+      }
+    }
+  } catch (err) {
+    console.warn('[ShareCard] Failed to fetch image:', err)
+  }
+  return null
+}
+
 const ShareCard = forwardRef(function ShareCard({ anime, activeTag }, ref) {
   const nodeRef = useRef(null)
   const [previewUrl, setPreviewUrl] = useState(null)
-  const [coverDataUrl, setCoverDataUrl] = useState(null)
-
-  // Convert cover image to data URL via canvas to bypass CORS in html-to-image
-  React.useEffect(() => {
-    let cancelled = false
-    const img = new Image()
-    img.crossOrigin = 'anonymous'
-    img.onload = () => {
-      if (cancelled) return
-      const canvas = document.createElement('canvas')
-      canvas.width = img.naturalWidth
-      canvas.height = img.naturalHeight
-      const ctx = canvas.getContext('2d')
-      ctx.drawImage(img, 0, 0)
-      setCoverDataUrl(canvas.toDataURL('image/jpeg', 0.85))
-    }
-    img.onerror = () => {
-      // If CORS fails, fall back to no background
-      if (!cancelled) setCoverDataUrl(null)
-    }
-    img.src = anime.img_url
-    return () => { cancelled = true }
-  }, [anime.img_url])
 
   const generate = useCallback(async () => {
     const node = nodeRef.current
     if (!node) return
 
-    // Wait for cover image data URL if it hasn't resolved yet
-    if (!coverDataUrl && anime.img_url) {
-      await new Promise((resolve) => {
-        const img = new Image()
-        img.crossOrigin = 'anonymous'
-        img.onload = () => {
-          const canvas = document.createElement('canvas')
-          canvas.width = img.naturalWidth
-          canvas.height = img.naturalHeight
-          const ctx = canvas.getContext('2d')
-          ctx.drawImage(img, 0, 0)
-          setCoverDataUrl(canvas.toDataURL('image/jpeg', 0.85))
-          resolve()
-        }
-        img.onerror = resolve
-        img.src = anime.img_url
-      })
-      // Give React a tick to re-render with the new coverDataUrl
-      await new Promise((r) => setTimeout(r, 50))
+    // Pre-fetch the cover image as a data URL
+    const bgData = await fetchImageAsDataUrl(anime.img_url)
+
+    // Swap the bg element to use the data URL so modern-screenshot can embed it
+    const bgEl = node.querySelector('.share-card__bg')
+    const originalBg = bgEl?.style.backgroundImage
+    if (bgEl && bgData) {
+      bgEl.style.backgroundImage = `url("${bgData}")`
     }
 
-    const dataUrl = await toPng(node, {
-      pixelRatio: 2,
-      style: {
-        opacity: '1',
-      },
-    })
+    const width = node.offsetWidth || 400
+    const height = node.offsetHeight || 600
+    const scale = 2
+
+    const dataUrl = await domToPng(node, { width, height, scale })
+
+    // Restore original bg
+    if (bgEl) {
+      bgEl.style.backgroundImage = originalBg
+    }
 
     setPreviewUrl(dataUrl)
-  }, [coverDataUrl, anime.img_url])
+  }, [anime.img_url])
 
   const close = useCallback(() => {
     setPreviewUrl(null)
@@ -90,11 +94,7 @@ const ShareCard = forwardRef(function ShareCard({ anime, activeTag }, ref) {
       <div className="share-card" ref={nodeRef} aria-hidden="true">
         <div
           className="share-card__bg"
-          style={
-            coverDataUrl
-              ? { backgroundImage: `url(${coverDataUrl})` }
-              : undefined
-          }
+          style={{ backgroundImage: `url(${anime.img_url})` }}
         />
         <div className="share-card__overlay" />
 
