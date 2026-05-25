@@ -86,22 +86,39 @@ export default React.memo(function Eye({ anime, side }) {
         <g className="eye__iris-group" transform="translate(-10, -2)">
           <circle className="eye__iris" cx="95" cy="50" r="32" />
           <g clipPath={`url(#${clipIrisId})`}>
-            {animeGenres.map((genre, i) => (
-              <g
-                key={i}
-                transform={`rotate(${correspondingRotation(animeGenres, genre)}, 100, 50)`}
-              >
-                <circle
-                  className="eye__iris-color"
-                  cx="100"
-                  cy="40"
-                  r="15"
-                  fill={getGenreColor(genre)}
-                  fillOpacity="0.7"
-                  filter={`url(#${blurIrisId})`}
-                />
-              </g>
-            ))}
+            {animeGenres.map((genre, i) => {
+              const count = animeGenres.length
+              let cx, cy, r
+              if (count === 1) {
+                cx = 100
+                cy = 50
+                r = 20
+              } else if (count === 2) {
+                cx = 100
+                cy = 42
+                r = 18
+              } else {
+                cx = 100
+                cy = 40
+                r = 15
+              }
+              return (
+                <g
+                  key={i}
+                  transform={count === 1 ? undefined : `rotate(${correspondingRotation(animeGenres, genre)}, 100, 50)`}
+                >
+                  <circle
+                    className="eye__iris-color"
+                    cx={cx}
+                    cy={cy}
+                    r={r}
+                    fill={getGenreColor(genre)}
+                    fillOpacity="0.7"
+                    filter={`url(#${blurIrisId})`}
+                  />
+                </g>
+              )
+            })}
           </g>
           <ellipse
             className="eye__pupil"
