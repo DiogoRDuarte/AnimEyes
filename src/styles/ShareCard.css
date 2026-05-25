@@ -22,7 +22,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.4;
+  opacity: 0.5;
   filter: saturate(1) brightness(1);
 }
 
@@ -121,8 +121,9 @@
   justify-content: center;
   align-items: center;
   gap: 0;
-  transform: scale(1);
+  transform: scale(1.2);
   transform-origin: center;
+  top: -25px;
 }
 
 .share-card__eye--left,
@@ -181,12 +182,13 @@
 }
 
 .share-card__stat dt {
-  font-weight: 600;
+  font-weight: 400;
   opacity: 0.8;
 }
 
 .share-card__stat dd {
   margin: 0;
+  font-weight: 800;
 }
 
 /* ─── Footer ─── */
@@ -196,6 +198,7 @@
   justify-content: center;
   align-items: center;
   opacity: 0.4;
+  padding-top: 1rem;
 }
 
 .share-card__footer span {

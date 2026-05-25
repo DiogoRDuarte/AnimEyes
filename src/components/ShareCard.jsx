@@ -160,8 +160,8 @@ const ShareCard = forwardRef(function ShareCard({ anime, activeTag }, ref) {
               <dd>{anime.aired}</dd>
             </div>
             <div className="share-card__stat">
-              <dt>anilist.co/anime/{anime.uid}</dt>
-              <dd></dd>
+              <dt></dt>
+              <dd>anilist.co/anime/{anime.uid}</dd>
             </div>
           </dl>
 
