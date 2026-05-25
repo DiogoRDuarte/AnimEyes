@@ -104,6 +104,9 @@ const ShareCard = forwardRef(function ShareCard({ anime, activeTag }, ref) {
             <span className="share-card__rank-label">
               #{anime.ranked} {rankContext}
             </span>
+            <span className="share-card__kanji">
+              {arabicToKanji(anime.ranked)}
+            </span>
           </div>
 
           <div className="share-card__visual">
@@ -114,9 +117,6 @@ const ShareCard = forwardRef(function ShareCard({ anime, activeTag }, ref) {
               <div className="share-card__eye--left">
                 <Eye anime={anime} side="left" />
               </div>
-              <span className="share-card__kanji">
-                {arabicToKanji(anime.ranked)}
-              </span>
               <div className="share-card__eye--right">
                 <Eye anime={anime} side="right" />
               </div>

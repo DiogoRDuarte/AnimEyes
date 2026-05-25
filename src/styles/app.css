@@ -252,7 +252,8 @@ font-weight: 800;
   font-weight: 800;
   color: #c5d1eb;
   transition: opacity 0.3s ease;
-  top: 5rem;
+  bottom: 0rem;
+  top: auto;
 }
 
 .card.is-hovered .card__rank {
@@ -272,6 +273,7 @@ font-weight: 800;
   justify-content: center;
   align-items: center;
   will-change: transform, opacity;
+  margin-bottom: 5px;
 }
 
 .card.is-hovered .card__eyes {
@@ -285,10 +287,13 @@ font-weight: 800;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: -15px;
 }
 
 .card__eye--right {
   transform: scaleX(-1);
+  margin-right: 0 !important;
+
 }
 
 .card__detail {
