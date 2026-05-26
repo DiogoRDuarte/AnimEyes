@@ -181,6 +181,67 @@ font-weight: 800;
   justify-content: center;
   width: 100%;
   margin: 0 auto;
+  position: relative;
+}
+
+.card-grid--refetching .card {
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.card-grid__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.card-grid__spinner {
+  font-size: 2rem;
+  color: #c5d1eb;
+  opacity: 0.8;
+}
+
+.viz__status {
+  text-align: center;
+  font-family: "DMSans";
+  color: #c5d1eb;
+  margin: 1rem 0 2rem;
+}
+
+.viz__status--loading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.viz__status p {
+  margin: 0 0 1rem;
+}
+
+.viz__status--error .tag {
+  margin: 0 auto;
+}
+
+.card--loading-media .card__eyes {
+  opacity: 0.35;
+  transition: opacity 0.4s ease;
+}
+
+.card--loading-media .card__bg {
+  opacity: 0.05;
+}
+
+.card--ready .card__eyes {
+  opacity: 1;
+  transition: opacity 0.4s ease;
 }
 
 /* ─── Card ─── */
@@ -363,6 +424,12 @@ font-weight: 800;
   flex: 0 0 80px;
   object-fit: cover;
   height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card__detail-img--loaded {
+  opacity: 1;
 }
 
 .card__bg {
@@ -371,11 +438,16 @@ font-weight: 800;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.15;
+  opacity: 0;
   z-index: -1;
   background-size: cover;
   background-position: center;
   border-radius: 1rem;
+  transition: opacity 0.4s ease;
+}
+
+.card__bg--loaded {
+  opacity: 0.15;
 }
 
 /* ─── Navigation Buttons ─── */
