@@ -22,7 +22,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.5;
+  opacity: 0.25;
   filter: saturate(1) brightness(1);
 }
 

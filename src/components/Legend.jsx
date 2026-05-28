@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { getGenreColor } from '../data/genreColor'
 import eyeContour from '../data/contours'
+import eyeSclera from '../data/sclera'
 import kawaiiLinesSvg from '../assets/KawaiiLines.svg'
 import starSvg from '../assets/star.svg'
 import './Legend.css'
@@ -32,20 +33,39 @@ function getEpisodeBucket(episodes) {
 }
 
 const contourSvgs = Object.entries(eyeContour[0])
+const scleraBySeason = eyeSclera[0]
 
-function ContourThumb({ html, className = '' }) {
-  const ref = React.useRef(null)
+function ContourThumb({ season, className = '' }) {
+  const scleraRef = React.useRef(null)
+  const contourRef = React.useRef(null)
+
   React.useEffect(() => {
-    if (ref.current) {
-      ref.current.innerHTML = html
-      const svg = ref.current.querySelector('svg')
+    if (scleraRef.current) {
+      scleraRef.current.innerHTML = scleraBySeason[season] || ''
+      const svg = scleraRef.current.querySelector('svg')
       if (svg) {
         svg.setAttribute('width', '50')
         svg.setAttribute('height', '35')
+        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
       }
     }
-  }, [html])
-  return <span ref={ref} className={className} />
+    if (contourRef.current) {
+      contourRef.current.innerHTML = eyeContour[0][season] || ''
+      const svg = contourRef.current.querySelector('svg')
+      if (svg) {
+        svg.setAttribute('width', '50')
+        svg.setAttribute('height', '35')
+        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
+      }
+    }
+  }, [season])
+
+  return (
+    <span className={`legend-thumb ${className}`}>
+      <span ref={scleraRef} className={`legend-thumb__sclera legend-thumb__sclera--${season.toLowerCase()}`} />
+      <span ref={contourRef} className="legend-thumb__contour" />
+    </span>
+  )
 }
 
 export default function Legend({ activeGenres, hoveredAnime }) {
@@ -137,12 +157,12 @@ export default function Legend({ activeGenres, hoveredAnime }) {
       <div className="legend__section">
         <h4 className="legend__subtitle">Eye Shape (Season):</h4>
         <div className="legend__contour-list">
-          {contourSvgs.map(([season, svg]) => (
+          {contourSvgs.map(([season]) => (
             <div
               key={season}
               className={`legend__contour-item ${dimClass(hoveredSeason === season)}`}
             >
-              <ContourThumb html={svg} />
+              <ContourThumb season={season} />
               <span className="legend__label">{season}</span>
             </div>
           ))}

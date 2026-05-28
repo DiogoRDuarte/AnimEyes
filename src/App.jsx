@@ -44,7 +44,7 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
   return (
     <>
       <div
-        className={`card${isHovered ? ' is-hovered' : ''}${imageLoaded ? ' card--ready' : ' card--loading-media'}`}
+        className={`card${isHovered ? ' is-hovered' : ''}${imageLoaded ? ' card--ready' : ' card--loading-media'}${generating ? ' card--generating' : ''}`}
         tabIndex={0}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
@@ -69,16 +69,15 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
             <Table anime={anime} />
             <div className="card__detail-actions">
               <button className="tag" onClick={handleDownload} disabled={generating}>
-                {generating
-                  ? <i className="fa-solid fa-spinner fa-spin"></i>
-                  : <>Image <i className="fa-regular fa-image"></i></>
-                }
+                Image <i className="fa-regular fa-image"></i>
               </button>
               <a
-                className="tag card__detail-link"
+                className={`tag card__detail-link${generating ? ' tag--disabled' : ''}`}
                 href={`https://anilist.co/anime/${anime.uid}`}
                 target="_blank"
                 rel="noreferrer"
+                aria-disabled={generating}
+                onClick={generating ? (e) => e.preventDefault() : undefined}
               >
                 AniList{' '}
                 <i className="fa-solid fa-arrow-up-right-from-square"></i>

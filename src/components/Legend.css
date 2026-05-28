@@ -113,10 +113,54 @@
   transition: opacity 0.2s ease;
 }
 
+/* ─── Contour thumbnail (sclera + contour) ─── */
+
+.legend-thumb {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 35px;
+  flex-shrink: 0;
+}
+
+.legend-thumb__sclera,
+.legend-thumb__contour {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.legend-thumb__sclera svg,
+.legend-thumb__contour svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Per-season sclera offsets — tweak these to align with the contour */
+.legend-thumb__sclera--winter {
+  transform: translate(2px, 1px) scale(0.9);
+}
+
+.legend-thumb__sclera--spring {
+  transform: translate(2px, 1px) scale(0.9);
+}
+
+.legend-thumb__sclera--fall {
+  transform: translate(2px, 1px) scale(0.9);
+}
+
+.legend-thumb__sclera--summer {
+  transform: translate(0px, 1px) scale(0.85);
+}
+
 /* ─── Icon sizing ─── */
 
 .legend__icon {
+  display: block;
   height: auto;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .legend__icon--lg {

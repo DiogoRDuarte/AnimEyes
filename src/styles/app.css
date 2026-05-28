@@ -319,6 +319,16 @@ font-weight: 800;
   opacity: 0;
 }
 
+.card--generating,
+.card--generating * {
+  cursor: wait !important;
+}
+
+.tag--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .card__eyes {
   display: flex;
   width: fit-content;
@@ -445,7 +455,7 @@ font-weight: 800;
 }
 
 .card__bg--loaded {
-  opacity: 0.15;
+  opacity: 0.05;
 }
 
 /* ─── Navigation Buttons ─── */

@@ -62,7 +62,6 @@ export default React.memo(function Eye({ anime, side }) {
   const season = anime.premiered.split(' ')[0]
   const id = useId()
   const blurIrisId = `blurIris-${id}`
-  const blurPupilId = `blurPupil-${id}`
   const clipIrisId = `clipIris-${id}`
 
   const isOngoing = anime.status === 'RELEASING'
@@ -75,9 +74,6 @@ export default React.memo(function Eye({ anime, side }) {
           <filter id={blurIrisId}>
             <feGaussianBlur stdDeviation="3" in="SourceGraphic" result="BLUR" />
           </filter>
-          {/*<filter id={blurPupilId}>
-            <feGaussianBlur stdDeviation="0.7" in="SourceGraphic" />
-          </filter> */}
           <clipPath id={clipIrisId}>
             <circle cx="100" cy="50" r="20" />
           </clipPath>
@@ -128,7 +124,6 @@ export default React.memo(function Eye({ anime, side }) {
             ry={15 * getPupilSize(anime.episodes)}
             fill="black"
             fillOpacity="0.75"
-            filter={`url(#${blurPupilId})`}
           />
           {side === "left" ? (
             <ellipse
