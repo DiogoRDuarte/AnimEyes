@@ -70,7 +70,7 @@ export default React.memo(function Eye({ anime, side }) {
 
   return (
     <div className="eye">
-      <svg className={`eye__svg eye__svg--${season.toLowerCase()}`}>
+      <svg className={`eye__svg eye__svg--${season.toLowerCase()}`} overflow="visible">
         <defs>
           <filter id={blurIrisId}>
             <feGaussianBlur stdDeviation="3" in="SourceGraphic" result="BLUR" />
@@ -154,7 +154,7 @@ export default React.memo(function Eye({ anime, side }) {
             />
           )}
         </g>
-        <InnerHTML html={correspondingContour(season)} />
+        <InnerHTML html={correspondingContour(season)} className={`eye__contour eye__contour--${season.toLowerCase()}`} />
         {isOngoing && (
           <image
             className="eye__sparkle"

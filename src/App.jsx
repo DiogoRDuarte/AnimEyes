@@ -223,6 +223,19 @@ export default function App() {
                 </button>
               ))}
             </div>
+            <select
+              className="filters__select"
+              value={activeTag ?? ''}
+              onChange={(e) => setActiveTag(e.target.value === '' ? null : Number(e.target.value))}
+              disabled={filtersBusy || isRefetching}
+              aria-label="Filter by year"
+            >
+              {YEAR_TAGS.map((tag) => (
+                <option key={tag.label} value={tag.value ?? ''}>
+                  {tag.label}
+                </option>
+              ))}
+            </select>
           </div>
           {showInitialLoading && (
             <div className="viz__status viz__status--loading" role="status" aria-live="polite">

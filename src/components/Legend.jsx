@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { getGenreColor } from '../data/genreColor'
 import eyeContour from '../data/contours'
 import kawaiiLinesSvg from '../assets/KawaiiLines.svg'
@@ -49,6 +49,8 @@ function ContourThumb({ html, className = '' }) {
 }
 
 export default function Legend({ activeGenres, hoveredAnime }) {
+  const [collapsed, setCollapsed] = useState(false)
+
   const genres = useMemo(
     () => activeGenres.map((g) => [g, getGenreColor(g)]),
     [activeGenres]
@@ -69,8 +71,19 @@ export default function Legend({ activeGenres, hoveredAnime }) {
     hoveredAnime ? (active ? 'is-highlighted' : 'is-dimmed') : ''
 
   return (
-    <aside className="legend" aria-label="Legend">
-      <div className="legend__section">
+    <aside className={`legend${collapsed ? ' legend--collapsed' : ''}`} aria-label="Legend">
+      <button
+        type="button"
+        className="legend__toggle"
+        onClick={() => setCollapsed((c) => !c)}
+        aria-expanded={!collapsed}
+        aria-controls="legend-content"
+        aria-label={collapsed ? 'Expand legend' : 'Collapse legend'}
+      >
+        <i className={`fa-solid ${collapsed ? 'fa-chevron-up' : 'fa-chevron-down'}`} aria-hidden="true" />
+      </button>
+      <div className="legend__content" id="legend-content">
+        <div className="legend__section">
         <h4 className="legend__subtitle">Iris Color (Genre):</h4>
         <div className="legend__genre-grid">
           {genres.map(([name, color]) => (
@@ -134,6 +147,7 @@ export default function Legend({ activeGenres, hoveredAnime }) {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </aside>
   );

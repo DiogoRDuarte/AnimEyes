@@ -6,6 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  overflow: visible;
 }
 
 .eye__svg {
@@ -14,6 +15,7 @@
   height: 6.5rem;
   margin-top: 15px;
   transform: translateX(15px);
+  overflow: visible;
 }
 
 .eye__svg--fall {
