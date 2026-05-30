@@ -186,11 +186,11 @@ export default function App() {
               y="40"
               dominantBaseline="middle"
               textAnchor="middle"
-              stroke="#031121"
+              stroke="var(--color-bg)"
               strokeWidth="20"
               strokeLinejoin="round"
               strokeLinecap="round"
-              fill="#c5d1eb"
+              fill="var(--color-fg)"
               paintOrder="stroke fill"
             >
               ✦ Animeyes ✦

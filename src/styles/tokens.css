@@ -1,0 +1,25 @@
+/* ─── Design Tokens ─── */
+
+:root {
+  /* Brand colors */
+  --color-bg: #031121;
+  --color-fg: #c5d1eb;
+  --color-fg-rgb: 197, 209, 235;
+
+  /* Foreground alpha variants */
+  --color-fg-alpha-10: rgba(var(--color-fg-rgb), 0.1);
+  --color-fg-alpha-15: rgba(var(--color-fg-rgb), 0.15);
+  --color-fg-alpha-20: rgba(var(--color-fg-rgb), 0.2);
+  --color-fg-alpha-30: rgba(var(--color-fg-rgb), 0.3);
+  --color-fg-alpha-40: rgba(var(--color-fg-rgb), 0.4);
+
+  /* Background overlays */
+  --color-bg-rgb: 3, 17, 33;
+  --color-bg-overlay: rgba(var(--color-bg-rgb), 0.65);
+  --color-black-overlay-40: rgba(0, 0, 0, 0.4);
+  --color-black-overlay-80: rgba(0, 0, 0, 0.8);
+
+  /* Pure neutrals */
+  --color-white: #fff;
+  --color-black: #000;
+}

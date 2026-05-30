@@ -18,7 +18,7 @@
   border-collapse: collapse;
   border-spacing: 0;
   font-family: "DMSans";
-  background-color: #031121;
+  background-color: var(--color-bg);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -30,9 +30,9 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   border: none;
-  border-bottom: 1px dotted rgba(197, 209, 235, 0.3);
+  border-bottom: 1px dotted var(--color-fg-alpha-30);
   font-size: 0.75rem;
-  color: #c5d1eb;
+  color: var(--color-fg);
 }
 
 .info-table tr:last-child td {
