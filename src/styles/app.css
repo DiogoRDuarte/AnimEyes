@@ -263,6 +263,7 @@ font-weight: 800;
   contain: layout style paint;
   content-visibility: auto;
   contain-intrinsic-size: 300px 200px;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text y='26' font-size='26'>👀</text></svg>") 16 16, auto;
 }
 
 .card__header {
