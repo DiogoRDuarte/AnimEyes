@@ -19,6 +19,64 @@ body {
   overflow-x: hidden;
 }
 
+/* ─── Accessibility utilities ─── */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  padding: 0.5rem 1rem;
+  z-index: 10000;
+  text-decoration: none;
+  border: 2px solid var(--color-fg);
+  border-radius: 0 0 0.5rem 0;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Visible focus indicator on all interactive elements */
+:focus-visible {
+  outline: 2px solid var(--color-fg);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-fg);
+  outline-offset: 2px;
+}
+
+/* Honor reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ─── Background ─── */
 
 .bg-fixed {
@@ -80,7 +138,7 @@ body {
 
 /* ─── Header / Title ─── */
 
-.header {
+.header-heading {
   position: sticky;
   top: 0;
   z-index: 11;
@@ -90,9 +148,16 @@ body {
   display: block;
   width: 100%;
   max-width: 700px;
-  height: auto;
   margin-left: auto;
   margin-right: auto;
+  font-size: 0;
+  line-height: 0;
+}
+
+.header {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .header text {
@@ -264,6 +329,11 @@ font-weight: 800;
   content-visibility: auto;
   contain-intrinsic-size: 300px 200px;
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text y='26' font-size='26'>👀</text></svg>") 16 16, auto;
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--color-fg);
+  outline-offset: 4px;
 }
 
 .card__header {

@@ -183,6 +183,7 @@ const ShareCard = forwardRef(function ShareCard({ anime, activeTag }, ref) {
             aria-label={`Share image for ${anime.title}`}
             aria-modal="true"
             tabIndex={-1}
+            ref={(node) => { node?.focus() }}
           >
             <div
               className="share-preview__content"
@@ -201,7 +202,7 @@ const ShareCard = forwardRef(function ShareCard({ anime, activeTag }, ref) {
                 onClick={close}
                 aria-label="Close preview"
               >
-                <i className="fa-solid fa-xmark"></i>
+                <i className="fa-solid fa-xmark" aria-hidden="true"></i>
               </button>
             </div>
           </div>,

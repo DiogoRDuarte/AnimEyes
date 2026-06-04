@@ -23,7 +23,8 @@
   overflow: hidden;
 }
 
-.info-table td {
+.info-table td,
+.info-table th {
   height: 1.25rem;
   max-width: 40px;
   overflow: hidden;
@@ -33,9 +34,11 @@
   border-bottom: 1px dotted var(--color-fg-alpha-30);
   font-size: 0.75rem;
   color: var(--color-fg);
+  font-weight: bold;
 }
 
-.info-table tr:last-child td {
+.info-table tr:last-child td,
+.info-table tr:last-child th {
   border-bottom: none;
 }
 

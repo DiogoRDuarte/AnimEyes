@@ -17,6 +17,7 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
   const timerRef = useRef(null)
   const shareCardRef = useRef(null)
   const imageLoaded = useImageLoaded(anime.img_url)
+  const detailId = `card-detail-${anime.uid}`
 
   useEffect(() => {
     return () => clearTimeout(timerRef.current)
@@ -35,6 +36,30 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
     onHover(null)
   }, [onHover])
 
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      if (showTable) {
+        handleLeave()
+      } else {
+        handleEnter()
+      }
+    } else if (e.key === 'Escape' && showTable) {
+      handleLeave()
+    }
+  }, [showTable, handleEnter, handleLeave])
+
+  const detailRef = useRef(null)
+  useEffect(() => {
+    const node = detailRef.current
+    if (!node) return
+    if (showTable) {
+      node.removeAttribute('inert')
+    } else {
+      node.setAttribute('inert', '')
+    }
+  }, [showTable])
+
   const handleDownload = useCallback(async () => {
     setGenerating(true)
     await shareCardRef.current?.generate()
@@ -43,20 +68,25 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
 
   return (
     <>
-      <div
+      <article
         className={`card${isHovered ? ' is-hovered' : ''}${imageLoaded ? ' card--ready' : ' card--loading-media'}${generating ? ' card--generating' : ''}`}
         tabIndex={0}
+        role="button"
+        aria-expanded={showTable}
+        aria-controls={detailId}
+        aria-label={`${anime.title}, rank ${index + 1}. Press Enter to ${showTable ? 'collapse' : 'expand'} details.`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
         onFocus={handleEnter}
         onBlur={handleLeave}
+        onKeyDown={handleKeyDown}
       >
         <div className="card__header">
-          <p className="card__title">{anime.title}</p>
+          <h2 className="card__title">{anime.title}</h2>
         </div>
-        <p className="card__rank-bg">{arabicToKanji(index + 1)}</p>
-        <p className="card__rank">{arabicToKanji(index + 1)}</p>
-        <div className="card__eyes">
+        <p className="card__rank-bg" aria-hidden="true">{arabicToKanji(index + 1)}</p>
+        <p className="card__rank" aria-hidden="true">{arabicToKanji(index + 1)}</p>
+        <div className="card__eyes" aria-hidden="true">
           <div className="card__eye--left">
             <Eye anime={anime} side={'left'} />
           </div>
@@ -64,12 +94,22 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
             <Eye anime={anime} side={'right'} />
           </div>
         </div>
-        <div className={`card__detail${showTable ? ' is-visible' : ''}`}>
+        <div
+          id={detailId}
+          ref={detailRef}
+          className={`card__detail${showTable ? ' is-visible' : ''}`}
+          aria-hidden={!showTable}
+        >
           <div className="card__detail-body">
             <Table anime={anime} />
             <div className="card__detail-actions">
-              <button className="tag" onClick={handleDownload} disabled={generating}>
-                Image <i className="fa-regular fa-image"></i>
+              <button
+                className="tag"
+                onClick={handleDownload}
+                disabled={generating}
+                aria-label={`Generate share image for ${anime.title}`}
+              >
+                Image <i className="fa-regular fa-image" aria-hidden="true"></i>
               </button>
               <a
                 className={`tag card__detail-link${generating ? ' tag--disabled' : ''}`}
@@ -77,24 +117,28 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
                 target="_blank"
                 rel="noreferrer"
                 aria-disabled={generating}
+                tabIndex={generating ? -1 : 0}
                 onClick={generating ? (e) => e.preventDefault() : undefined}
+                onKeyDown={generating ? (e) => { if (e.key === 'Enter' || e.key === ' ') e.preventDefault() } : undefined}
+                aria-label='View on AniList'
               >
-                AniList{' '}
-                <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>AniList</span>{' '}
+                <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
               </a>
             </div>
           </div>
           <img
             className={`card__detail-img${imageLoaded ? ' card__detail-img--loaded' : ''}`}
             src={anime.img_url}
-            alt={anime.title}
+            alt=""
           />
         </div>
         <div
           className={`card__bg${imageLoaded ? ' card__bg--loaded' : ''}`}
           style={{ backgroundImage: `url(${anime.img_url})` }}
+          aria-hidden="true"
         />
-      </div>
+      </article>
       <ShareCard ref={shareCardRef} anime={anime} activeTag={activeTag} />
     </>
   )
@@ -168,34 +212,36 @@ export default function App() {
 
   return (
     <main>
-      <div className="bg-fixed" />
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <div className="bg-fixed" aria-hidden="true" />
       <div className="layout">
         <Legend activeGenres={activeGenres} hoveredAnime={hoveredAnime} />
-        <div className="viz">
-          <div className="viz__sticky-bg"></div>
-          <svg
-            className="header"
-            role="heading"
-            aria-level="1"
-            aria-label="Animeyes"
-            viewBox="0 0 700 80"
-            overflow="visible"
-          >
-            <text
-              x="350"
-              y="40"
-              dominantBaseline="middle"
-              textAnchor="middle"
-              stroke="var(--color-bg)"
-              strokeWidth="20"
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              fill="var(--color-fg)"
-              paintOrder="stroke fill"
+        <div className="viz" id="main-content">
+          <div className="viz__sticky-bg" aria-hidden="true"></div>
+          <h1 className="header-heading">
+            <span className="visually-hidden">Animeyes</span>
+            <svg
+              className="header"
+              aria-hidden="true"
+              viewBox="0 0 700 80"
+              overflow="visible"
             >
-              ✦ Animeyes ✦
-            </text>
-          </svg>
+              <text
+                x="350"
+                y="40"
+                dominantBaseline="middle"
+                textAnchor="middle"
+                stroke="var(--color-bg)"
+                strokeWidth="20"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                fill="var(--color-fg)"
+                paintOrder="stroke fill"
+              >
+                ✦ Animeyes ✦
+              </text>
+            </svg>
+          </h1>
           <p className="intro">
             <span className="intro__header">
               What do the eyes from your favorite anime look like?
@@ -209,14 +255,15 @@ export default function App() {
             . <br></br>The iris colors reflect genres, the pupil size shows
             episode count, and the eye shape changes with the season it aired.
           </p>
-          <div className="filters">
-            <div className="filters__list">
+          <div className="filters" role="region" aria-label="Year filter">
+            <div className="filters__list" role="group" aria-label="Filter by year">
               {YEAR_TAGS.map((tag) => (
                 <button
                   key={tag.label}
                   className={`tag ${activeTag === tag.value ? 'tag--active' : ''}`}
                   onClick={() => setActiveTag(tag.value)}
                   disabled={filtersBusy || isRefetching}
+                  aria-pressed={activeTag === tag.value}
                 >
                   {tag.label}
                 </button>
@@ -253,11 +300,10 @@ export default function App() {
           <div
             className={`card-grid${isRefetching ? ' card-grid--refetching' : ''}`}
             aria-busy={status === 'loading' || isRefetching}
-            aria-live="polite"
           >
             {isRefetching && data.length > 0 && (
               <div className="card-grid__overlay" aria-hidden="true">
-                <i className="fa-solid fa-spinner fa-spin card-grid__spinner" />
+                <i className="fa-solid fa-spinner fa-spin card-grid__spinner" aria-hidden="true" />
               </div>
             )}
             {!showError &&
@@ -271,14 +317,14 @@ export default function App() {
                 />
               ))}
           </div>
-          <div className="nav-btns">
+          <nav className="nav-btns" aria-label="Page navigation">
             <div className="nav-btns__buttons">
               <button
                 className="nav-btn nav-btn--up"
                 aria-label="Scroll to top"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               >
-                <i className="fa-solid fa-arrow-up"></i>
+                <i className="fa-solid fa-arrow-up" aria-hidden="true"></i>
               </button>
               <button
                 className="nav-btn nav-btn--down"
@@ -290,7 +336,7 @@ export default function App() {
                   })
                 }
               >
-                <i className="fa-solid fa-arrow-down"></i>
+                <i className="fa-solid fa-arrow-down" aria-hidden="true"></i>
               </button>
             </div>
             <span className="nav-btns__credit">
@@ -304,7 +350,7 @@ export default function App() {
               </a>
               .
             </span>
-          </div>
+          </nav>
         </div>
       </div>
       <footer>
