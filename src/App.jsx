@@ -237,19 +237,24 @@ export default function App() {
               </text>
             </svg>
           </h1>
-          <p className="intro">
-            <span className="intro__header">
+          <div className="intro">
+            <p className="intro__header">
               What do the eyes from your favorite anime look like?
-            </span>
-            <br />
-            Each pair of eyes below represents one of the top 100 highest-rated
-            anime by community score on{' '}
-            <a href="https://anilist.co/" target="_blank" rel="noreferrer">
-              AniList
-            </a>
-            . <br></br>The iris colors reflect genres, the pupil size shows
-            episode count, and the eye shape changes with the season it aired.
-          </p>
+            </p>
+            <p className="intro__body">
+              Each pair of eyes below represents one of the top 100 highest-rated
+              anime by community score on{' '}
+              <a href="https://anilist.co/" target="_blank" rel="noreferrer">
+                AniList
+              </a>
+              .
+            </p>
+            <ul className="intro__legend">
+              <li><span className="intro__accent">Iris colors</span> reflect genres</li>
+              <li><span className="intro__accent">Pupil size</span> shows episode count</li>
+              <li><span className="intro__accent">Eye shape</span> changes with the season it aired</li>
+            </ul>
+          </div>
           <div className="filters" role="region" aria-label="Year filter">
             <div className="filters__list" role="group" aria-label="Filter by year">
               {YEAR_TAGS.map((tag) => (
