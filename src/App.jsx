@@ -8,7 +8,7 @@ import { YEAR_TAGS } from './constants'
 import { arabicToKanji } from './helpers'
 import { useImageLoaded } from './hooks/useImageLoaded'
 import Legend from './components/Legend'
-import './styles/App.css'
+import './styles/app.css'
 
 const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHover }) {
   const [isHovered, setIsHovered] = useState(false)
