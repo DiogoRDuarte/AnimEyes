@@ -1,16 +1,16 @@
 @font-face {
   font-family: "DMSans";
-  src: url("../fonts/DMSans.ttf") format("truetype");
+  src: url("../assets/fonts/DMSans.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Yamagachi2050Italic";
-  src: url("../fonts/Yamagachi2050Italic.ttf") format("truetype");
+  src: url("../assets/fonts/Yamagachi2050Italic.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "MontHeavy";
-  src: url("../fonts/Mont-HeavyDEMO.otf") format("opentype");
+  src: url("../assets/fonts/Mont-HeavyDEMO.otf") format("opentype");
 }
 
 body {
