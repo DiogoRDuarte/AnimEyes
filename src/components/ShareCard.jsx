@@ -78,16 +78,20 @@ const ShareCard = forwardRef(function ShareCard({ anime, activeTag }, ref) {
     }
 
     setPreviewUrl(dataUrl)
+    document.body.style.overflow = 'hidden'
   }, [anime.img_url])
 
   const close = useCallback(() => {
     setPreviewUrl(null)
+    document.body.style.overflow = ''
   }, [])
 
   useImperativeHandle(ref, () => ({ generate }), [generate])
 
   const genres = anime.genre.split(', ')
   const rankContext = activeTag ? `in ${activeTag}` : 'of All Time'
+
+  const generatedAlt = `Animeyes card for "${anime.title}", ranked #${anime.ranked} ${rankContext}. A pair of stylized anime eyes with ${genres.join(', ')}-colored irises reflecting its genres, a ${anime.episodes >= 100 ? 'large' : anime.episodes >= 50 ? 'medium' : 'small'} pupil representing ${anime.episodes} episodes, and ${anime.premiered.split(' ')[0].toLowerCase()}-shaped eye contours for the ${anime.premiered} premiere season. Score: ${anime.score}/10.`
 
   return (
     <>
@@ -192,11 +196,37 @@ const ShareCard = forwardRef(function ShareCard({ anime, activeTag }, ref) {
               <img
                 className="share-preview__img"
                 src={previewUrl}
-                alt={`Share card for ${anime.title}`}
+                alt={generatedAlt}
               />
-              <p className="share-preview__hint">
-                Right-click or long-press to save
-              </p>
+              <div className="share-preview__alt-panel">
+                <h3 className="share-preview__alt-heading">Suggested alt text:</h3>
+                <textarea
+                  className="share-preview__alt-text"
+                  readOnly
+                  value={generatedAlt}
+                  onClick={(e) => e.target.select()}
+                  aria-label="Suggested alt text for the generated image"
+                />
+                <button
+                  className="share-preview__copy-btn tag"
+                  onClick={() => navigator.clipboard.writeText(generatedAlt)}
+                  aria-label="Copy alt text to clipboard"
+                >
+                  Copy <i className="fa-regular fa-copy" aria-hidden="true"></i>
+                </button>
+                <button
+                  className="share-preview__download-btn tag"
+                  onClick={() => {
+                    const a = document.createElement('a')
+                    a.href = previewUrl
+                    a.download = `${anime.title.replace(/[^a-z0-9]/gi, '_')}_animeyes.png`
+                    a.click()
+                  }}
+                  aria-label="Download image"
+                >
+                  Download image <i className="fa-solid fa-download" aria-hidden="true"></i>
+                </button>
+              </div>
               <button
                 className="share-preview__close"
                 onClick={close}

@@ -17,7 +17,6 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
   const timerRef = useRef(null)
   const shareCardRef = useRef(null)
   const imageLoaded = useImageLoaded(anime.img_url)
-  const detailId = `card-detail-${anime.uid}`
 
   useEffect(() => {
     return () => clearTimeout(timerRef.current)
@@ -39,15 +38,17 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
-      if (showTable) {
-        handleLeave()
-      } else {
-        handleEnter()
-      }
-    } else if (e.key === 'Escape' && showTable) {
-      handleLeave()
+      // Open AniList page on Enter for keyboard users
+      window.open(`https://anilist.co/anime/${anime.uid}`, '_blank')
     }
-  }, [showTable, handleEnter, handleLeave])
+  }, [anime.uid])
+
+  const setDetailRef = useCallback((node) => {
+    if (node) {
+      node.setAttribute('inert', '')
+    }
+    detailRef.current = node
+  }, [])
 
   const detailRef = useRef(null)
   useEffect(() => {
@@ -71,14 +72,9 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
       <article
         className={`card${isHovered ? ' is-hovered' : ''}${imageLoaded ? ' card--ready' : ' card--loading-media'}${generating ? ' card--generating' : ''}`}
         tabIndex={0}
-        role="button"
-        aria-expanded={showTable}
-        aria-controls={detailId}
-        aria-label={`${anime.title}, rank ${index + 1}. Press Enter to ${showTable ? 'collapse' : 'expand'} details.`}
+        aria-label={`${anime.title}, rank ${index + 1}. Score ${anime.score} out of 10, ${anime.episodes} episodes, premiered ${anime.premiered}. Press Enter to open on AniList.`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
-        onFocus={handleEnter}
-        onBlur={handleLeave}
         onKeyDown={handleKeyDown}
       >
         <div className="card__header">
@@ -95,10 +91,9 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
           </div>
         </div>
         <div
-          id={detailId}
-          ref={detailRef}
+          ref={setDetailRef}
           className={`card__detail${showTable ? ' is-visible' : ''}`}
-          aria-hidden={!showTable}
+          aria-hidden="true"
         >
           <div className="card__detail-body">
             <Table anime={anime} />
@@ -117,7 +112,7 @@ const AnimeCard = React.memo(function AnimeCard({ anime, index, activeTag, onHov
                 target="_blank"
                 rel="noreferrer"
                 aria-disabled={generating}
-                tabIndex={generating ? -1 : 0}
+                tabIndex={generating ? -1 : undefined}
                 onClick={generating ? (e) => e.preventDefault() : undefined}
                 onKeyDown={generating ? (e) => { if (e.key === 'Enter' || e.key === ' ') e.preventDefault() } : undefined}
                 aria-label='View on AniList'
